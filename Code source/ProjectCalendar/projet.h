@@ -31,7 +31,9 @@ private:
 
 public:
     Projet(const QString& titre, const QDate& dispo, const QDate& deadline);
-    ~Projet();
+    //~Projet();
+
+    QList<Tache*>& getTaches() { return taches;};
 
     QString getTitre() const { return titre; }
     void setTitre(const QString& str) { titre=str; }

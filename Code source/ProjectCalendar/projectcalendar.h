@@ -3,6 +3,8 @@
 
 #include "weekcalendar.h"
 #include <QMainWindow>
+#include <QTreeWidget>
+#include "projetmanager.h"
 
 /*!
  * \file projectcalendar.h
@@ -21,9 +23,12 @@ class ProjectCalendar : public QMainWindow
 public:
     explicit ProjectCalendar(QWidget *parent = 0);
     ~ProjectCalendar();
+    void chargerArbre(QTreeWidget* arbre);
+    void chargerTaches(QTreeWidgetItem* projetItem, Projet* projet);
+    void chargerTaches(QTreeWidgetItem* projetItem, TacheComposite *tache);
 
 private:
-    WeekCalendar* semaine;
+    WeekCalendar* calendrierSemaine;
     Ui::ProjectCalendar *ui;
 };
 

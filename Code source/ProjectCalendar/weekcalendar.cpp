@@ -5,6 +5,7 @@ WeekCalendar::WeekCalendar(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::WeekCalendar)
 {
+
     ui->setupUi(this);
 
 

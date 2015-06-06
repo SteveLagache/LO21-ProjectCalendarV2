@@ -26,7 +26,6 @@ int main(int argc, char* argv[]) {
     ProjetManager& pm= ProjetManager::getInstance();
     pm.ajouterProjet(&p);
     pm.afficherProjets();
-    pm.supprimerProjet(p.getTitre());
     pm.afficherProjets();
 
     /* EvenementSimple e1("t1", "Steve", QDateTime(QDate(2012, 5, 28)), QDateTime(QDate(2012, 5, 29)), "Ruche");
