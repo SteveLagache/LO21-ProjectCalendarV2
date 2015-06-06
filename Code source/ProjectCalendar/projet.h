@@ -7,5 +7,7 @@
  * \author Guyet-Lagache
  */
 
+#include "tache.h"
+
 #endif // PROJET_H
 

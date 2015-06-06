@@ -8,9 +8,7 @@ SOURCES += \
     weekcalendar.cpp \
     projetmanager.cpp \
     projet.cpp \
-    tache.cpp \
-    evenement.cpp \
-    agenda.cpp
+    tache.cpp
 
 FORMS += \
     projectcalendar.ui \
@@ -22,7 +20,6 @@ HEADERS += \
     projetmanager.h \
     projet.h \
     tache.h \
-    evenement.h \
-    agenda.h \
     exception.h \
+    time.h \
 
