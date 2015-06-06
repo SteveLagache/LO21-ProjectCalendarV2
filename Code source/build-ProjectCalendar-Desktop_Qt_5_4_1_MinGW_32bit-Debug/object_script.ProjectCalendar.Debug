@@ -1,0 +1,12 @@
+INPUT(
+./debug\main.o
+./debug\projectcalendar.o
+./debug\weekcalendar.o
+./debug\projetmanager.o
+./debug\projet.o
+./debug\tache.o
+./debug\evenement.o
+./debug\agenda.o
+./debug\moc_projectcalendar.o
+./debug\moc_weekcalendar.o
+);

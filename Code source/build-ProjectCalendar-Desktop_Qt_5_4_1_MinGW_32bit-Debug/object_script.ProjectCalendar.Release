@@ -1,0 +1,12 @@
+INPUT(
+./release\main.o
+./release\projectcalendar.o
+./release\weekcalendar.o
+./release\projetmanager.o
+./release\projet.o
+./release\tache.o
+./release\evenement.o
+./release\agenda.o
+./release\moc_projectcalendar.o
+./release\moc_weekcalendar.o
+);
