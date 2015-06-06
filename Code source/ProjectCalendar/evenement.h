@@ -38,7 +38,7 @@ protected :
     */
     Evenement(const QString& t, const QString& pers, const QDateTime& d, const QDateTime& f);
     virtual ~Evenement() {}
-    // friend class Agenda;
+    friend class Agenda;
 public :
     QString getTitre() const { return titre; }
     void setTitre(const QString& str) { titre=str; }
