@@ -23,7 +23,7 @@
  */
 class Projet{
 private:
-    friend class TacheManager;
+    friend class ProjetManager;
     QList<Tache*> taches;
     QString titre;
     QDate disponibilite;
