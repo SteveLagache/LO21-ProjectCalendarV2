@@ -24,7 +24,7 @@
  */
 class Tache{
 protected:
-    friend class TacheManager;
+    friend class Projet;
 
     QString titre;
     QDate disponibilite;
@@ -79,6 +79,11 @@ public:
 
     void afficherSousTaches();
 
+    /**
+    * \brief Ajoute une sous-tâche
+    * \param Tache* t: pointeur sur la tâche à ajouter
+    *
+    */
     void ajouterSousTache(Tache* t);
 };
 
