@@ -26,11 +26,11 @@ Projet::Projet(const QString& titre, const QDate& dispo, const QDate& deadline){
 
 
 
-Projet::~Projet(){
-    for (QList<Tache*>::Iterator it= taches.begin(); it != taches.end(); ++it){
-        delete *it;
-    }
-}
+//Projet::~Projet(){
+//    for (QList<Tache*>::Iterator it= taches.begin(); it != taches.end(); ++it){
+//        delete *it;
+//    }
+//}
 
 void Projet::ajouterTache(Tache* t){
     bool changement = false;

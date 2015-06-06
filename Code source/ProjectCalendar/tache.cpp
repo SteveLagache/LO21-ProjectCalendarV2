@@ -26,12 +26,16 @@ void Tache::setDatesDisponibiliteEcheance(const QDate& disp, const QDate& e) {
 }
 
 
+//Tache::~Tache(){};
 
-TacheComposite::~TacheComposite(){
-    for (QList<Tache*>::Iterator it= sousTaches.begin(); it != sousTaches.end(); ++it){
-        delete *it;
-    }
-}
+//TacheUnitaire::~TacheUnitaire(){}
+
+
+//TacheComposite::~TacheComposite(){
+//    for (QList<Tache*>::Iterator it= sousTaches.begin(); it != sousTaches.end(); ++it){
+//        delete *it;
+//    }
+//}
 
 void TacheComposite::ajouterSousTache(Tache* t){
     bool changement = false;

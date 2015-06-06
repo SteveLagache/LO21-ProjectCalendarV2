@@ -22,13 +22,14 @@ private:
     QVector<Projet*> projets;
     static ProjetManager* instance;
     ProjetManager();
-    ~ProjetManager();
+   // ~ProjetManager();
 
 public:
     /**
     * \brief Supprime un projet
     * \param const QString& titre: titre du projet à supprimer
     */
+    QVector<Projet*>& getProjets() {return projets;};
     void supprimerProjet(const QString& titre);
     static ProjetManager& getInstance();
     void afficherProjets();

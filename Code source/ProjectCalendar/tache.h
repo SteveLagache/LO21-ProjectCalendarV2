@@ -40,7 +40,11 @@ protected:
     */
     Tache(const QString& titre, const QDate& dispo, const QDate& deadline);
 
+
 public:
+
+   // virtual ~Tache();
+    virtual QString getType() const =0;
 
     QString getTitre() const { return titre; }
     void setTitre(const QString& str) { titre=str; }
@@ -68,14 +72,19 @@ public:
  */
 class TacheComposite: public Tache{
 private:
+
     QList<Tache*> sousTaches;
     // Liste chainée de pointeurs sur taches
 
 public:
+    QString getType() const override {return "TacheComposite";} ;
+
+    QList<Tache*>& getSousTaches() {return sousTaches;};
+
     TacheComposite(const QString& t, const QDate& dispo, const QDate& deadline):
         Tache(t, dispo, deadline){}
 
-    ~TacheComposite();
+   // ~TacheComposite();
 
     void afficherSousTaches();
 
@@ -103,9 +112,10 @@ private:
     bool preemptive;
 
 public:
+    QString getType() const override {return "TacheUnitaire";} ;
     TacheUnitaire(const QString& t, const QDate& dispo, const QDate& deadline,const Duree& duree, bool preempt):
         Tache(t, dispo, deadline), duree(duree), preemptive(preempt){}
-
+   // ~TacheUnitaire();
     bool isPreemptive() const { return preemptive; }
     Duree getDuree() const {return duree;}
     void setDuree(const Duree& newDuree) {duree = newDuree;}

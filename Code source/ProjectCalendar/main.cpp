@@ -25,7 +25,6 @@ int main(int argc, char* argv[]) {
     ProjetManager& pm= ProjetManager::getInstance();
     pm.ajouterProjet(&p);
     pm.afficherProjets();
-    pm.supprimerProjet(p.getTitre());
     pm.afficherProjets();
     ProjectCalendar projectCalendar;
     projectCalendar.show();

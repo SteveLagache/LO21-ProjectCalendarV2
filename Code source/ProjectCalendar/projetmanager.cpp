@@ -28,7 +28,7 @@ void ProjetManager::ajouterProjet(const QString& titre, const QDate& dispo, cons
 void ProjetManager::supprimerProjet(const QString& titre){
     int i=0;
     QVector<Projet*>::Iterator it= projets.begin();
-    while((it != projets.end()) || ((*it)->getTitre() != titre)){
+    while((it != projets.end()) && ((*it)->getTitre() != titre)){
         ++it;
         i++;
     }
@@ -49,7 +49,6 @@ void ProjetManager::afficherProjets(){
 
 
 
-
 ProjetManager& ProjetManager::getInstance(){
     if (instance==0){
        try{
@@ -66,8 +65,8 @@ ProjetManager& ProjetManager::getInstance(){
 
 ProjetManager::ProjetManager(){}
 
-ProjetManager::~ProjetManager(){
-     for (QVector<Projet*>::Iterator it = projets.begin(); it!= projets.end(); ++it)
-         delete (*it);
-};
+//ProjetManager::~ProjetManager(){
+//     for (QVector<Projet*>::Iterator it = projets.begin(); it!= projets.end(); ++it)
+//         delete (*it);
+//};
 
