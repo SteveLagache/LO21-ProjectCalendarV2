@@ -10,6 +10,5 @@
 
 
 
-
 #endif // PROJETMANAGER_H
 

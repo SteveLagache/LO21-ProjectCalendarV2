@@ -3,19 +3,21 @@
 
 Tache::Tache(const QString& titre, const QDate& dispo, const QDate& deadline){
     this->titre = titre;
-    try{
-        setDatesDisponibiliteEcheance(dispo, deadline);
-    }
-    catch(CalendarException e){
-        e.afficherWarning();
-    }
+    setDatesDisponibiliteEcheance(dispo, deadline);
 }
 
 void Tache::setDatesDisponibiliteEcheance(const QDate& disp, const QDate& e) {
-    if (e<disp)
+
+
+   if (e<disp)
     {
-        throw CalendarException("Problème dans les dates de la tâche:\n( date echéance < date disponibilité )\n La date d'échéance a été modifiée");
         echeance=disp;
+    try{
+        throw CalendarException("Problème dans les dates de la tâche:\n( date echéance < date disponibilité )\nLa date d'échéance a été modifiée");
+        }
+        catch(CalendarException e){
+            e.afficherWarning();
+        }
     }
     else echeance=e;
 
@@ -32,6 +34,21 @@ TacheComposite::~TacheComposite(){
 }
 
 void TacheComposite::ajouterSousTache(Tache* t){
+    bool changement = false;
+    if (t->getDateDisponibilite() < this->disponibilite){ // sous-tache dispo inférieur à tacheComposite dispo
+        t->setDatesDisponibiliteEcheance(this->getDateDisponibilite(), t->getDateEcheance());
+        changement= true;
+    }
+    if (t->getDateEcheance() > this->echeance){ // tsous-tache echance sup à tacheComposite echeance
+        t->setDatesDisponibiliteEcheance(t->getDateDisponibilite(), this->getDateEcheance());
+        changement = true;
+    }
+    try {
+        if (changement) throw CalendarException("Problème dans les dates de la sous-tâche par rapport à la tâche composite:\nLes dates de disponibilité et d'échéances n'étaient pas comprises dans les dates de la tache composite\nLes dates de la sous-tâche ont donc été modifiées");
+        }
+    catch ( CalendarException e){
+        e.afficherWarning();
+    }
     sousTaches.push_back(t);
 }
 
