@@ -14,7 +14,7 @@ Tache::Tache(const QString& titre, const QDate& dispo, const QDate& deadline){
 void Tache::setDatesDisponibiliteEcheance(const QDate& disp, const QDate& e) {
     if (e<disp)
     {
-        throw CalendarException("Problème dans les dates de la tâche:\n( date echéance < date disponibilité )\nLa date d'échéance a été modifiée");
+        throw CalendarException("Problème dans les dates de la tâche:\n( date echéance < date disponibilité )\n La date d'échéance a été modifiée");
         echeance=disp;
     }
     else echeance=e;

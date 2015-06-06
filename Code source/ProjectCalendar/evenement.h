@@ -11,16 +11,34 @@
  * \author Guyet-Lagache
  */
 
+
+/**
+ * \class Evenement
+ * \brief Evenement
+ *
+ * Un évènement est soit :
+ *      - la programmation d’une activité traditionnelle
+ *      - la programmation d’une tâche (unitaire) liée à un projet
+ * Il n'est pas possible de programmer deux évènements en même temps
+ * Interdiction : d’une programmation qui ne respecte pas l’ensemble des
+ * contraintes liées à la tâche (contraintes de disponibilité, d’échéance, de précédence)
+ */
 class Evenement {
 protected :
     QString titre;
     QString personnes;
     QDateTime debut;
     QDateTime fin;
-    Evenement(const QString& t, const QString& pers, const QDateTime& d, const QDateTime& f):
-        titre(t), personnes(pers), debut(d), fin(f){}
+    /**
+    * \brief Constructeur d'Evenement
+    * \param const QString& t : titre de l'évènement,
+    * const QString& pers : personnes participant à l'évènement,
+    * const QDateTime& d : date et heure de début de l'évènement,
+    * const QDateTime& f : date et heure de fin de l'évènement
+    */
+    Evenement(const QString& t, const QString& pers, const QDateTime& d, const QDateTime& f);
     virtual ~Evenement() {}
-    // friend Agenda;
+    // friend class Agenda;
 public :
     QString getTitre() const { return titre; }
     void setTitre(const QString& str) { titre=str; }
@@ -28,12 +46,21 @@ public :
     void setPersonnes(const QString& p) { personnes=p; }
     QDateTime getDateDebut() const {  return debut; }
     QDateTime getDateFin() const {  return fin; }
-    void setDatesDebutFin(const QDateTime& d, const QDateTime& f) {
-        if (f<d) throw CalendarException("erreur Tâche : date fin < date début");
-         debut=d; fin=f;
-    }
+    /**
+    * \brief Vérifie que (date début < date fin) avant de les appliquer à l'évènement
+    * \param const QDateTime& d : date et heure de début de l'évènement,
+    * const QDateTime& f : date et heure de fin de l'évènement
+    */
+    void setDatesDebutFin(const QDateTime& d, const QDateTime& f);
 };
 
+/**
+ * \class EvenementSimple
+ * \brief EvenementSimple
+ *
+ * Programmation d’une activité traditionnelle
+ * Ex: rendezvous, réunion
+ */
 class EvenementSimple : public Evenement {
     QString lieu;
 public :
@@ -44,6 +71,14 @@ public :
     void setLieu(const QString& l) { lieu=l; }
 };
 
+/**
+ * \class EvenementTache
+ * \brief EvenementTache
+ * La programmation d’une tâche (unitaire) liée à un projet ;
+ * Si c'est une tâche unitaire qui peut être préemptée,
+ * elle peut aussi être la programmation d’une partie seulement
+ * (l’autre partie restant à être programmée plus tard)
+ */
 class EvenementTache : public Evenement {
 public :
     EvenementTache(const QString& t, const QString& pers, const QDateTime& d, const QDateTime& f) :

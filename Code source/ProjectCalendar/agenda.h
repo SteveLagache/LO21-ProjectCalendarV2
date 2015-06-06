@@ -7,5 +7,7 @@
  * \author Guyet-Lagache
  */
 
+ #include "evenement.h"
+
 #endif // AGENDA
 
