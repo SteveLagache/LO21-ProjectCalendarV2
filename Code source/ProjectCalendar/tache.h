@@ -82,7 +82,6 @@ public:
     /**
     * \brief Ajoute une sous-tâche
     * \param Tache* t: pointeur sur la tâche à ajouter
-    *
     */
     void ajouterSousTache(Tache* t);
 };

@@ -1,7 +1,7 @@
 #include <QApplication>
 #include <QMainWindow>
 #include "projectcalendar.h"
-#include "projet.h"
+#include "projetmanager.h"
 
 int main(int argc, char* argv[]) {
     QApplication app(argc, argv);
@@ -22,6 +22,11 @@ int main(int argc, char* argv[]) {
     p.ajouterTache(&t3);
     p.afficherTaches();
 
+    ProjetManager& pm= ProjetManager::getInstance();
+    pm.ajouterProjet(&p);
+    pm.afficherProjets();
+    pm.supprimerProjet(p.getTitre());
+    pm.afficherProjets();
     ProjectCalendar projectCalendar;
     projectCalendar.show();
 

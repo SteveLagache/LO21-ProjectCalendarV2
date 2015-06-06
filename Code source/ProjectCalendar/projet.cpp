@@ -21,9 +21,7 @@ void Projet::setDatesDisponibiliteEcheance(const QDate& disp, const QDate& e) {
 
 Projet::Projet(const QString& titre, const QDate& dispo, const QDate& deadline){
     this->titre = titre;
-
-        setDatesDisponibiliteEcheance(dispo, deadline);
-
+    setDatesDisponibiliteEcheance(dispo, deadline);
 }
 
 
