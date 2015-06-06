@@ -3,6 +3,12 @@
 
 #include <QWidget>
 
+/*!
+ * \file weekcalendar.h
+ * \brief Affichage graphique de l'agenda
+ * \author Guyet-Lagache
+ */
+
 namespace Ui {
 class WeekCalendar;
 }

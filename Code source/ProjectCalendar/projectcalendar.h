@@ -4,6 +4,12 @@
 #include "weekcalendar.h"
 #include <QMainWindow>
 
+/*!
+ * \file projectcalendar.h
+ * \brief Fenêtre principale du programme
+ * \author Guyet-Lagache
+ */
+
 namespace Ui {
 class ProjectCalendar;
 }
