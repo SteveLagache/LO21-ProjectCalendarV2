@@ -33,6 +33,7 @@ public:
 
     bool isExistant(QString id);
     bool isExistant(Tache* t);
+    Tache* trouverTache(QString id);
 
     void afficherTaches();
 

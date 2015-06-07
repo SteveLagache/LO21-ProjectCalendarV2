@@ -53,6 +53,13 @@ TacheManager& TacheManager::getInstance(){
 };
 
 
+Tache* TacheManager::trouverTache(QString id){
+    for (QVector<Tache*>::Iterator it = taches.begin(); it!= taches.end(); ++it)
+        if (id == (*it)->getId()) return (*it);
+    return 0;
+};
+
+
 void TacheManager::afficherTaches(){
     for (QVector<Tache*>::Iterator it= taches.begin(); it != taches.end(); ++it){
     try{

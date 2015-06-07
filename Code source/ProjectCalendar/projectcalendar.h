@@ -5,6 +5,11 @@
 #include <QMainWindow>
 #include <QTreeWidget>
 #include "projetmanager.h"
+#include "tachemanager.h"
+#include <QList>
+#include "tacheeditor.h"
+
+
 
 /*!
  * \file projectcalendar.h
@@ -26,10 +31,20 @@ public:
     void chargerArbre(QTreeWidget* arbre);
     void chargerTaches(QTreeWidgetItem* projetItem, Projet* projet);
     void chargerTaches(QTreeWidgetItem* projetItem, TacheComposite *tache);
+    void modifierTache();
+    void modifierProjet();
 
 private:
     WeekCalendar* calendrierSemaine;
     Ui::ProjectCalendar *ui;
+
+public slots:
+
+      void enableAjouterTache();
+      void enableSupprimer();
+      void modifierElement();
+
 };
+
 
 #endif // PROJECTCALENDAR_H

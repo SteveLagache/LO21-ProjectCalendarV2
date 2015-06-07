@@ -34,31 +34,30 @@
       </item>
       <item>
        <layout class="QGridLayout" name="gridLayout">
-        <item row="3" column="0">
-         <widget class="QPushButton" name="pushButton">
+        <item row="2" column="0">
+         <widget class="QPushButton" name="buttonAjoutProjet">
           <property name="text">
-           <string>PushButton</string>
+           <string>Créer un projet</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="0">
-         <widget class="QPushButton" name="pushButton_2">
+        <item row="3" column="0">
+         <widget class="QPushButton" name="buttonSupprimer">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="text">
-           <string>PushButton</string>
+           <string>Supprimer l'élément</string>
           </property>
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QPushButton" name="pushButton_4">
-          <property name="text">
-           <string>PushButton</string>
+         <widget class="QPushButton" name="buttonAjoutTache">
+          <property name="enabled">
+           <bool>false</bool>
           </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QPushButton" name="pushButton_3">
           <property name="text">
-           <string>PushButton</string>
+           <string>Ajouter une tâche</string>
           </property>
          </widget>
         </item>
@@ -81,8 +80,8 @@
     <property name="title">
      <string>Fichier</string>
     </property>
-    <addaction name="actionQuitter"/>
-    <addaction name="actionQuitter_2"/>
+    <addaction name="chargerSauvegarde"/>
+    <addaction name="quitter"/>
    </widget>
    <widget class="QMenu" name="menuA_propos">
     <property name="title">
@@ -93,17 +92,34 @@
    <addaction name="menuA_propos"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="actionQuitter">
+  <action name="chargerSauvegarde">
    <property name="text">
     <string>Charger sauvegarde</string>
    </property>
   </action>
-  <action name="actionQuitter_2">
+  <action name="quitter">
    <property name="text">
     <string>Quitter</string>
    </property>
   </action>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>quitter</sender>
+   <signal>triggered()</signal>
+   <receiver>ProjectCalendar</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>601</x>
+     <y>464</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
