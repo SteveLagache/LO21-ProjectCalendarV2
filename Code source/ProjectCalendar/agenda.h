@@ -8,6 +8,7 @@
  */
 
  #include "evenement.h"
+#include "projetmanager.h"
 
 /**
  * \class Agenda
@@ -32,7 +33,6 @@ public:
     static Agenda& getInstance();
     void afficherListeEvts();
     void ajouterEvenement(Evenement *e);
-    void ajouterEvenement(const QString& t, const QString& pers, const QDateTime& d, const QDateTime& f);
     bool isExistant(Evenement *e);
 
 };

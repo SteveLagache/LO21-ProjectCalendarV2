@@ -20,10 +20,6 @@ void Agenda::ajouterEvenement(Evenement* e){
     }
 }
 
-void Agenda::ajouterEvenement(const QString& t, const QString& pers, const QDateTime& d, const QDateTime& f){
-    Evenement* e = new Evenement(t, pers, d, f);
-    ajouterEvenement(e);
-}
 
 
 void Agenda::supprimerEvenement(const QString& t){

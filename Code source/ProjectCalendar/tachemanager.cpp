@@ -36,7 +36,7 @@ bool TacheManager::isExistant(Tache* t){
     return isExistant(t->getId());
 }
 
-TacheManager::TacheManager(){};
+TacheManager::TacheManager(){}
 
 TacheManager& TacheManager::getInstance(){
     if (instance==0){

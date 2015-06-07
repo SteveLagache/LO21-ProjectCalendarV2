@@ -10,8 +10,8 @@ int main(int argc, char* argv[]) {
     QApplication app(argc, argv);
 
 
-     TacheUnitaire t("test1", QDate(2010, 6,1), QDate(2025, 6,10), Duree(2, 0), false);
-    TacheUnitaire t2("test2", QDate(2010, 6,1), QDate(2009, 6,10), Duree(2), true);
+    TacheUnitaire t("test1", QDate(2010, 6,1), QDate(2025, 6,10), Duree(2, 0), false);
+    /* TacheUnitaire t2("test2", QDate(2010, 6,1), QDate(2009, 6,10), Duree(2), true);
     TacheComposite t3("test3", QDate(2010, 6,1), QDate(2022, 6,10));
 
     Projet p("Projet1", QDate(2000,6,1), QDate(2015, 2, 3));
@@ -29,10 +29,11 @@ int main(int argc, char* argv[]) {
     ProjetManager& pm= ProjetManager::getInstance();
     pm.ajouterProjet(&p);
     pm.afficherProjets();
-    pm.afficherProjets();
+    pm.afficherProjets(); */
 
-    /* EvenementSimple e1("t1", "Steve", QDateTime(QDate(2012, 5, 28)), QDateTime(QDate(2012, 5, 29)), "Ruche");
+    EvenementSimple e1("t1", "Steve", QDateTime(QDate(2012, 5, 28)), QDateTime(QDate(2012, 5, 29)), "Ruche");
     EvenementSimple e2("t2", "Flo", QDateTime(QDate(2011, 5, 28)), QDateTime(QDate(2011, 5, 29)), "Mare");
+    EvenementTache e3("Steve", QDateTime(QDate(2012, 5, 28)), QDateTime(QDate(2012, 5, 29)), &t);
 
     Agenda& a = Agenda::getInstance();
     a.ajouterEvenement(&e1);
@@ -40,9 +41,12 @@ int main(int argc, char* argv[]) {
     a.afficherListeEvts();
     a.supprimerEvenement("t1");
     a.supprimerEvenement("ttt");
-    a.afficherListeEvts(); */
-    TacheManager& tm= TacheManager::getInstance();
-    tm.afficherTaches();
+    a.ajouterEvenement(&e3);
+    a.afficherListeEvts();
+    // TacheManager& tm= TacheManager::getInstance();
+    // tm.afficherTaches();
+
+
 
     ProjectCalendar projectCalendar;
     projectCalendar.show();

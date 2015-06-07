@@ -4,6 +4,7 @@
 #include <QString>
 #include <QDateTime>
 #include "exception.h"
+#include "projetmanager.h"
 
 /*!
  * \file evenement.h
@@ -64,6 +65,14 @@ public :
 class EvenementSimple : public Evenement {
     QString lieu;
 public :
+    /**
+    * \brief Constructeur d'EvenementSimple
+    * \param const QString& t : titre de l'évènement,
+    * const QString& pers : personnes participant à l'évènement,
+    * const QDateTime& d : date et heure de début de l'évènement,
+    * const QDateTime& f : date et heure de fin de l'évènement,
+    * const QString& l : lieu de l'évènement
+    */
     EvenementSimple(const QString& t, const QString& pers, const QDateTime& d, const QDateTime& f, const QString& l):
         Evenement(t, pers, d, f), lieu(l){}
     ~EvenementSimple() {}
@@ -80,9 +89,22 @@ public :
  * (l’autre partie restant à être programmée plus tard)
  */
 class EvenementTache : public Evenement {
+private :
+   QString idTache;
 public :
-    EvenementTache(const QString& t, const QString& pers, const QDateTime& d, const QDateTime& f) :
-        Evenement(t, pers, d, f) {}
+    // EvenementTache(const QString& t, const QString& pers, const QDateTime& d, const QDateTime& f, const QString id) :
+    //  Evenement(t, pers, d, f), idTache(id) {}
+   /**
+   * \brief Constructeur d'EvenementTache
+   * \param const QString& pers : personnes participant à l'évènement,
+   * const QDateTime& d : date et heure de début de l'évènement,
+   * const QDateTime& f : date et heure de fin de l'évènement,
+   * Tache* t : Tâche à programmer (contenant titre et id)
+   */
+    EvenementTache(const QString& pers, const QDateTime& d, const QDateTime& f, Tache* t) :
+       Evenement(t->getTitre(), pers, d, f) {
+        idTache=t->getId();
+    }
     ~EvenementTache(){}
 };
 
