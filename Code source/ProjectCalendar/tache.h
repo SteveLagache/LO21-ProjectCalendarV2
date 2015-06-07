@@ -10,6 +10,7 @@
 #include <QDate>
 #include <QList>
 #include "time.h"
+//#include "tachemanager.h"
 
 
 /**
@@ -25,7 +26,7 @@
 class Tache{
 protected:
     friend class Projet;
-
+    QString id;
     QString titre;
     QDate disponibilite;
     QDate echeance;
@@ -45,6 +46,8 @@ public:
 
    // virtual ~Tache();
     virtual QString getType() const =0;
+
+    QString getId() const {return id;};
 
     QString getTitre() const { return titre; }
     void setTitre(const QString& str) { titre=str; }

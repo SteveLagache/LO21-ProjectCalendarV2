@@ -3,9 +3,12 @@
 #include "agenda.h"
 #include "projectcalendar.h"
 #include "projetmanager.h"
+#include "tachemanager.h"
+#include "outils.h"
 
 int main(int argc, char* argv[]) {
     QApplication app(argc, argv);
+
 
      TacheUnitaire t("test1", QDate(2010, 6,1), QDate(2025, 6,10), Duree(2, 0), false);
     TacheUnitaire t2("test2", QDate(2010, 6,1), QDate(2009, 6,10), Duree(2), true);
@@ -38,6 +41,8 @@ int main(int argc, char* argv[]) {
     a.supprimerEvenement("t1");
     a.supprimerEvenement("ttt");
     a.afficherListeEvts(); */
+    TacheManager& tm= TacheManager::getInstance();
+    tm.afficherTaches();
 
     ProjectCalendar projectCalendar;
     projectCalendar.show();

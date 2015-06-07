@@ -10,7 +10,9 @@ SOURCES += \
     projet.cpp \
     tache.cpp \
     agenda.cpp \
-    evenement.cpp
+    evenement.cpp \
+    tachemanager.cpp \
+    outils.cpp
 
 FORMS += \
     projectcalendar.ui \
@@ -26,4 +28,6 @@ HEADERS += \
     time.h \
     agenda.h \
     evenement.h \
+    tachemanager.h \
+    outils.h
 

@@ -1,9 +1,13 @@
 #include "tache.h"
 #include "exception.h"
+#include "tachemanager.h"
 
 Tache::Tache(const QString& titre, const QDate& dispo, const QDate& deadline){
+    TacheManager& tm= TacheManager::getInstance();
+    this->id = tm.genererNewId();
     this->titre = titre;
     setDatesDisponibiliteEcheance(dispo, deadline);
+    tm.ajouterTache(this);
 }
 
 void Tache::setDatesDisponibiliteEcheance(const QDate& disp, const QDate& e) {
