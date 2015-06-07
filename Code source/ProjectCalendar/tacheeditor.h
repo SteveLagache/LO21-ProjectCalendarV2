@@ -5,6 +5,16 @@
 #include "tache.h"
 
 
+/*!
+ * \file tacheeditor.h
+ * \brief Fenêtre d'édition de tâches
+ * \author Guyet-Lagache
+ */
+
+/**
+ * \class TacheEditor
+ * \brief Fenêtre d'édition de tâches
+ */
 namespace Ui {
 class TacheEditor;
 }

@@ -9,18 +9,22 @@
 #include <QList>
 #include "tacheeditor.h"
 
-
-
 /*!
  * \file projectcalendar.h
  * \brief Fenêtre principale du programme
  * \author Guyet-Lagache
  */
 
+
+
 namespace Ui {
 class ProjectCalendar;
 }
 
+/**
+ * \class ProjectCalendar
+ * \brief Fenêtre principale du programme
+ */
 class ProjectCalendar : public QMainWindow
 {
     Q_OBJECT

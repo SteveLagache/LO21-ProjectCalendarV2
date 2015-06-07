@@ -15,20 +15,24 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
-    <widget class="QLabel" name="label_fenetre">
-     <property name="font">
-      <font>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Modification de la tâche </string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QLabel" name="label_fenetre">
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Modification de la tâche </string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -69,19 +73,47 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_5">
+    <layout class="QVBoxLayout" name="verticalLayout_3">
      <item>
       <widget class="QLabel" name="label_duree">
+       <property name="font">
+        <font>
+         <weight>50</weight>
+         <bold>false</bold>
+         <underline>true</underline>
+        </font>
+       </property>
        <property name="inputMethodHints">
         <set>Qt::ImhNone</set>
        </property>
        <property name="text">
-        <string>Durée</string>
+        <string>Durée :</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QTimeEdit" name="editDuree"/>
+      <layout class="QHBoxLayout" name="horizontalLayout_5">
+       <item>
+        <widget class="QSpinBox" name="editDureeHeures"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_heures">
+         <property name="text">
+          <string>heures(s)</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QSpinBox" name="editDureeMinutes"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_minutes">
+         <property name="text">
+          <string>minute(s)</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
     </layout>
    </item>

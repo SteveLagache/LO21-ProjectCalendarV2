@@ -9,21 +9,25 @@
 #include <time.h>
 #include <exception.h>
 
-/*! \class Duree
-        \brief Classe permettant de manipuler des durees
-        L'utilisation de cette classe n?cessite des dates valides au sens commun du terme.
-        Déclenchement d'exception dans le cas contraire
-*/
+/**
+ * \class Duree
+ * \brief Classe permettant de manipuler des durées
+ *
+ * L'utilisatin de cette classe n2cessite des dates valides au sens commun du terme.
+ * Déclenchement d'exception dans le cas contraire
+ */
 class Duree{
 public:
-    //! Constructeur à partir de heure et minute
-    /*! \param h heure avec h>=0
-        \param m minute avec 0<=m<=59
-        */
+    /**
+     * \brief Constructeur à partir de heure et minute
+     * \param h heure avec h>=0
+     * \param m minute avec 0<=m<=59
+     */
     Duree(unsigned int h, unsigned int m):nb_minutes(h*60+m) {if (m>59) throw CalendarException("erreur: initialisation duree invalide");}
-    //! Constructeur à partir de minute
-    /*! \param m minute avec m>=0
-        */
+    /**
+     * \brief Constructeur à partir de minute
+     * \param m minute avec m>=0
+     */
     Duree(unsigned int m=0):nb_minutes(m) {}
     void setDuree(unsigned int minutes) { nb_minutes=minutes; }
     void setDuree(unsigned int heures, unsigned int minutes) { if (heures==0 && minutes>59) throw CalendarException("erreur: initialisation duree invalide"); nb_minutes=heures*60+minutes; }

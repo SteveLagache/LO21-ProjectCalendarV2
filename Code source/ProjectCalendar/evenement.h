@@ -8,7 +8,7 @@
 
 /*!
  * \file evenement.h
- * \brief Evènements
+ * \brief Evénements
  * \author Guyet-Lagache
  */
 
@@ -33,9 +33,9 @@ protected :
     /**
     * \brief Constructeur d'Evenement
     * \param const QString& t : titre de l'évènement,
-    * const QString& pers : personnes participant à l'évènement,
-    * const QDateTime& d : date et heure de début de l'évènement,
-    * const QDateTime& f : date et heure de fin de l'évènement
+    * \param const QString& pers : personnes participant à l'évènement,
+    * \param const QDateTime& d : date et heure de début de l'évènement,
+    * \param const QDateTime& f : date et heure de fin de l'évènement
     */
     Evenement(const QString& t, const QString& pers, const QDateTime& d, const QDateTime& f);
     virtual ~Evenement() {}

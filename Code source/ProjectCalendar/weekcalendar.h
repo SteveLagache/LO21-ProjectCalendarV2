@@ -13,6 +13,12 @@ namespace Ui {
 class WeekCalendar;
 }
 
+
+
+/**
+ * \class WeekCalendar
+ * \brief Widget pour afficher la partie Agenda
+ */
 class WeekCalendar : public QWidget
 {
     Q_OBJECT
