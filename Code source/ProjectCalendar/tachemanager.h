@@ -8,7 +8,13 @@
  * \author Guyet-Lagache
  */
 
-
+/**
+ * \class TacheManager
+ * \brief Conteneur des Taches
+ *
+ * TacheManager est un singleton.
+ * Toutes les taches sont stockées dans l'instance de TacheManager, à leur création
+ */
 class TacheManager{
 private:
     QVector<Tache*> taches;
@@ -18,9 +24,16 @@ private:
 public:
     void ajouterTache(Tache* t);
     static TacheManager& getInstance();
+
+    /**
+    * \brief Génère une nouvelle clef unique
+    * \return chaîne de caractère créée aléatoirement, de longueur 5
+    */
     QString genererNewId();
+
     bool isExistant(QString id);
     bool isExistant(Tache* t);
+
     void afficherTaches();
 
 };
