@@ -35,12 +35,12 @@ int main(int argc, char* argv[]) {
     EvenementSimple e2("t2", "Flo", QDateTime(QDate(2011, 5, 28)), QDateTime(QDate(2011, 5, 29)), "Mare");
     EvenementTache e3("Steve", QDateTime(QDate(2012, 5, 28)), QDateTime(QDate(2012, 5, 29)), &t);
 
-    Agenda& a = Agenda::getInstance();
+     Agenda& a = Agenda::getInstance();
     a.ajouterEvenement(&e1);
     a.ajouterEvenement(&e2);
     a.afficherListeEvts();
-    a.supprimerEvenement("t1");
-    a.supprimerEvenement("ttt");
+    a.supprimerEvenement(&e1);
+    a.supprimerEvenement(&e1);
     a.ajouterEvenement(&e3);
     a.afficherListeEvts();
     // TacheManager& tm= TacheManager::getInstance();

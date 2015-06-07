@@ -53,6 +53,7 @@ public :
     * const QDateTime& f : date et heure de fin de l'évènement
     */
     void setDatesDebutFin(const QDateTime& d, const QDateTime& f);
+    virtual QString getType() const =0;
 };
 
 /**
@@ -78,6 +79,7 @@ public :
     ~EvenementSimple() {}
     QString getLieu() const { return lieu; }
     void setLieu(const QString& l) { lieu=l; }
+    QString getType() const {return "EvenementSimple";}
 };
 
 /**
@@ -105,7 +107,9 @@ public :
        Evenement(t->getTitre(), pers, d, f) {
         idTache=t->getId();
     }
+    QString getIdTache() const { return idTache; }
     ~EvenementTache(){}
+    QString getType() const {return "EvenementTache";}
 };
 
 

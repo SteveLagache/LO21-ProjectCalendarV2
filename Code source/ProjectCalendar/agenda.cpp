@@ -5,10 +5,12 @@ Agenda* Agenda::instance = 0;
 
 bool Agenda::isExistant(Evenement* e){
     for (QList<Evenement*>::Iterator it = listeEvts.begin(); it!= listeEvts.end(); ++it)
-        if (e->getTitre() == (*it)->getTitre()) return true;
+        if (e == *it) return true;
     return false;
 }
 
+// plusieurs evts peuvent avoir le même nom
+// vérifier contraintes de dates dans iterator (avec insert)
 void Agenda::ajouterEvenement(Evenement* e){
     try {
         if (isExistant(e))
@@ -21,11 +23,10 @@ void Agenda::ajouterEvenement(Evenement* e){
 }
 
 
-
-void Agenda::supprimerEvenement(const QString& t){
+void Agenda::supprimerEvenement(Evenement* e){
     int i=0;
     QList<Evenement*>::Iterator it= listeEvts.begin();
-    while((it != listeEvts.end()) && ((*it)->getTitre() != t)){
+    while((it != listeEvts.end()) && (*it != e)){
         ++it;
         i++;
     }
