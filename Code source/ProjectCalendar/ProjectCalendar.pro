@@ -14,11 +14,13 @@ SOURCES += \
     tachemanager.cpp \
     outils.cpp \
     tacheeditor.cpp \
+    projeteditor.cpp
 
 FORMS += \
     projectcalendar.ui \
     weekcalendar.ui \
     tacheeditor.ui \
+    projeteditor.ui
 
 HEADERS += \
     projectcalendar.h \
@@ -33,4 +35,5 @@ HEADERS += \
     tachemanager.h \
     outils.h \
     tacheeditor.h \
+    projeteditor.h
 

@@ -19,6 +19,8 @@ ProjectCalendar::ProjectCalendar(QWidget *parent) :
     QObject::connect(ui->treeWidget, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(enableAjouterTache()));
     QObject::connect(ui->treeWidget, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(enableSupprimer()));
     QObject::connect(ui->treeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)), this, SLOT(modifierElement()));
+    QObject::connect(ui->buttonAjoutProjet, SIGNAL(clicked()), this, SLOT(ajouterProjet()));
+
 
 //    QTreeWidgetItem* projet = new QTreeWidgetItem("Projet");
 //    projet->addChild();
@@ -84,9 +86,10 @@ void ProjectCalendar::modifierElement(){
      TacheManager& tm = TacheManager::getInstance();
      Tache* t = tm.trouverTache(id);
      if (t == 0) {//Ce n'est pas une tâche ==> projet
-         //ProjetEditor pe(0, t);
-         QMessageBox::information(0, "COUCOU", "Modification d'un projet ici (plus tard)");
-         //pe.exec();
+         ProjetManager& pm = ProjetManager::getInstance();
+         Projet* p = pm.trouverProjet(id);
+         ProjetEditor pe(0, p);
+         pe.exec();
      }
      else {
         TacheEditor te(0, t);
@@ -94,3 +97,6 @@ void ProjectCalendar::modifierElement(){
      }
  }
 
+void ProjectCalendar::ajouterProjet(){
+/// A FAIRE
+}

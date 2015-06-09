@@ -2,6 +2,13 @@
 
 ProjetManager* ProjetManager::instance = 0;
 
+
+Projet* ProjetManager::trouverProjet(QString titre){
+    for (QVector<Projet*>::Iterator it = projets.begin(); it!= projets.end(); ++it)
+        if (titre == (*it)->getTitre()) return (*it);
+            return 0;
+};
+
 bool ProjetManager::isExistant(Projet* p){
     for (QVector<Projet*>::Iterator it = projets.begin(); it!= projets.end(); ++it)
         if (p->getTitre() == (*it)->getTitre()) return true;

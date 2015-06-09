@@ -6,8 +6,8 @@
  * \author Guyet-Lagache
  */
 
-#include<QVector>
-#include"projet.h"
+#include <QVector>
+#include "projet.h"
 
 
 /**
@@ -36,6 +36,7 @@ public:
     void ajouterProjet(Projet *p);
     void ajouterProjet(const QString& titre, const QDate& dispo, const QDate& deadline);
     bool isExistant(Projet *p);
+    Projet* trouverProjet(QString titre);
 
 };
 

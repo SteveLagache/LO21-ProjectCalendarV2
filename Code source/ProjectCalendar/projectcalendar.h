@@ -9,6 +9,8 @@
 #include <QList>
 #include "tacheeditor.h"
 
+#include "projeteditor.h"
+
 /*!
  * \file projectcalendar.h
  * \brief Fenêtre principale du programme
@@ -47,6 +49,8 @@ public slots:
       void enableAjouterTache();
       void enableSupprimer();
       void modifierElement();
+      void ajouterProjet();
+
 
 };
 
