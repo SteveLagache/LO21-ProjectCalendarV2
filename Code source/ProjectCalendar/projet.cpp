@@ -30,8 +30,6 @@ void Projet::setTitre(const QString& str) {
 Projet::Projet(const QString& titre, const QDate& dispo, const QDate& deadline){
     this->titre = titre;
     setDatesDisponibiliteEcheance(dispo, deadline);
-    ProjetManager& pm= ProjetManager::getInstance();
-    pm.ajouterProjet(this);
 }
 
 
@@ -48,11 +46,11 @@ Projet::~Projet(){
 void Projet::ajouterTache(Tache* t){
     bool changement = false;
     if (t->getDateDisponibilite() < this->disponibilite){ // tache dispo inférieur à projet dispo
-        t->setDatesDisponibiliteEcheance(this->getDateDisponibilite(), t->getDateEcheance());
+        t->setDatesDisponibiliteEcheance(disponibilite, t->getDateEcheance());
         changement= true;
     }
     if (t->getDateEcheance() > this->echeance){ // tache echance sup à projet echeance
-        t->setDatesDisponibiliteEcheance(t->getDateDisponibilite(), this->getDateEcheance());
+        t->setDatesDisponibiliteEcheance(t->getDateDisponibilite(), echeance);
         changement = true;
     }
     try {

@@ -27,7 +27,8 @@ void ProjetManager::ajouterProjet(Projet* p){
 }
 
 void ProjetManager::ajouterProjet(const QString& titre, const QDate& dispo, const QDate& deadline){
-    Projet p(titre, dispo, deadline);
+    Projet* p = new Projet(titre, dispo, deadline);
+    ajouterProjet(p);
 }
 
 void ProjetManager::supprimerTache(const QString id){

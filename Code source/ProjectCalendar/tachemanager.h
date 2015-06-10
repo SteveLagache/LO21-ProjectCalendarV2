@@ -22,10 +22,13 @@ private:
     TacheManager();
 
 public:
+    TacheComposite* ajouterTacheComposite(const QString& titre, QDate debut, QDate fin);
+    TacheUnitaire* ajouterTacheUnitaire(const QString& titre, QDate debut, QDate fin, Duree duree, bool preemp);
     void ajouterTache(Tache* t);
     void supprimerTache(const QString& id);
     void supprimerTache(Tache* t);
     static TacheManager& getInstance();
+    Tache *remplacerTache(Tache* t, Tache* t2);
 
     /**
     * \brief Génère une nouvelle clef unique

@@ -42,6 +42,9 @@ private:
 
 QTextStream& operator<<(QTextStream& f, const Duree & d);
 QTextStream& operator>>(QTextStream&, Duree&); //lecture format hhHmm
+bool operator>(const Duree & d, const Duree & d2);
+
+
 
 #endif // TIME_H
 

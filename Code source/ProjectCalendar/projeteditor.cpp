@@ -20,6 +20,8 @@ ProjetEditor::ProjetEditor(QWidget *parent, Projet* p) :
     }
 
     QObject::connect(ui->buttonSauvegarder, SIGNAL(clicked()), this, SLOT(sauvegarder()));
+    QObject::connect(ui->buttonAnnuler, SIGNAL(clicked()), this, SLOT(close()));
+
 }
 
 ProjetEditor::~ProjetEditor()
@@ -28,14 +30,13 @@ ProjetEditor::~ProjetEditor()
 }
 
 
-
 ///SLOTS
 
 void ProjetEditor::sauvegarder(){
     ProjetManager& pm= ProjetManager::getInstance();
     if (projet == 0){ // CREATION
         try{
-            new Projet(ui->edit_titre->text(), ui->editDispo->date(),ui->editEcheance->date());
+            pm.ajouterProjet(ui->edit_titre->text(), ui->editDispo->date(),ui->editEcheance->date());
             QMessageBox::information(0, "Ajout réussi", "Votre nouveau projet a été créé.");
         }
         catch(CalendarException e){

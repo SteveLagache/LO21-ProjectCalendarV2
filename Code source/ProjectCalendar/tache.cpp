@@ -3,21 +3,18 @@
 #include "tachemanager.h"
 
 Tache::Tache(const QString& titre, const QDate& dispo, const QDate& deadline){
-    TacheManager& tm= TacheManager::getInstance();
-    this->id = tm.genererNewId();
+    TacheManager& tm = TacheManager::getInstance();
+    id= tm.genererNewId();
     this->titre = titre;
     setDatesDisponibiliteEcheance(dispo, deadline);
-    tm.ajouterTache(this);
 }
 
 void Tache::setDatesDisponibiliteEcheance(const QDate& disp, const QDate& e) {
-
-
-   if (e<disp)
+    if (e<disp)
     {
         echeance=disp;
     try{
-        throw CalendarException("Problème dans les dates de la tâche:\n( date echéance < date disponibilité )\nLa date d'échéance a été modifiée");
+            throw CalendarException("Problème dans les dates de la tâche:\n( date echéance < date disponibilité )\nLa date d'échéance a été modifiée");
         }
         catch(CalendarException e){
             e.afficherWarning();
@@ -44,11 +41,11 @@ void Tache::setDatesDisponibiliteEcheance(const QDate& disp, const QDate& e) {
 void TacheComposite::ajouterSousTache(Tache* t){
     bool changement = false;
     if (t->getDateDisponibilite() < this->disponibilite){ // sous-tache dispo inférieur à tacheComposite dispo
-        t->setDatesDisponibiliteEcheance(this->getDateDisponibilite(), t->getDateEcheance());
+        t->setDatesDisponibiliteEcheance(disponibilite, t->getDateEcheance());
         changement= true;
     }
     if (t->getDateEcheance() > this->echeance){ // tsous-tache echance sup à tacheComposite echeance
-        t->setDatesDisponibiliteEcheance(t->getDateDisponibilite(), this->getDateEcheance());
+        t->setDatesDisponibiliteEcheance(t->getDateDisponibilite(), echeance);
         changement = true;
     }
     try {
@@ -76,7 +73,6 @@ void TacheComposite::supprimerSousTache(const QString id){
 };
 
 
-
 void TacheComposite::afficherSousTaches(){
     for (QList<Tache*>::Iterator it= sousTaches.begin(); it != sousTaches.end(); ++it){
     try{
@@ -92,3 +88,18 @@ TacheComposite::~TacheComposite(){
         supprimerSousTache(sousTaches[0]->getId());
     }
 };
+
+TacheUnitaire::~TacheUnitaire(){
+    QMessageBox::information(0, "COUcd","hghjg");
+};
+
+void TacheUnitaire::setDuree(const Duree& newDuree) {
+    if (!preemptive){
+        if (newDuree > Duree(12,0))
+        {
+            duree= Duree(12,0);
+            throw CalendarException("La durée d'une tâche non préemptive ne peut être supérieure à 12 heures. La durée de la tâche a donc été modfifiée.");
+        } else duree = newDuree;
+    } else duree = newDuree;
+
+}

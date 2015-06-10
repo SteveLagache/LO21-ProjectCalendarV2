@@ -50,6 +50,7 @@ public slots:
       void enableSupprimer();
       void modifierElement();
       void ajouterProjet();
+      void ajouterTache();
       void supprimerElement();
 
 

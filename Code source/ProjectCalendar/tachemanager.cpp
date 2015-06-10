@@ -1,7 +1,7 @@
 #include "tachemanager.h"
 #include "outils.h"
 #include "projetmanager.h"
-
+#include <QtDebug>
 
 
 TacheManager* TacheManager::instance=0;
@@ -17,19 +17,30 @@ void TacheManager::ajouterTache(Tache* t){
     }
 }
 
+TacheComposite* TacheManager::ajouterTacheComposite(const QString &titre, QDate debut, QDate fin){
+    TacheComposite* tc= new TacheComposite(titre, debut, fin);
+    ajouterTache(tc);
+    return tc;
+}
+
+TacheUnitaire* TacheManager::ajouterTacheUnitaire(const QString& titre, QDate debut, QDate fin, Duree duree, bool preemp){
+    TacheUnitaire* tu= new TacheUnitaire(titre, debut, fin, duree, preemp);
+    ajouterTache(tu);
+    return tu;
+}
 
 
 void TacheManager::supprimerTache(const QString& id){
 
     ProjetManager& pm = ProjetManager::getInstance();
-    pm.supprimerTache( id);
+    pm.supprimerTache(id);
 
     QVector<Tache*>::Iterator it= taches.begin();
     int j=0;
     while((it != taches.end()) && ((*it)->getId() != id)){
             ++it;
             j++;
-        }
+    }
         if (it != taches.end()){
            delete taches[j];
            taches.remove(j);
@@ -38,10 +49,17 @@ void TacheManager::supprimerTache(const QString& id){
 
 
 void TacheManager::supprimerTache(Tache* t){
-    supprimerTache(t->getId());
+    //supprimerTache(t->getId());
+
+    int index = taches.indexOf(t);
+    if(index == -1) //Pas trouver
+    {
+        qDebug() << "Tache introuvable";
+        return;
+    }
+    qDebug() << index;
+    taches.remove(index);
 };
-
-
 
 
 QString TacheManager::genererNewId(){
@@ -84,6 +102,16 @@ Tache* TacheManager::trouverTache(QString id){
     for (QVector<Tache*>::Iterator it = taches.begin(); it!= taches.end(); ++it)
         if (id == (*it)->getId()) return (*it);
     return 0;
+};
+
+
+Tache* TacheManager::remplacerTache(Tache* t, Tache* t2){
+    Tache* old = t;
+    QString oldId = t->getId();
+    t = t2;
+    supprimerTache(old);
+    t->setId(oldId);
+    return t;
 };
 
 

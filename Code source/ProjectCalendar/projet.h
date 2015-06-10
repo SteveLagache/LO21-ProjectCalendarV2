@@ -30,9 +30,11 @@ private:
     QDate disponibilite;
     QDate echeance;
 
-public:
     Projet(const QString& titre, const QDate& dispo, const QDate& deadline);
     ~Projet();
+
+public:
+
 
     QList<Tache*>& getTaches() { return taches;};
 

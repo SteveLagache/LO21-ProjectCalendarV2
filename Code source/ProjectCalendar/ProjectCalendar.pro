@@ -14,7 +14,8 @@ SOURCES += \
     tachemanager.cpp \
     outils.cpp \
     tacheeditor.cpp \
-    projeteditor.cpp
+    projeteditor.cpp \
+    time.cpp
 
 FORMS += \
     projectcalendar.ui \

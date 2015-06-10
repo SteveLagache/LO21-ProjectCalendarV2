@@ -25,11 +25,12 @@
  */
 class Tache{
 protected:
-    friend class Projet;
     QString id;
     QString titre;
     QDate disponibilite;
     QDate echeance;
+
+    friend class TacheManager;
 
     Tache& operator=(const Tache&);
     Tache(const Tache& t);
@@ -48,6 +49,7 @@ public:
     virtual QString getType() const =0;
 
     QString getId() const {return id;}
+    void setId(const QString& _id) {id= _id;}
 
     QString getTitre() const { return titre; }
     void setTitre(const QString& str) { titre=str; }
@@ -75,19 +77,20 @@ public:
  */
 class TacheComposite: public Tache{
 private:
+    friend class TacheManager;
 
     QList<Tache*> sousTaches;
     // Liste chainée de pointeurs sur taches
+    TacheComposite(const QString& t, const QDate& dispo, const QDate& deadline):
+        Tache(t, dispo, deadline){}
+
+    ~TacheComposite();
 
 public:
     QString getType() const override {return "TacheComposite";}
 
     QList<Tache*>& getSousTaches() {return sousTaches;}
 
-    TacheComposite(const QString& t, const QDate& dispo, const QDate& deadline):
-        Tache(t, dispo, deadline){}
-
-    ~TacheComposite();
 
     void afficherSousTaches();
 
@@ -115,14 +118,19 @@ private:
     Duree duree;
     bool preemptive;
 
+    friend class TacheManager;
+
+    TacheUnitaire(const QString& t, const QDate& dispo, const QDate& deadline,const Duree& duree, bool preempt):
+    Tache(t, dispo, deadline), duree(duree), preemptive(preempt){}
+    ~TacheUnitaire();
+
 public:
     QString getType() const override {return "TacheUnitaire";}
-    TacheUnitaire(const QString& t, const QDate& dispo, const QDate& deadline,const Duree& duree, bool preempt):
-        Tache(t, dispo, deadline), duree(duree), preemptive(preempt){}
-    ~TacheUnitaire(){};
+
+
     bool isPreemptive() const { return preemptive; }
     Duree getDuree() const {return duree;}
-    void setDuree(const Duree& newDuree) {duree = newDuree;}
+    void setDuree(const Duree& newDuree) ;
     void setPreemptive() { preemptive=true; }
     void setNonPreemptive() { preemptive=false; }
 
