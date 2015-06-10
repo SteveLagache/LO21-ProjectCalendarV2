@@ -9,6 +9,7 @@
 #include <QVector>
 #include "projet.h"
 
+class Projet;
 
 /**
  * \class ProjetManager
@@ -31,11 +32,13 @@ public:
     */
     QVector<Projet*>& getProjets() {return projets;}
     void supprimerProjet(const QString& titre);
+    void supprimerProjet(Projet* p);
     static ProjetManager& getInstance();
     void afficherProjets();
     void ajouterProjet(Projet *p);
     void ajouterProjet(const QString& titre, const QDate& dispo, const QDate& deadline);
-    bool isExistant(Projet *p);
+    bool isExistant(QString titre);
+    bool isExistant(Projet*p);
     Projet* trouverProjet(QString titre);
 
 };

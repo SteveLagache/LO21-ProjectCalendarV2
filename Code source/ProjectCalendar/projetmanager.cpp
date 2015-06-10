@@ -9,26 +9,30 @@ Projet* ProjetManager::trouverProjet(QString titre){
             return 0;
 };
 
-bool ProjetManager::isExistant(Projet* p){
+bool ProjetManager::isExistant(Projet *p){
+   return isExistant(p->getTitre());
+}
+
+
+void ProjetManager::supprimerProjet(Projet* p){
+    supprimerProjet(p->getTitre());
+};
+
+
+bool ProjetManager::isExistant(QString titre){
     for (QVector<Projet*>::Iterator it = projets.begin(); it!= projets.end(); ++it)
-        if (p->getTitre() == (*it)->getTitre()) return true;
+        if (titre == (*it)->getTitre()) return true;
     return false;
 }
 
 void ProjetManager::ajouterProjet(Projet* p){
-    try {
         if (isExistant(p))
             throw CalendarException("Un projet porte déjà ce nom. Le projet n'a pas été créé.");
-        else projets.push_back(p);
-    }
-    catch(CalendarException e){
-        e.afficherWarning();
-    }
+        projets.push_back(p);
 }
 
 void ProjetManager::ajouterProjet(const QString& titre, const QDate& dispo, const QDate& deadline){
-    Projet* p = new Projet(titre, dispo, deadline);
-    ajouterProjet(p);
+    Projet p(titre, dispo, deadline);
 }
 
 

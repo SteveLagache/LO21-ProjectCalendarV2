@@ -8,6 +8,7 @@
  */
 
 #include "tache.h"
+#include "projetmanager.h"
 
 /**
  * \class Projet
@@ -36,7 +37,7 @@ public:
     QList<Tache*>& getTaches() { return taches;};
 
     QString getTitre() const { return titre; }
-    void setTitre(const QString& str) { titre=str; }
+    void setTitre(const QString& str);
 
     QDate getDateDisponibilite() const { return disponibilite; }
     QDate getDateEcheance() const { return echeance; }

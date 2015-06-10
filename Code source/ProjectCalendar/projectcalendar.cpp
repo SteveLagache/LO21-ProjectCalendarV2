@@ -20,7 +20,7 @@ ProjectCalendar::ProjectCalendar(QWidget *parent) :
     QObject::connect(ui->treeWidget, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(enableSupprimer()));
     QObject::connect(ui->treeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)), this, SLOT(modifierElement()));
     QObject::connect(ui->buttonAjoutProjet, SIGNAL(clicked()), this, SLOT(ajouterProjet()));
-
+    QObject::connect(ui->buttonSupprimer, SIGNAL(clicked()), this, SLOT(supprimerElement()));
 
 //    QTreeWidgetItem* projet = new QTreeWidgetItem("Projet");
 //    projet->addChild();
@@ -33,6 +33,7 @@ ProjectCalendar::~ProjectCalendar()
 }
 
 void ProjectCalendar::chargerArbre(QTreeWidget* arbre){
+    arbre->clear();
     ProjetManager& pm= ProjetManager::getInstance();
     for (QVector<Projet*>::Iterator it = pm.getProjets().begin(); it != pm.getProjets().end(); ++it){
         QStringList liste((*it)->getTitre());
@@ -90,13 +91,36 @@ void ProjectCalendar::modifierElement(){
          Projet* p = pm.trouverProjet(id);
          ProjetEditor pe(0, p);
          pe.exec();
+         chargerArbre(ui->treeWidget);
      }
      else {
         TacheEditor te(0, t);
         te.exec();
+        chargerArbre(ui->treeWidget);
      }
  }
 
+
+void ProjectCalendar::supprimerElement(){
+    QString id = ui->treeWidget->selectedItems()[0]->text(1);
+    TacheManager& tm = TacheManager::getInstance();
+    Tache* t = tm.trouverTache(id);
+    if (t == 0) {//Ce n'est pas une tâche ==> projet
+        ProjetManager& pm = ProjetManager::getInstance();
+        pm.supprimerProjet(id);
+        chargerArbre(ui->treeWidget);
+    }
+    else {
+       ////
+       /// supprimer tâche
+       ///
+       chargerArbre(ui->treeWidget);
+    }
+
+};
+
 void ProjectCalendar::ajouterProjet(){
-/// A FAIRE
+    ProjetEditor pe(0,0);
+    pe.exec();
+    chargerArbre(ui->treeWidget);
 }

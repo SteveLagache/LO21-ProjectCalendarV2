@@ -1,6 +1,7 @@
 #include "projet.h"
 
 
+
 void Projet::setDatesDisponibiliteEcheance(const QDate& disp, const QDate& e) {
     if (e<disp)
     {
@@ -17,12 +18,22 @@ void Projet::setDatesDisponibiliteEcheance(const QDate& disp, const QDate& e) {
     disponibilite=disp;
 }
 
+void Projet::setTitre(const QString& str) {
+    this->titre = "/!\\ TITRE EN MODIFICATION /!\\";
+    ProjetManager& pm= ProjetManager::getInstance();
+    if (pm.trouverProjet(str) != 0)
+        throw CalendarException("Il existe déjà un projet avec ce titre");
+    titre= str;
+ }
 
 
 Projet::Projet(const QString& titre, const QDate& dispo, const QDate& deadline){
     this->titre = titre;
     setDatesDisponibiliteEcheance(dispo, deadline);
+    ProjetManager& pm= ProjetManager::getInstance();
+    pm.ajouterProjet(this);
 }
+
 
 
 

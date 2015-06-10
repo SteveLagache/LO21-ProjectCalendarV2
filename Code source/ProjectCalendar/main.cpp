@@ -27,7 +27,6 @@ int main(int argc, char* argv[]) {
     p.afficherTaches();
 
     ProjetManager& pm= ProjetManager::getInstance();
-    pm.ajouterProjet(&p);
     pm.afficherProjets();
     pm.afficherProjets();
 

@@ -12,12 +12,17 @@ class ProjetEditor : public QDialog
 {
     Q_OBJECT
 
+private:
+    Ui::ProjetEditor *ui;
+    Projet* projet;
+
 public:
     explicit ProjetEditor(QWidget *parent = 0, Projet *p = 0);
     ~ProjetEditor();
 
-private:
-    Ui::ProjetEditor *ui;
+public slots:
+    void sauvegarder();
+
 };
 
 #endif // PROJETEDITOR_H
