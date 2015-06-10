@@ -33,6 +33,7 @@ public:
     QVector<Projet*>& getProjets() {return projets;}
     void supprimerProjet(const QString& titre);
     void supprimerProjet(Projet* p);
+    void supprimerTache(const QString id);
     static ProjetManager& getInstance();
     void afficherProjets();
     void ajouterProjet(Projet *p);

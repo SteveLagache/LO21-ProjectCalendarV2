@@ -111,9 +111,7 @@ void ProjectCalendar::supprimerElement(){
         chargerArbre(ui->treeWidget);
     }
     else {
-       ////
-       /// supprimer tâche
-       ///
+       tm.supprimerTache(t);
        chargerArbre(ui->treeWidget);
     }
 

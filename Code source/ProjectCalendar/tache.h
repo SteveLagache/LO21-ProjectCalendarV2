@@ -44,7 +44,7 @@ protected:
 
 public:
 
-   // virtual ~Tache();
+    virtual ~Tache(){};
     virtual QString getType() const =0;
 
     QString getId() const {return id;}
@@ -87,7 +87,7 @@ public:
     TacheComposite(const QString& t, const QDate& dispo, const QDate& deadline):
         Tache(t, dispo, deadline){}
 
-   // ~TacheComposite();
+    ~TacheComposite();
 
     void afficherSousTaches();
 
@@ -96,6 +96,7 @@ public:
     * \param Tache* t: pointeur sur la tâche à ajouter
     */
     void ajouterSousTache(Tache* t);
+    void supprimerSousTache(const QString id);
 };
 
 
@@ -118,7 +119,7 @@ public:
     QString getType() const override {return "TacheUnitaire";}
     TacheUnitaire(const QString& t, const QDate& dispo, const QDate& deadline,const Duree& duree, bool preempt):
         Tache(t, dispo, deadline), duree(duree), preemptive(preempt){}
-   // ~TacheUnitaire();
+    ~TacheUnitaire(){};
     bool isPreemptive() const { return preemptive; }
     Duree getDuree() const {return duree;}
     void setDuree(const Duree& newDuree) {duree = newDuree;}

@@ -1,5 +1,6 @@
 #include "tachemanager.h"
 #include "outils.h"
+#include "projetmanager.h"
 
 
 
@@ -15,6 +16,32 @@ void TacheManager::ajouterTache(Tache* t){
         e.afficherWarning();
     }
 }
+
+
+
+void TacheManager::supprimerTache(const QString& id){
+
+    ProjetManager& pm = ProjetManager::getInstance();
+    pm.supprimerTache( id);
+
+    QVector<Tache*>::Iterator it= taches.begin();
+    int j=0;
+    while((it != taches.end()) && ((*it)->getId() != id)){
+            ++it;
+            j++;
+        }
+        if (it != taches.end()){
+           delete taches[j];
+           taches.remove(j);
+           }
+};
+
+
+void TacheManager::supprimerTache(Tache* t){
+    supprimerTache(t->getId());
+};
+
+
 
 
 QString TacheManager::genererNewId(){

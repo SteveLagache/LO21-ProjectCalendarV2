@@ -37,11 +37,13 @@ Projet::Projet(const QString& titre, const QDate& dispo, const QDate& deadline){
 
 
 
-//Projet::~Projet(){
-//    for (QList<Tache*>::Iterator it= taches.begin(); it != taches.end(); ++it){
-//        delete *it;
-//    }
-//}
+
+
+Projet::~Projet(){
+    while (taches.size() != 0){
+        supprimerTache(taches[0]->getId());
+    }
+}
 
 void Projet::ajouterTache(Tache* t){
     bool changement = false;
@@ -62,6 +64,22 @@ void Projet::ajouterTache(Tache* t){
 
     taches.push_back(t);
 }
+
+void Projet::supprimerTache(const QString id){
+        int i=0;
+        QList<Tache*>::Iterator it= taches.begin();
+        while((it != taches.end()) && ((*it)->getId() != id)){
+            if((*it)->getType()=="TacheComposite"){
+                TacheComposite* tc = dynamic_cast<TacheComposite*>(*it);
+                tc->supprimerSousTache(id);
+            }
+            ++it;
+            i++;
+        }
+        if (it != taches.end())
+           taches.removeAt(i);
+     }
+
 
 
 void Projet::afficherTaches(){

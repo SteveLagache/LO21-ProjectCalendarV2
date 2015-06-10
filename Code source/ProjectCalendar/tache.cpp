@@ -60,6 +60,22 @@ void TacheComposite::ajouterSousTache(Tache* t){
     sousTaches.push_back(t);
 }
 
+void TacheComposite::supprimerSousTache(const QString id){
+    int i=0;
+    QList<Tache*>::Iterator it= sousTaches.begin();
+    while((it != sousTaches.end()) && ((*it)->getId() != id)){
+        if((*it)->getType()=="TacheComposite"){
+            TacheComposite* tc = dynamic_cast<TacheComposite*>(*it);
+            tc->supprimerSousTache(id);
+        }
+        ++it;
+        i++;
+    }
+    if (it != sousTaches.end())
+       sousTaches.removeAt(i);
+};
+
+
 
 void TacheComposite::afficherSousTaches(){
     for (QList<Tache*>::Iterator it= sousTaches.begin(); it != sousTaches.end(); ++it){
@@ -70,3 +86,9 @@ void TacheComposite::afficherSousTaches(){
         }
     }
 }
+
+TacheComposite::~TacheComposite(){
+    while (sousTaches.size()){
+        supprimerSousTache(sousTaches[0]->getId());
+    }
+};

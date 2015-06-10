@@ -23,6 +23,8 @@ private:
 
 public:
     void ajouterTache(Tache* t);
+    void supprimerTache(const QString& id);
+    void supprimerTache(Tache* t);
     static TacheManager& getInstance();
 
     /**

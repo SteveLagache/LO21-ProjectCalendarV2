@@ -14,11 +14,6 @@ bool ProjetManager::isExistant(Projet *p){
 }
 
 
-void ProjetManager::supprimerProjet(Projet* p){
-    supprimerProjet(p->getTitre());
-};
-
-
 bool ProjetManager::isExistant(QString titre){
     for (QVector<Projet*>::Iterator it = projets.begin(); it!= projets.end(); ++it)
         if (titre == (*it)->getTitre()) return true;
@@ -35,6 +30,16 @@ void ProjetManager::ajouterProjet(const QString& titre, const QDate& dispo, cons
     Projet p(titre, dispo, deadline);
 }
 
+void ProjetManager::supprimerTache(const QString id){
+   for(QVector<Projet*>::iterator it = projets.begin(); it!=projets.end() ;it++){
+        (*it)->supprimerTache(id);
+    }
+}
+
+void ProjetManager::supprimerProjet(Projet* p){
+    supprimerProjet(p->getTitre());
+};
+
 
 void ProjetManager::supprimerProjet(const QString& titre){
     int i=0;
@@ -43,9 +48,10 @@ void ProjetManager::supprimerProjet(const QString& titre){
         ++it;
         i++;
     }
-    if (it == projets.end())
-        return;
-    else projets.remove(i);
+    if (it != projets.end()){
+        delete projets[i];
+        projets.remove(i);
+    }
 }
 
 void ProjetManager::afficherProjets(){
