@@ -33,8 +33,8 @@ public:
     * \param const QString& titre: titre du projet à supprimer
     */
     const QVector<Projet*>& getProjets() const {return projets;}
+    void supprimerProjet(Projet *projet);
     void supprimerProjet(const QString& titre);
-    void supprimerProjet(Projet* p);
     void supprimerTache(Tache *t);
     static ProjetManager& getInstance();
     void afficherProjets();

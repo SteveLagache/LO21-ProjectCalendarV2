@@ -14,6 +14,16 @@ TacheEditor::TacheEditor(QWidget *parent, Tache* t, Projet *_projetParent, Tache
     ui->setupUi(this);
     if (t == 0){
          ui->label_fenetre->setText("Création d'une nouvelle tâche");
+         if (tacheParent !=0){
+             ui->editDispo->setDate(tacheParent->getDateDisponibilite());
+             ui->editEcheance->setDate(tacheParent->getDateEcheance());
+         }
+         if (projetParent !=0){
+             ui->editDispo->setDate(projetParent->getDateDisponibilite());
+             ui->editEcheance->setDate(projetParent->getDateEcheance());
+         }
+         ui->editDureeHeures->setValue(1);
+         ui->editDureeMinutes->setValue(0);
     }
     else{
         QString newLabel = ui->label_fenetre->text();
@@ -78,6 +88,10 @@ void TacheEditor::sauvegarder(){
         TacheUnitaire* tu= tm.ajouterTacheUnitaire(ui->edit_titre->text(), ui->editDispo->date(),ui->editEcheance->date(),Duree(ui->editDureeHeures->value(),ui->editDureeMinutes->value()),ui->checkBoxPreemp->isChecked());
         if(projetParent != 0){
             projetParent->ajouterTache(tu);
+            QMessageBox::information(0, "Ajout réussi", "Votre tâche a bien été créée.");
+            close();
+            TacheEditor te(0, tu);
+            te.exec();
         }
         if (tacheParent != 0){
         TacheComposite* tc = dynamic_cast<TacheComposite*>(tacheParent);
@@ -98,10 +112,11 @@ void TacheEditor::sauvegarder(){
                         }
                         tacheParent=tc;
                     }
-
-
-
             tc->ajouterSousTache(tu);
+            QMessageBox::information(0, "Ajout réussi", "Votre tâche a bien été créée.");
+            close();
+            TacheEditor te(0, tu);
+            te.exec();
         }
     }
     else{
@@ -112,7 +127,7 @@ void TacheEditor::sauvegarder(){
             e.afficherWarning();
         }
         tache->setDatesDisponibiliteEcheance(ui->editDispo->date(), ui->editEcheance->date());
-        QMessageBox::information(0, "Modification réussie", "Votre tâche a été modifiée.");
+
         if(tache->getType()=="TacheUnitaire"){
             TacheUnitaire* tu= dynamic_cast<TacheUnitaire*>(tache);
             if (ui->checkBoxPreemp->isChecked()) tu->setPreemptive();
@@ -124,7 +139,7 @@ void TacheEditor::sauvegarder(){
                 e.afficherWarning();
             }
         }
-
+        QMessageBox::information(0, "Modification réussie", "Votre tâche a été modifiée.");
     }
 
 };

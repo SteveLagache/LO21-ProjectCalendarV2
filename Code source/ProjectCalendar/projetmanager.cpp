@@ -38,15 +38,16 @@ void ProjetManager::supprimerTache(Tache* t){
     }
 }
 
-void ProjetManager::supprimerProjet(Projet* p){
-    supprimerProjet(p->getTitre());
+void ProjetManager::supprimerProjet(const QString& titre){
+    Projet* p=trouverProjet(titre);
+    supprimerProjet(p);
 };
 
 
-void ProjetManager::supprimerProjet(const QString& titre){
+void ProjetManager::supprimerProjet(Projet* projet){
     int i=0;
-    QVector<Projet*>::Iterator it= projets.begin();
-    while((it != projets.end()) && ((*it)->getTitre() != titre)){
+    QVector<Projet*>::const_iterator it= projets.begin();
+    while((it != projets.end()) && ((*it) != projet)){
         ++it;
         i++;
     }

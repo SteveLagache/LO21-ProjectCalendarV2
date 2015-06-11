@@ -35,6 +35,8 @@ ProjectCalendar::~ProjectCalendar()
 
 void ProjectCalendar::chargerArbre(QTreeWidget* arbre){
     arbre->clear();
+    ui->buttonAjoutTache->setEnabled(false);
+    ui->buttonSupprimer->setEnabled(false);
     ProjetManager& pm= ProjetManager::getInstance();
     for (QVector<Projet*>::const_iterator it = pm.getProjets().begin(); it != pm.getProjets().end(); ++it){
         QStringList liste((*it)->getTitre());
@@ -43,7 +45,6 @@ void ProjectCalendar::chargerArbre(QTreeWidget* arbre){
         arbre->addTopLevelItem(projetItem);
         chargerTaches(projetItem, (*it));
     }
-
 };
 
 void ProjectCalendar::chargerTaches(QTreeWidgetItem* projetItem, Projet* projet){
@@ -107,13 +108,16 @@ void ProjectCalendar::supprimerElement(){
     QString id = ui->treeWidget->selectedItems()[0]->text(1);
     TacheManager& tm = TacheManager::getInstance();
     Tache* t = tm.trouverTache(id);
+    ProjetManager& pm = ProjetManager::getInstance();
     if (t == 0) {//Ce n'est pas une tâche ==> projet
-        ProjetManager& pm = ProjetManager::getInstance();
         pm.supprimerProjet(id);
+        QMessageBox::information(0, "Suppression réussie", "Votre projet a bien été supprimé.");
         chargerArbre(ui->treeWidget);
     }
     else {
+       pm.supprimerTache(t);
        tm.supprimerTache(t);
+       QMessageBox::information(0, "Suppression réussie", "Votre tâche a bien été supprimée.");
        chargerArbre(ui->treeWidget);
     }
 

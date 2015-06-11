@@ -46,11 +46,6 @@ void TacheManager::supprimerTache(const QString& id){
 
 
 void TacheManager::supprimerTache(Tache* t){
-    //supprimerTache(t->getId());
-   // ProjetManager& pm = ProjetManager::getInstance();
-   // pm.supprimerTache(t->getId());
-
-
     int index = taches.indexOf(t);
     if(index == -1) //Pas trouver
     {

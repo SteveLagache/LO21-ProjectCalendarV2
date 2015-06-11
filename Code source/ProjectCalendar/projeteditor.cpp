@@ -9,6 +9,9 @@ ProjetEditor::ProjetEditor(QWidget *parent, Projet* p) :
     projet =p;
     if (p == 0){
         ui->label_fenetre->setText("Création d'un nouveau projet");
+        QDate aujourdhui =QDate::currentDate();
+        ui->editDispo->setDate(aujourdhui);
+        ui->editEcheance->setDate(aujourdhui.addDays(7));
     }
     else {
         QString newLabel = ui->label_fenetre->text();
@@ -36,8 +39,11 @@ void ProjetEditor::sauvegarder(){
     ProjetManager& pm= ProjetManager::getInstance();
     if (projet == 0){ // CREATION
         try{
-            pm.ajouterProjet(ui->edit_titre->text(), ui->editDispo->date(),ui->editEcheance->date());
+            Projet* p = pm.ajouterProjet(ui->edit_titre->text(), ui->editDispo->date(),ui->editEcheance->date());
             QMessageBox::information(0, "Ajout réussi", "Votre nouveau projet a été créé.");
+            close();
+            ProjetEditor pe(0, p);
+            pe.exec();
         }
         catch(CalendarException e){
             e.afficherWarning();

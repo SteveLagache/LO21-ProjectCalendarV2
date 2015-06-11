@@ -134,12 +134,14 @@ void TacheComposite::afficherSousTaches(){
 
 TacheComposite::~TacheComposite(){
     while (sousTaches.size()){
-        supprimerSousTache(sousTaches[0]);
+        TacheManager& tm = TacheManager::getInstance();
+        tm.supprimerTache(sousTaches[0]);
     }
 };
 
 TacheUnitaire::~TacheUnitaire(){
-    QMessageBox::information(0, "COUcd","hghjg");
+    ProjetManager& pm = ProjetManager::getInstance();
+    pm.supprimerTache(this);
 };
 
 void TacheUnitaire::setDuree(const Duree& newDuree) {

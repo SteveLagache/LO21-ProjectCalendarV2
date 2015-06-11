@@ -94,7 +94,11 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_5">
        <item>
-        <widget class="QSpinBox" name="editDureeHeures"/>
+        <widget class="QSpinBox" name="editDureeHeures">
+         <property name="maximum">
+          <number>23</number>
+         </property>
+        </widget>
        </item>
        <item>
         <widget class="QLabel" name="label_heures">
@@ -104,7 +108,11 @@
         </widget>
        </item>
        <item>
-        <widget class="QSpinBox" name="editDureeMinutes"/>
+        <widget class="QSpinBox" name="editDureeMinutes">
+         <property name="maximum">
+          <number>59</number>
+         </property>
+        </widget>
        </item>
        <item>
         <widget class="QLabel" name="label_minutes">
@@ -152,6 +160,9 @@
       <widget class="QPushButton" name="buttonSauvegarder">
        <property name="text">
         <string>Sauvegarder</string>
+       </property>
+       <property name="default">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
