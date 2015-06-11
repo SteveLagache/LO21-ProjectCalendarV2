@@ -26,14 +26,15 @@ void ProjetManager::ajouterProjet(Projet* p){
         projets.push_back(p);
 }
 
-void ProjetManager::ajouterProjet(const QString& titre, const QDate& dispo, const QDate& deadline){
+Projet* ProjetManager::ajouterProjet(const QString& titre, const QDate& dispo, const QDate& deadline){
     Projet* p = new Projet(titre, dispo, deadline);
     ajouterProjet(p);
+    return p;
 }
 
-void ProjetManager::supprimerTache(const QString id){
+void ProjetManager::supprimerTache(Tache* t){
    for(QVector<Projet*>::iterator it = projets.begin(); it!=projets.end() ;it++){
-        (*it)->supprimerTache(id);
+        (*it)->supprimerTache(t);
     }
 }
 

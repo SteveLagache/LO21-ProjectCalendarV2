@@ -36,7 +36,7 @@ ProjectCalendar::~ProjectCalendar()
 void ProjectCalendar::chargerArbre(QTreeWidget* arbre){
     arbre->clear();
     ProjetManager& pm= ProjetManager::getInstance();
-    for (QVector<Projet*>::Iterator it = pm.getProjets().begin(); it != pm.getProjets().end(); ++it){
+    for (QVector<Projet*>::const_iterator it = pm.getProjets().begin(); it != pm.getProjets().end(); ++it){
         QStringList liste((*it)->getTitre());
         liste.push_back((*it)->getTitre());
         QTreeWidgetItem* projetItem = new QTreeWidgetItem(liste);
@@ -47,12 +47,13 @@ void ProjectCalendar::chargerArbre(QTreeWidget* arbre){
 };
 
 void ProjectCalendar::chargerTaches(QTreeWidgetItem* projetItem, Projet* projet){
-    for (QList<Tache*>::Iterator it = projet->getTaches().begin(); it != projet->getTaches().end(); ++it){
+    for (QList<Tache*>::const_iterator it = projet->getTaches().begin(); it != projet->getTaches().end(); ++it){
         QStringList liste((*it)->getTitre());
         liste.push_back((*it)->getId());
         QTreeWidgetItem* tacheItem = new QTreeWidgetItem(liste);
         QString str =(*it)->getTitre();
         projetItem->addChild(tacheItem);
+        qDebug() << (*it)->getType();
         if ((*it)->getType()=="TacheComposite")
             chargerTaches(tacheItem, dynamic_cast<TacheComposite*>(*it));
     }
@@ -60,7 +61,7 @@ void ProjectCalendar::chargerTaches(QTreeWidgetItem* projetItem, Projet* projet)
 
 
 void ProjectCalendar::chargerTaches(QTreeWidgetItem* projetItem, TacheComposite *tache){
-    for (QList<Tache*>::Iterator it = tache->getSousTaches().begin(); it != tache->getSousTaches().end(); ++it){
+    for (QList<Tache*>::const_iterator it = tache->getSousTaches().begin(); it != tache->getSousTaches().end(); ++it){
         QStringList liste((*it)->getTitre());
         liste.push_back((*it)->getId());
         QTreeWidgetItem* tacheItem = new QTreeWidgetItem(liste);

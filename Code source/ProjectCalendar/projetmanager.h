@@ -8,7 +8,9 @@
 
 #include <QVector>
 #include "projet.h"
+#include "tache.h"
 
+class Tache;
 class Projet;
 
 /**
@@ -30,14 +32,14 @@ public:
     * \brief Supprime un projet
     * \param const QString& titre: titre du projet à supprimer
     */
-    QVector<Projet*>& getProjets() {return projets;}
+    const QVector<Projet*>& getProjets() const {return projets;}
     void supprimerProjet(const QString& titre);
     void supprimerProjet(Projet* p);
-    void supprimerTache(const QString id);
+    void supprimerTache(Tache *t);
     static ProjetManager& getInstance();
     void afficherProjets();
     void ajouterProjet(Projet *p);
-    void ajouterProjet(const QString& titre, const QDate& dispo, const QDate& deadline);
+    Projet* ajouterProjet(const QString& titre, const QDate& dispo, const QDate& deadline);
     bool isExistant(QString titre);
     bool isExistant(Projet*p);
     Projet* trouverProjet(QString titre);

@@ -30,10 +30,10 @@ TacheEditor::TacheEditor(QWidget *parent, Tache* t, Projet *_projetParent, Tache
             ui->label_minutes->setEnabled(false);
             ui->label_heures->setEnabled(false);
             TacheComposite* tc = dynamic_cast<TacheComposite*>(t);
-            QString listeST= "Liste des sous-tâches de la tâche composite  \n \n CoucouS";
-            listeST += t->getId();
-            QList<Tache*>& ST=tc->getSousTaches();
-            for (QList<Tache*>::iterator it = ST.begin(); it!=ST.end(); it++){
+            QString listeST= "Liste des sous-tâches de la tâche composite ";
+            listeST += t->getId()+" :";
+            const QList<Tache*>& ST=tc->getSousTaches();
+            for (QList<Tache*>::const_iterator it = ST.begin(); it!=ST.end(); it++){
                 listeST += "\n";
                 listeST += (*it)->getId();
             }
@@ -80,16 +80,28 @@ void TacheEditor::sauvegarder(){
             projetParent->ajouterTache(tu);
         }
         if (tacheParent != 0){
-        try{
-            TacheComposite* tc= tm.ajouterTacheComposite(tacheParent->getTitre(),tacheParent->getDateDisponibilite(),tacheParent->getDateEcheance());
-            tacheParent=tm.remplacerTache(tacheParent, tc);
-            qDebug() << tacheParent->getType();
-            tc = dynamic_cast<TacheComposite*>(tacheParent);
+        TacheComposite* tc = dynamic_cast<TacheComposite*>(tacheParent);
+                if(tacheParent->getType() =="TacheUnitaire"){
+                    tc= tm.ajouterTacheComposite(tacheParent->getTitre(),tacheParent->getDateDisponibilite(),tacheParent->getDateEcheance());
+                    Tache* old=tacheParent;
+                    TacheComposite* tacheMere =tacheParent->getTacheMere();
+                        if (tacheMere != 0){
+                            tacheMere->supprimerSousTache(old);
+                            tacheMere->ajouterSousTache(tc);
+                            tm.supprimerTache(old);
+                        }
+                        else{
+                            Projet* projetPere= tacheParent->getProjetPere();
+                            projetPere->supprimerTache(old);
+                            projetPere->ajouterTache(tc);
+                            tm.supprimerTache(old);
+                        }
+                        tacheParent=tc;
+                    }
+
+
+
             tc->ajouterSousTache(tu);
-        }
-        catch(CalendarException e){
-            e.afficherWarning();
-        }
         }
     }
     else{

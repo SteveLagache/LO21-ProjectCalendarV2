@@ -10,6 +10,8 @@
 #include "tache.h"
 #include "projetmanager.h"
 
+class Tache;
+
 /**
  * \class Projet
  * \brief Projet
@@ -44,7 +46,7 @@ public:
     QDate getDateDisponibilite() const { return disponibilite; }
     QDate getDateEcheance() const { return echeance; }
 
-    void supprimerTache(const QString id);
+    void supprimerTache(Tache*t);
 
     /**
     * \brief Vérifie que (date dispo < date échéance) avant de les appliquer au projet
@@ -61,6 +63,7 @@ public:
     *
     */
     void ajouterTache(Tache* t);
+    bool contientTache(Tache* t);
 
 };
 

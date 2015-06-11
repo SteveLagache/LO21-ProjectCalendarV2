@@ -10,7 +10,10 @@
 #include <QDate>
 #include <QList>
 #include "time.h"
-//#include "tachemanager.h"
+#include "projetmanager.h"
+
+class Projet;
+class TacheComposite;
 
 
 /**
@@ -57,6 +60,9 @@ public:
     QDate getDateDisponibilite() const { return disponibilite; }
     QDate getDateEcheance() const { return echeance; }
 
+    TacheComposite *getTacheMere();
+    Projet* getProjetPere();
+
     /**
     * \brief Vérifie que (date dispo < date échéance) avant de les appliquer à la tache
     * \param const QDate& dispo : date de disponibilité de la tache,
@@ -89,7 +95,7 @@ private:
 public:
     QString getType() const override {return "TacheComposite";}
 
-    QList<Tache*>& getSousTaches() {return sousTaches;}
+    const QList<Tache*>& getSousTaches() const {return sousTaches;}
 
 
     void afficherSousTaches();
@@ -99,8 +105,12 @@ public:
     * \param Tache* t: pointeur sur la tâche à ajouter
     */
     void ajouterSousTache(Tache* t);
-    void supprimerSousTache(const QString id);
+    void supprimerSousTache(Tache *t);
+
+    bool contientFils(Tache *t);
+    bool contientDescendant(Tache *t);
 };
+
 
 
 
@@ -127,12 +137,12 @@ private:
 public:
     QString getType() const override {return "TacheUnitaire";}
 
-
     bool isPreemptive() const { return preemptive; }
     Duree getDuree() const {return duree;}
     void setDuree(const Duree& newDuree) ;
     void setPreemptive() { preemptive=true; }
     void setNonPreemptive() { preemptive=false; }
+
 
 };
 

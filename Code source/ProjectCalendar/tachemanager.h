@@ -23,6 +23,9 @@ private:
 
 public:
     TacheComposite* ajouterTacheComposite(const QString& titre, QDate debut, QDate fin);
+
+    const QVector<Tache*>& getTaches() const {return taches;}
+
     TacheUnitaire* ajouterTacheUnitaire(const QString& titre, QDate debut, QDate fin, Duree duree, bool preemp);
     void ajouterTache(Tache* t);
     void supprimerTache(const QString& id);

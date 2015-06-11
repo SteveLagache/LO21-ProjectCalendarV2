@@ -32,9 +32,6 @@ TacheUnitaire* TacheManager::ajouterTacheUnitaire(const QString& titre, QDate de
 
 void TacheManager::supprimerTache(const QString& id){
 
-    ProjetManager& pm = ProjetManager::getInstance();
-    pm.supprimerTache(id);
-
     QVector<Tache*>::Iterator it= taches.begin();
     int j=0;
     while((it != taches.end()) && ((*it)->getId() != id)){
@@ -50,6 +47,9 @@ void TacheManager::supprimerTache(const QString& id){
 
 void TacheManager::supprimerTache(Tache* t){
     //supprimerTache(t->getId());
+   // ProjetManager& pm = ProjetManager::getInstance();
+   // pm.supprimerTache(t->getId());
+
 
     int index = taches.indexOf(t);
     if(index == -1) //Pas trouver
@@ -59,6 +59,7 @@ void TacheManager::supprimerTache(Tache* t){
     }
     qDebug() << index;
     taches.remove(index);
+    qDebug() << "Tache supprimée";
 };
 
 
@@ -106,11 +107,9 @@ Tache* TacheManager::trouverTache(QString id){
 
 
 Tache* TacheManager::remplacerTache(Tache* t, Tache* t2){
-    Tache* old = t;
-    QString oldId = t->getId();
+    Tache* old =t;
     t = t2;
     supprimerTache(old);
-    t->setId(oldId);
     return t;
 };
 

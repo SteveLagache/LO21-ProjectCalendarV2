@@ -1,6 +1,7 @@
 #include "tache.h"
 #include "exception.h"
 #include "tachemanager.h"
+#include "projetmanager.h"
 
 Tache::Tache(const QString& titre, const QDate& dispo, const QDate& deadline){
     TacheManager& tm = TacheManager::getInstance();
@@ -23,8 +24,56 @@ void Tache::setDatesDisponibiliteEcheance(const QDate& disp, const QDate& e) {
     else echeance=e;
 
     disponibilite=disp;
-
 }
+
+
+
+TacheComposite* Tache::getTacheMere(){
+    TacheManager& tm = TacheManager::getInstance();
+    const QVector<Tache*>& taches = tm.getTaches();
+    for (QVector<Tache*>::const_iterator it = taches.begin(); it!= taches.end(); it++){
+        if ((*it)->getType()== "TacheComposite")
+        {
+            TacheComposite* tc = dynamic_cast<TacheComposite*>(*it);
+            const QList<Tache*>& sousTaches = tc->getSousTaches();
+            for (QList<Tache*>::const_iterator it2= sousTaches.begin(); it2!=sousTaches.end(); it2++){
+                if ((*it2)==this) return dynamic_cast<TacheComposite*>(*it);
+            }
+        }
+    }
+    return 0;
+};
+
+Projet* Tache::getProjetPere(){
+    ProjetManager& pm= ProjetManager::getInstance();
+    for (QVector<Projet*>::const_iterator it= pm.getProjets().begin(); it!=pm.getProjets().end(); it++)
+    {
+        if ((*it)->contientTache(this)) return (*it);
+    }
+    return 0;
+};
+
+bool TacheComposite::contientFils(Tache * t){
+    for (QList<Tache*>::iterator it = sousTaches.begin(); it != sousTaches.end(); it++){
+        if ((*it) == t)
+            return true;
+    }
+    return false;
+}
+
+bool TacheComposite::contientDescendant(Tache * t){
+    bool retour = false;
+    for (QList<Tache*>::const_iterator it = sousTaches.begin(); it != sousTaches.end(); it++){
+        if ((*it) == t)
+            return true;
+        else if((*it)->getType()=="TacheComposite"){
+            TacheComposite* tc= dynamic_cast<TacheComposite*>(*it);
+            retour = tc->contientDescendant(t);
+            if (retour == true)return true;
+        }
+    }
+    return false;
+};
 
 
 //Tache::~Tache(){};
@@ -57,13 +106,13 @@ void TacheComposite::ajouterSousTache(Tache* t){
     sousTaches.push_back(t);
 }
 
-void TacheComposite::supprimerSousTache(const QString id){
+void TacheComposite::supprimerSousTache(Tache* t){
     int i=0;
     QList<Tache*>::Iterator it= sousTaches.begin();
-    while((it != sousTaches.end()) && ((*it)->getId() != id)){
+    while((it != sousTaches.end()) && ((*it)!= t)){
         if((*it)->getType()=="TacheComposite"){
             TacheComposite* tc = dynamic_cast<TacheComposite*>(*it);
-            tc->supprimerSousTache(id);
+            tc->supprimerSousTache(t);
         }
         ++it;
         i++;
@@ -85,7 +134,7 @@ void TacheComposite::afficherSousTaches(){
 
 TacheComposite::~TacheComposite(){
     while (sousTaches.size()){
-        supprimerSousTache(sousTaches[0]->getId());
+        supprimerSousTache(sousTaches[0]);
     }
 };
 
