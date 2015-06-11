@@ -50,6 +50,29 @@ void TacheComposite::descendreSousTache(Tache *t){
     else throw CalendarException("La tâche à monter n'appartient pas au projet");
 };
 
+QList<Tache*> Tache::getTachesPrecedentes(){
+    QList<Tache*> tachesPrecedentes;
+    Tache* tacheMere =getTacheMere();
+
+    int i=0;
+    if(tacheMere ==0){
+        Projet* p = getProjetPere();
+        while (p->getTaches()[i] != this ){
+            tachesPrecedentes.push_back(p->getTaches()[i]);
+            i++;
+        }
+        return tachesPrecedentes;
+    }
+    else{
+        TacheComposite* t = dynamic_cast<TacheComposite*>(tacheMere);
+        while (t->getSousTaches()[i] != this ){
+            tachesPrecedentes.push_back(t->getSousTaches()[i]);
+            i++;
+        }
+        return tachesPrecedentes;
+        }
+  return tachesPrecedentes;
+};
 
 
 TacheComposite* Tache::getTacheMere(){

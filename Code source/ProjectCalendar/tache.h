@@ -69,6 +69,8 @@ public:
     * const QDate& deadline : date d'échéance de la tache
     */
     void setDatesDisponibiliteEcheance(const QDate& disp, const QDate& e);
+
+    QList<Tache*> getTachesPrecedentes();
 };
 
 
@@ -100,7 +102,6 @@ public:
     void monterSousTache(Tache *t);
 
     void descendreSousTache(Tache *t);
-
 
     void afficherSousTaches();
 

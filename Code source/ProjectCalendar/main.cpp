@@ -16,10 +16,17 @@ int main(int argc, char* argv[]) {
     TacheComposite* tc3= tm.ajouterTacheComposite("test3",QDate(2000,1,1), QDate(2010,1,1));
     Tache* tu= tm.ajouterTacheUnitaire("test",QDate(2000,1,1), QDate(2010,1,1), Duree(2,0), false);
     tc->ajouterSousTache(tc2);
-    tc3->ajouterSousTache(tu);
-    tc2->ajouterSousTache(tc3);
-    qDebug()<< tc->contientFils(tu) << tc->contientDescendant(tu);
-    qDebug()<< tu->getTacheMere()->getTitre();
+    tc->ajouterSousTache(tu);
+    tc->ajouterSousTache(tc3);
+
+    QList<Tache*> liste= tu->getTachesPrecedentes();
+    for(QList<Tache*>::const_iterator it = liste.begin(); it != liste.end(); it++)
+        qDebug()<< (*it)->getTitre();
+
+    QList<Tache*> liste2= tc3->getTachesPrecedentes();
+    for(QList<Tache*>::const_iterator it = liste2.begin(); it != liste2.end(); it++)
+        qDebug()<< (*it)->getTitre();
+
 
     ProjetManager& pm=ProjetManager::getInstance();
     Projet* p= pm.ajouterProjet("projet", QDate(2000,1,1), QDate(2010,1,1));
