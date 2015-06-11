@@ -22,6 +22,10 @@ ProjectCalendar::ProjectCalendar(QWidget *parent) :
     QObject::connect(ui->buttonAjoutProjet, SIGNAL(clicked()), this, SLOT(ajouterProjet()));
     QObject::connect(ui->buttonAjoutTache, SIGNAL(clicked()), this, SLOT(ajouterTache()));
     QObject::connect(ui->buttonSupprimer, SIGNAL(clicked()), this, SLOT(supprimerElement()));
+    QObject::connect(ui->monter, SIGNAL(clicked()), this, SLOT(monterTache()));
+    QObject::connect(ui->descendre, SIGNAL(clicked()), this, SLOT(descendreTache()));
+    QObject::connect(ui->treeWidget, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(disablePourProjet()));
+
 
 //    QTreeWidgetItem* projet = new QTreeWidgetItem("Projet");
 //    projet->addChild();
@@ -123,6 +127,58 @@ void ProjectCalendar::supprimerElement(){
 
 };
 
+void ProjectCalendar::monterTache(){
+    QString id = ui->treeWidget->selectedItems()[0]->text(1);
+    TacheManager& tm = TacheManager::getInstance();
+    Tache* t = tm.trouverTache(id);
+    TacheComposite* tacheMere = t->getTacheMere();
+    if (tacheMere == 0){
+       Projet* projetPere = t->getProjetPere();
+       try{
+            projetPere->monterPrecedence(t);
+            chargerArbre(ui->treeWidget);
+       }
+       catch(CalendarException e){
+           e.afficherWarning();
+       }
+    }
+    else {
+        try{
+             tacheMere->monterSousTache(t);
+             chargerArbre(ui->treeWidget);
+        }
+        catch(CalendarException e){
+            e.afficherWarning();
+        }
+    }
+};
+
+void ProjectCalendar::descendreTache(){
+    QString id = ui->treeWidget->selectedItems()[0]->text(1);
+    TacheManager& tm = TacheManager::getInstance();
+    Tache* t = tm.trouverTache(id);
+    TacheComposite* tacheMere = t->getTacheMere();
+    if (tacheMere == 0){
+       Projet* projetPere = t->getProjetPere();
+       try{
+            projetPere->descendrePrecedence(t);
+            chargerArbre(ui->treeWidget);
+       }
+       catch(CalendarException e){
+           e.afficherWarning();
+       }
+    }
+    else {
+        try{
+             tacheMere->descendreSousTache(t);
+             chargerArbre(ui->treeWidget);
+        }
+        catch(CalendarException e){
+            e.afficherWarning();
+        }
+    }
+};
+
 void ProjectCalendar::ajouterProjet(){
     ProjetEditor pe(0,0);
     pe.exec();
@@ -147,3 +203,33 @@ void ProjectCalendar::ajouterTache(){
     }
 
 };
+
+void ProjectCalendar::disablePourProjet(){
+    QString id = ui->treeWidget->selectedItems()[0]->text(1);
+    TacheManager& tm = TacheManager::getInstance();
+    Tache* t = tm.trouverTache(id);
+    if (t == 0) {//Ce n'est pas une tâche ==> projet
+       ui->monter->setEnabled(false);
+       ui->descendre->setEnabled(false);
+    }
+    else{
+        TacheComposite* tacheMere = t->getTacheMere();
+        if (tacheMere == 0){
+           Projet* projetPere = t->getProjetPere();
+           if (t == projetPere->getTaches()[0])
+               ui->monter->setEnabled(false);
+           else ui->monter->setEnabled(true);
+           if (t == projetPere->getTaches()[projetPere->getTaches().size()-1])
+               ui->descendre->setEnabled(false);
+           else ui->descendre->setEnabled(true);
+        }
+        else{
+            if (t == tacheMere->getSousTaches()[0])
+                ui->monter->setEnabled(false);
+            else ui->monter->setEnabled(true);
+            if (t == tacheMere->getSousTaches()[tacheMere->getSousTaches().size()-1])
+                ui->descendre->setEnabled(false);
+            else ui->descendre->setEnabled(true);
+        }
+    }
+}

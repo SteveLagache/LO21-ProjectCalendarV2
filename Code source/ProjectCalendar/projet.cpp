@@ -94,6 +94,31 @@ void Projet::supprimerTache(Tache * t){
      }
 
 
+void Projet::monterPrecedence(Tache *t){
+    if (taches[0] ==  t) throw CalendarException("Cette tâche ne peut pas être plus prioritaire");
+    int i= 1;
+    while(i < taches.size()-1 && taches[i] !=  t){
+        i++;
+    }
+    if (taches[i] ==  t){
+        taches.swap(i-1, i);
+    }
+    else throw CalendarException("La tâche à monter n'appartient pas au projet");
+}
+
+
+void Projet::descendrePrecedence(Tache *t){
+    if (taches[taches.size()-1] ==  t) throw CalendarException("Cette tâche ne peut pas être moins prioritaire");
+    int i= 0;
+    while(i < taches.size()-2 && taches[i] !=  t){
+        i++;
+    }
+    if (taches[i] ==  t){
+        taches.swap(i, i+1);
+    }
+    else throw CalendarException("La tâche à monter n'appartient pas au projet");
+};
+
 
 void Projet::afficherTaches(){
     for (QList<Tache*>::Iterator it= taches.begin(); it != taches.end(); ++it){

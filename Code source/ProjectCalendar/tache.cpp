@@ -26,6 +26,30 @@ void Tache::setDatesDisponibiliteEcheance(const QDate& disp, const QDate& e) {
     disponibilite=disp;
 }
 
+void TacheComposite::monterSousTache(Tache *t){
+        if (sousTaches[0] ==  t) throw CalendarException("Cette tâche ne peut pas être plus prioritaire");
+        int i= 1;
+        while(i < sousTaches.size()-1 && sousTaches[i] !=  t){
+            i++;
+        }
+        if (sousTaches[i] ==  t){
+            sousTaches.swap(i-1, i);
+        }
+        else throw CalendarException("La sous-tâche à monter n'appartient pas à la tâches");
+}
+
+void TacheComposite::descendreSousTache(Tache *t){
+    if (sousTaches[sousTaches.size()-1] ==  t) throw CalendarException("Cette tâche ne peut pas être moins prioritaire");
+    int i= 0;
+    while(i < sousTaches.size()-2 && sousTaches[i] !=  t){
+        i++;
+    }
+    if (sousTaches[i] ==  t){
+        sousTaches.swap(i, i+1);
+    }
+    else throw CalendarException("La tâche à monter n'appartient pas au projet");
+};
+
 
 
 TacheComposite* Tache::getTacheMere(){

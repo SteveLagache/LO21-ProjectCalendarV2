@@ -97,6 +97,10 @@ public:
 
     const QList<Tache*>& getSousTaches() const {return sousTaches;}
 
+    void monterSousTache(Tache *t);
+
+    void descendreSousTache(Tache *t);
+
 
     void afficherSousTaches();
 

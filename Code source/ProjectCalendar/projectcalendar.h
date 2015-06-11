@@ -52,6 +52,9 @@ public slots:
       void ajouterProjet();
       void ajouterTache();
       void supprimerElement();
+      void monterTache();
+      void descendreTache();
+      void disablePourProjet();
 
 
 };

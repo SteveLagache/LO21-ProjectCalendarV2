@@ -48,6 +48,10 @@ public:
 
     void supprimerTache(Tache*t);
 
+    void monterPrecedence(Tache *t);
+    void descendrePrecedence(Tache *t);
+
+
     /**
     * \brief Vérifie que (date dispo < date échéance) avant de les appliquer au projet
     * \param const QDate& dispo : date de disponibilité du projet,
