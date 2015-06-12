@@ -15,13 +15,13 @@ SOURCES += \
     outils.cpp \
     tacheeditor.cpp \
     projeteditor.cpp \
-    time.cpp
+    time.cpp \
 
 FORMS += \
     projectcalendar.ui \
     weekcalendar.ui \
     tacheeditor.ui \
-    projeteditor.ui
+    projeteditor.ui \
 
 HEADERS += \
     projectcalendar.h \

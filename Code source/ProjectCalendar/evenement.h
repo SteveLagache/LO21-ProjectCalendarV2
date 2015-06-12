@@ -92,7 +92,7 @@ public :
  */
 class EvenementTache : public Evenement {
 private :
-   QString idTache;
+   Tache* tache;
 public :
     // EvenementTache(const QString& t, const QString& pers, const QDateTime& d, const QDateTime& f, const QString id) :
     //  Evenement(t, pers, d, f), idTache(id) {}
@@ -104,10 +104,9 @@ public :
    * Tache* t : Tâche à programmer (contenant titre et id)
    */
     EvenementTache(const QString& pers, const QDateTime& d, const QDateTime& f, Tache* t) :
-       Evenement(t->getTitre(), pers, d, f) {
-        idTache=t->getId();
-    }
-    QString getIdTache() const { return idTache; }
+            Evenement(t->getTitre(), pers, d, f), tache(t){}
+
+    Tache* getTache() const { return tache; }
     ~EvenementTache(){}
     QString getType() const {return "EvenementTache";}
 };
