@@ -54,7 +54,8 @@ public slots:
       void supprimerElement();
       void monterTache();
       void descendreTache();
-      void disablePourProjet();
+      void enableFleches();
+      void enableProgrammer();
 
 
 };

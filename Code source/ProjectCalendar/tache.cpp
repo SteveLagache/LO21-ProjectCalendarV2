@@ -164,9 +164,27 @@ void TacheComposite::supprimerSousTache(Tache* t){
         ++it;
         i++;
     }
-    if (it != sousTaches.end())
+    if (it != sousTaches.end()){
        sousTaches.removeAt(i);
-};
+//       if (sousTaches.size()==0){
+//           TacheManager& tm = TacheManager::getInstance();
+//           TacheUnitaire* tu = tm.ajouterTacheUnitaire(t->getTitre(), t->getDateDisponibilite(), t->getDateDisponibilite(), Duree(1,0), false);
+//           TacheComposite* tacheMere = this->getTacheMere();
+//           if (tacheMere != 0){
+//               tacheMere->ajouterSousTache(tu);
+//               tacheMere->supprimerSousTache(this);
+//               return ;
+//           }
+//           else{
+//               Projet * p = this->getProjetPere();
+//               p->ajouterTache(tu);
+//               p->supprimerTache(this);
+//               return;
+//           }
+
+
+       }
+    }
 
 
 void TacheComposite::afficherSousTaches(){

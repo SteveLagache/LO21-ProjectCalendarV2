@@ -24,7 +24,8 @@ ProjectCalendar::ProjectCalendar(QWidget *parent) :
     QObject::connect(ui->buttonSupprimer, SIGNAL(clicked()), this, SLOT(supprimerElement()));
     QObject::connect(ui->monter, SIGNAL(clicked()), this, SLOT(monterTache()));
     QObject::connect(ui->descendre, SIGNAL(clicked()), this, SLOT(descendreTache()));
-    QObject::connect(ui->treeWidget, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(disablePourProjet()));
+    QObject::connect(ui->treeWidget, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(enableFleches()));
+    QObject::connect(ui->treeWidget, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(enableProgrammer()));
 
 
 //    QTreeWidgetItem* projet = new QTreeWidgetItem("Projet");
@@ -204,7 +205,7 @@ void ProjectCalendar::ajouterTache(){
 
 };
 
-void ProjectCalendar::disablePourProjet(){
+void ProjectCalendar::enableFleches(){
     QString id = ui->treeWidget->selectedItems()[0]->text(1);
     TacheManager& tm = TacheManager::getInstance();
     Tache* t = tm.trouverTache(id);
@@ -232,4 +233,17 @@ void ProjectCalendar::disablePourProjet(){
             else ui->descendre->setEnabled(true);
         }
     }
+}
+
+void ProjectCalendar::enableProgrammer(){
+    QString id = ui->treeWidget->selectedItems()[0]->text(1);
+    TacheManager& tm = TacheManager::getInstance();
+    Tache* t = tm.trouverTache(id);
+    if (t == 0) {//Ce n'est pas une tâche ==> projet
+       ui->buttonProgrammer->setEnabled(false);
+    }
+    else{
+        if (t->getType()=="TacheUnitaire") ui->buttonProgrammer->setEnabled(true);
+        else ui->buttonProgrammer->setEnabled(false);
+        }
 }
