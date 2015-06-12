@@ -2,6 +2,7 @@
 #define WEEKCALENDAR_H
 
 #include <QWidget>
+#include <QDate>
 
 /*!
  * \file weekcalendar.h
@@ -24,11 +25,22 @@ class WeekCalendar : public QWidget
     Q_OBJECT
 
 public:
-    explicit WeekCalendar(QWidget *parent = 0);
+    explicit WeekCalendar(QWidget *parent = 0, QDate date = QDate::currentDate());
     ~WeekCalendar();
+
 
 private:
     Ui::WeekCalendar *ui;
+    QDate dateDebutSemaine;
+
+
+public slots:
+
+    void augmenterDate();
+    void reduireDate();
+    void updateDateLundi();
+    void updateDateDimanche();
+
 };
 
 #endif // WEEKCALENDAR_H

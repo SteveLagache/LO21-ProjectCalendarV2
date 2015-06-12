@@ -27,7 +27,7 @@
        <item>
         <layout class="QHBoxLayout" name="jours">
          <item>
-          <widget class="QToolButton" name="toolButton">
+          <widget class="QToolButton" name="flecheGauche">
            <property name="text">
             <string>...</string>
            </property>
@@ -47,7 +47,28 @@
           </widget>
          </item>
          <item>
-          <widget class="QDateEdit" name="dateLundi"/>
+          <widget class="QDateEdit" name="dateLundi">
+           <property name="maximumDate">
+            <date>
+             <year>4000</year>
+             <month>12</month>
+             <day>31</day>
+            </date>
+           </property>
+           <property name="displayFormat">
+            <string>dd/MM/yyyy</string>
+           </property>
+           <property name="calendarPopup">
+            <bool>true</bool>
+           </property>
+           <property name="date">
+            <date>
+             <year>2015</year>
+             <month>1</month>
+             <day>15</day>
+            </date>
+           </property>
+          </widget>
          </item>
          <item>
           <widget class="QLabel" name="label">
@@ -60,10 +81,14 @@
           </widget>
          </item>
          <item>
-          <widget class="QDateEdit" name="dateDimanche"/>
+          <widget class="QDateEdit" name="dateDimanche">
+           <property name="calendarPopup">
+            <bool>true</bool>
+           </property>
+          </widget>
          </item>
          <item>
-          <widget class="QToolButton" name="toolButton_2">
+          <widget class="QToolButton" name="flecheDroite">
            <property name="text">
             <string>...</string>
            </property>
