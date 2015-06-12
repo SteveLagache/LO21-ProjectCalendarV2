@@ -42,6 +42,9 @@ void ProjectCalendar::chargerArbre(QTreeWidget* arbre){
     arbre->clear();
     ui->buttonAjoutTache->setEnabled(false);
     ui->buttonSupprimer->setEnabled(false);
+    ui->monter->setEnabled(false);
+    ui->descendre->setEnabled(false);
+    ui->buttonProgrammer->setEnabled(false);
     ProjetManager& pm= ProjetManager::getInstance();
     for (QVector<Projet*>::const_iterator it = pm.getProjets().begin(); it != pm.getProjets().end(); ++it){
         QStringList liste((*it)->getTitre());

@@ -34,6 +34,7 @@ int main(int argc, char* argv[]) {
     qDebug() <<p->contientTache(tc)<< p->contientTache(tu);
 
     ProjectCalendar projectCalendar;
+    projectCalendar.showMaximized();
     projectCalendar.show();
 
     return app.exec();

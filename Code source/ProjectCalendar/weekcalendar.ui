@@ -27,7 +27,50 @@
        <item>
         <layout class="QHBoxLayout" name="jours">
          <item>
-          <widget class="QSpinBox" name="spinBox"/>
+          <widget class="QToolButton" name="toolButton">
+           <property name="text">
+            <string>...</string>
+           </property>
+           <property name="arrowType">
+            <enum>Qt::LeftArrow</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Semaine du : </string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QDateEdit" name="dateLundi"/>
+         </item>
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>au : </string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QDateEdit" name="dateDimanche"/>
+         </item>
+         <item>
+          <widget class="QToolButton" name="toolButton_2">
+           <property name="text">
+            <string>...</string>
+           </property>
+           <property name="arrowType">
+            <enum>Qt::RightArrow</enum>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
@@ -444,16 +487,16 @@
      <item>
       <layout class="QHBoxLayout" name="calendrierBottom">
        <item>
-        <widget class="QPushButton" name="pushButton_4">
+        <widget class="QPushButton" name="buttonProgrammerActivite">
          <property name="text">
-          <string>Ajouter évènement</string>
+          <string>Programmer une tâche</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_3">
+        <widget class="QPushButton" name="buttonProgrammerTache">
          <property name="text">
-          <string>Blabla</string>
+          <string>Programmer une activité</string>
          </property>
         </widget>
        </item>
