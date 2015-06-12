@@ -512,14 +512,14 @@
      <item>
       <layout class="QHBoxLayout" name="calendrierBottom">
        <item>
-        <widget class="QPushButton" name="buttonProgrammerActivite">
+        <widget class="QPushButton" name="buttonProgrammerTache">
          <property name="text">
           <string>Programmer une tâche</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="buttonProgrammerTache">
+        <widget class="QPushButton" name="buttonProgrammerActivite">
          <property name="text">
           <string>Programmer une activité</string>
          </property>

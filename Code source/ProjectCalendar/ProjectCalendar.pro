@@ -16,14 +16,16 @@ SOURCES += \
     tacheeditor.cpp \
     projeteditor.cpp \
     time.cpp \
-    evenementeditor.cpp
+    evenementsimpleeditor.cpp \
+    evenementtacheeditor.cpp
 
 FORMS += \
     projectcalendar.ui \
     weekcalendar.ui \
     tacheeditor.ui \
     projeteditor.ui \
-    evenementeditor.ui
+    evenementsimpleeditor.ui \
+    evenementtacheeditor.ui
 
 HEADERS += \
     projectcalendar.h \
@@ -39,5 +41,6 @@ HEADERS += \
     outils.h \
     tacheeditor.h \
     projeteditor.h \
-    evenementeditor.h
+    evenementsimpleeditor.h \
+    evenementtacheeditor.h
 
