@@ -1,8 +1,9 @@
 #include "weekcalendar.h"
 #include "ui_weekcalendar.h"
 #include <QtDebug>
-#include  <evenementsimpleeditor.h>
-#include  <evenementtacheeditor.h>
+#include  "evenementsimpleeditor.h"
+#include  "evenementtacheeditor.h"
+#include "tacheprogrammeur.h"
 
 WeekCalendar::WeekCalendar(QWidget *parent, QDate date) :
     QWidget(parent),
@@ -57,8 +58,8 @@ void WeekCalendar::ajouterActivite()
 
 void WeekCalendar::programmerTache()
 {
-    EvenementTacheEditor ete(0,0);
-    ete.exec();
+    TacheProgrammeur tp;
+    tp.exec();
 }
 
 void WeekCalendar::augmenterDate(){
