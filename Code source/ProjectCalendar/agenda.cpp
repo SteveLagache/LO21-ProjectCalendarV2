@@ -1,11 +1,11 @@
 #include <agenda.h>
-
+#include <outils.h>
 
 Agenda* Agenda::instance = 0;
 
-bool Agenda::isExistant(Evenement* e){
+bool Agenda::isExistant(QString id ){
     for (QList<Evenement*>::Iterator it = listeEvts.begin(); it!= listeEvts.end(); ++it)
-        if (e == *it) return true;
+        if (id == (*it)->getId()) return true;
     return false;
 }
 
@@ -13,8 +13,8 @@ bool Agenda::isExistant(Evenement* e){
 // vérifier contraintes de dates dans iterator (avec insert)
 void Agenda::ajouterEvenement(Evenement* e){
     try {
-        if (isExistant(e))
-            throw CalendarException("Un évènement porte déjà ce nom. L'évènement n'a pas été créé.");
+        if (isExistant(e->getId()))
+            throw CalendarException("Cet évènement a déjà été ajouté à l'agenda");
         else listeEvts.push_back(e);
     }
     catch(CalendarException e){
@@ -22,11 +22,31 @@ void Agenda::ajouterEvenement(Evenement* e){
     }
 }
 
+EvenementSimple *Agenda::ajouterEvenementSimple(const QString &t, const QString &pers, const QDateTime &d, const QDateTime &f, const QString& lieu)
+{
+    EvenementSimple* e = new EvenementSimple(t, pers, d, f, lieu);
+    ajouterEvenement(e);
+    return e;
+}
+
+EvenementTache *Agenda::ajouterEvenementTache(const QString &pers, const QDateTime &d, const QDateTime &f, Tache* tache)
+{
+    EvenementTache* e = new EvenementTache(pers, d, f, tache);
+    ajouterEvenement(e);
+    return e;
+}
+
+QString Agenda::genererNewId(){
+    QString newId;
+    do  { newId = randomString(5);
+        } while (isExistant(newId));
+    return newId;
+}
 
 void Agenda::supprimerEvenement(Evenement* e){
     int i=0;
     QList<Evenement*>::Iterator it= listeEvts.begin();
-    while((it != listeEvts.end()) && (*it != e)){
+    while((it != listeEvts.end()) && ((*it) != e)){
         ++it;
         i++;
     }
@@ -72,8 +92,4 @@ Agenda& Agenda::getInstance(){
 
 Agenda::Agenda(){}
 
-Agenda::~Agenda(){
-     for (QList<Evenement*>::Iterator it = listeEvts.begin(); it!= listeEvts.end(); ++it)
-         delete (*it);
-};
 

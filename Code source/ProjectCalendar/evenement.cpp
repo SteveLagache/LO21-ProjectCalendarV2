@@ -1,7 +1,9 @@
-#include "evenement.h"
+#include "agenda.h"
 
 
 Evenement::Evenement(const QString& t, const QString& pers, const QDateTime& d, const QDateTime& f) {
+    Agenda a = Agenda::getInstance();
+    id = a.genererNewId();
     titre = t;
     personnes = pers;
     setDatesDebutFin(d, f);

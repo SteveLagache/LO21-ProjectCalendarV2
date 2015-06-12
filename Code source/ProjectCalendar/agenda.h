@@ -23,7 +23,7 @@ private:
     // Liste chainée de pointeurs d'évènements
     static Agenda* instance;
     Agenda();
-    ~Agenda();
+    //~Agenda();
 public:
     /**
     * \brief Supprime un évènement
@@ -33,8 +33,10 @@ public:
     static Agenda& getInstance();
     void afficherListeEvts();
     void ajouterEvenement(Evenement *e);
-    bool isExistant(Evenement *e);
-
+    EvenementSimple* ajouterEvenementSimple(const QString &t, const QString &pers, const QDateTime &d, const QDateTime &f, const QString& lieu);
+    EvenementTache *ajouterEvenementTache(const QString &pers, const QDateTime &d, const QDateTime &f, Tache *tache);
+    bool isExistant(QString id);
+    QString genererNewId();
 };
 
 
