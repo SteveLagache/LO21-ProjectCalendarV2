@@ -22,24 +22,26 @@ void Agenda::ajouterEvenement(Evenement* e){
         if (isExistant(e->getId()))
             throw CalendarException("Cet évènement a déjà été ajouté à l'agenda");
         else {
-            if (listeEvts.size() == 0)
+            if (listeEvts.size() == 0) //LISTE VIDE
                 listeEvts.push_back(e);
-            else if (listeEvts[0]->getDateDebut() > e->getDateFin())
+            else if (listeEvts[0]->getDateDebut() > e->getDateFin()) //ON PLACE EN PREMIER
                 listeEvts.insert(0, e);
             else {
-                int i= 1;
+                int i= 1; // CAR PREMIER TESTé
                 QList<Evenement*>::Iterator it = listeEvts.begin();
+                QList<Evenement*>::Iterator precedent = listeEvts.begin();
                 it++;
                 while ((it != listeEvts.end()) && ((*it)->getDateFin() < e->getDateDebut())) {
                     i++;
                     it++;
+                    precedent++;
                 }
-                if (it == listeEvts.end())
-                    listeEvts.push_back(e);
-                else {
-                    if (it == listeEvts.end())
-                        listeEvts.push_back(e);
-                    else if ((*it)->getDateDebut() > e->getDateFin())
+                if (it == listeEvts.end()) // ON ARRIVE A LA FIN
+                    if ((*precedent)->getDateFin() >= e->getDateDebut())
+                        throw CalendarException("On ne peut pas progammer 2 évènements en même temps");
+                    else listeEvts.push_back(e);
+                else { // MILIEU
+                    if ((*it)->getDateDebut() > e->getDateFin())
                         listeEvts.insert(i, e);
                     else
                         throw CalendarException("On ne peut pas progammer 2 évènements en même temps");
