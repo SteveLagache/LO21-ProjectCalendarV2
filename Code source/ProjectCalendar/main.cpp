@@ -52,9 +52,9 @@ int main(int argc, char* argv[]) {
         }
     }
 
-//    ProjectCalendar projectCalendar;
-//    projectCalendar.showMaximized();
-//    projectCalendar.show();
+   ProjectCalendar projectCalendar;
+    projectCalendar.showMaximized();
+    projectCalendar.show();
 
     return app.exec();
 }
