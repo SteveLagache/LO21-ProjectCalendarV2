@@ -63,6 +63,9 @@ public:
     TacheComposite *getTacheMere();
     Projet* getProjetPere();
 
+    bool isProgrammable();
+    bool isProgrammee();
+
     /**
     * \brief Vérifie que (date dispo < date échéance) avant de les appliquer à la tache
     * \param const QDate& dispo : date de disponibilité de la tache,

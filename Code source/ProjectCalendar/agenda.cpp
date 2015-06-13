@@ -3,19 +3,49 @@
 
 Agenda* Agenda::instance = 0;
 
-bool Agenda::isExistant(QString id ){
+bool Agenda::isExistant(const QString &id ){
     for (QList<Evenement*>::Iterator it = listeEvts.begin(); it!= listeEvts.end(); ++it)
         if (id == (*it)->getId()) return true;
     return false;
 }
 
-// plusieurs evts peuvent avoir le même nom
-// vérifier contraintes de dates dans iterator (avec insert)
+Evenement *Agenda::trouverEvenement(const QString &id)
+{
+    for (QList<Evenement*>::Iterator it = listeEvts.begin(); it!= listeEvts.end(); ++it)
+        if (id == (*it)->getId()) return (*it);
+    return 0;
+}
+
+
 void Agenda::ajouterEvenement(Evenement* e){
     try {
         if (isExistant(e->getId()))
             throw CalendarException("Cet évènement a déjà été ajouté à l'agenda");
-        else listeEvts.push_back(e);
+        else {
+            if (listeEvts.size() == 0)
+                listeEvts.push_back(e);
+            else if (listeEvts[0]->getDateDebut() > e->getDateFin())
+                listeEvts.insert(0, e);
+            else {
+                int i= 1;
+                QList<Evenement*>::Iterator it = listeEvts.begin();
+                it++;
+                while ((it != listeEvts.end()) && ((*it)->getDateFin() < e->getDateDebut())) {
+                    i++;
+                    it++;
+                }
+                if (it == listeEvts.end())
+                    listeEvts.push_back(e);
+                else {
+                    if (it == listeEvts.end())
+                        listeEvts.push_back(e);
+                    else if ((*it)->getDateDebut() > e->getDateFin())
+                        listeEvts.insert(i, e);
+                    else
+                        throw CalendarException("On ne peut pas progammer 2 évènements en même temps");
+                }
+            }
+        }
     }
     catch(CalendarException e){
         e.afficherWarning();
@@ -29,9 +59,10 @@ EvenementSimple *Agenda::ajouterEvenementSimple(const QString &t, const QString 
     return e;
 }
 
-EvenementTache *Agenda::ajouterEvenementTache(const QString &pers, const QDateTime &d, const QDateTime &f, Tache* tache)
+
+EvenementTache *Agenda::ajouterEvenementTache(const QString &titre, const QString &pers, const QDateTime &d, const QDateTime &f, Tache* tache)
 {
-    EvenementTache* e = new EvenementTache(pers, d, f, tache);
+    EvenementTache* e = new EvenementTache(titre, pers, d, f, tache);
     ajouterEvenement(e);
     return e;
 }

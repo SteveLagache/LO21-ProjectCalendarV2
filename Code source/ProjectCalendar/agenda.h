@@ -29,13 +29,15 @@ public:
     * \brief Supprime un évènement
     * \param const QString& t : titre de l'évènement à supprimer
     */
+    const QList<Evenement*>& getEvenements()const {return listeEvts;};
     void supprimerEvenement(Evenement* e);
     static Agenda& getInstance();
     void afficherListeEvts();
     void ajouterEvenement(Evenement *e);
     EvenementSimple* ajouterEvenementSimple(const QString &t, const QString &pers, const QDateTime &d, const QDateTime &f, const QString& lieu);
-    EvenementTache *ajouterEvenementTache(const QString &pers, const QDateTime &d, const QDateTime &f, Tache *tache);
-    bool isExistant(QString id);
+    EvenementTache *ajouterEvenementTache(const QString & titre,const QString &pers, const QDateTime &d, const QDateTime &f, Tache *tache);
+    bool isExistant(const QString& id);
+    Evenement* trouverEvenement(const QString& id);
     QString genererNewId();
 };
 

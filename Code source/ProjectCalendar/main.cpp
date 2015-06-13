@@ -6,36 +6,55 @@
 #include "tachemanager.h"
 #include "outils.h"
 #include <QtDebug>
+#include "evenementsimpleeditor.h"
 
 int main(int argc, char* argv[]) {
     QApplication app(argc, argv);
 
-    TacheManager& tm = TacheManager::getInstance();
-    TacheComposite* tc= tm.ajouterTacheComposite("test",QDate(2000,1,1), QDate(2010,1,1));
-    TacheComposite* tc2= tm.ajouterTacheComposite("test2",QDate(2000,1,1), QDate(2010,1,1));
-    TacheComposite* tc3= tm.ajouterTacheComposite("test3",QDate(2000,1,1), QDate(2010,1,1));
-    Tache* tu= tm.ajouterTacheUnitaire("test",QDate(2000,1,1), QDate(2010,1,1), Duree(2,0), false);
-    tc->ajouterSousTache(tc2);
-    tc->ajouterSousTache(tu);
-    tc->ajouterSousTache(tc3);
 
-    QList<Tache*> liste= tu->getTachesPrecedentes();
-    for(QList<Tache*>::const_iterator it = liste.begin(); it != liste.end(); it++)
-        qDebug()<< (*it)->getTitre();
-
-    QList<Tache*> liste2= tc3->getTachesPrecedentes();
-    for(QList<Tache*>::const_iterator it = liste2.begin(); it != liste2.end(); it++)
-        qDebug()<< (*it)->getTitre();
-
-
+///Chargement Initial
     ProjetManager& pm=ProjetManager::getInstance();
-    Projet* p= pm.ajouterProjet("projet", QDate(2000,1,1), QDate(2010,1,1));
-    p->ajouterTache(tc);
-    qDebug() <<p->contientTache(tc)<< p->contientTache(tu);
+    Projet* p1= pm.ajouterProjet("Projet 1", QDate(2015,1,1), QDate(2016,1,1));
+    Projet* p2= pm.ajouterProjet("Projet 2", QDate(2015,1,1), QDate(2016,1,1));
 
-    ProjectCalendar projectCalendar;
-    projectCalendar.showMaximized();
-    projectCalendar.show();
+    TacheManager& tm = TacheManager::getInstance();
+    TacheUnitaire* t1= tm.ajouterTacheUnitaire("Tâche 1", QDate(2015,1,1), QDate(2016,1,1), Duree(2,0), false);
+    TacheUnitaire* t2= tm.ajouterTacheUnitaire("Tâche 2", QDate(2015,1,1), QDate(2016,1,1), Duree(3,0), true);
+    TacheUnitaire* t3= tm.ajouterTacheUnitaire("Tâche 3", QDate(2015,1,1), QDate(2016,1,1), Duree(2,0), false);
+    TacheUnitaire* t4= tm.ajouterTacheUnitaire("Tâche 4", QDate(2015,1,1), QDate(2016,1,1), Duree(1,0), false);
+    TacheUnitaire* t5= tm.ajouterTacheUnitaire("Tâche 7", QDate(2015,1,1), QDate(2016,1,1), Duree(1,0), false);
+    TacheComposite* tc1= tm.ajouterTacheComposite("Tâche 5", QDate(2015,1,1), QDate(2016,1,1));
+    TacheComposite* tc2= tm.ajouterTacheComposite("Tâche 6", QDate(2015,1,1), QDate(2016,1,1));
+
+    p1->ajouterTache(t1);
+    p1->ajouterTache(tc1);
+    tc1->ajouterSousTache(t2);
+    tc1->ajouterSousTache(tc2);
+    tc2->ajouterSousTache(t3);
+    tc2->ajouterSousTache(t5);
+    p2->ajouterTache(t4);
+
+    Agenda& a = Agenda::getInstance();
+    a.ajouterEvenementSimple("e1","",QDateTime(QDate::currentDate(),QTime(2,0)),QDateTime(QDate::currentDate().addDays(3),QTime(2,0)),"ok");
+    a.ajouterEvenementSimple("e2","",QDateTime(QDate::currentDate().addDays(-3),QTime(2,0)),QDateTime(QDate::currentDate().addDays(-3),QTime(5,0)),"ok");
+    a.ajouterEvenementSimple("e3","",QDateTime(QDate::currentDate().addDays(8),QTime(2,0)),QDateTime(QDate::currentDate().addDays(8),QTime(4,0)),"ok");
+
+    QList<Evenement*> liste = a.getEvenements(QDate::currentDate());
+    for (QList<Evenement*>::const_iterator it =liste.begin();it!=liste.end(); it++){
+        if ((*it)->getType()=="EvenementSimple"){
+            EvenementSimple* es= dynamic_cast<EvenementSimple*> (*it);
+            EvenementSimpleEditor ese(0,es);
+            ese.exec();
+        }
+        else {
+//            EvenementTacheEditor ese(0,(*it));
+//            ese.exec();
+        }
+    }
+
+//    ProjectCalendar projectCalendar;
+//    projectCalendar.showMaximized();
+//    projectCalendar.show();
 
     return app.exec();
 }

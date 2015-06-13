@@ -40,6 +40,8 @@ public slots:
     void reduireDate();
     void updateDateLundi();
     void updateDateDimanche();
+    void ajouterActivite();
+    void programmerTache();
 
 };
 

@@ -106,8 +106,8 @@ public :
    * const QDateTime& f : date et heure de fin de l'évènement,
    * Tache* t : Tâche à programmer (contenant titre et id)
    */
-    EvenementTache(const QString& pers, const QDateTime& d, const QDateTime& f, Tache* t) :
-            Evenement(t->getTitre(), pers, d, f), tache(t){}
+    EvenementTache(const QString& titre, const QString& pers, const QDateTime& d, const QDateTime& f, Tache* t) :
+            Evenement(titre, pers, d, f), tache(t){}
 
     Tache* getTache() const { return tache; }
     ~EvenementTache(){}
