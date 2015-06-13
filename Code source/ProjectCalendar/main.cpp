@@ -39,22 +39,10 @@ int main(int argc, char* argv[]) {
     a.ajouterEvenementSimple("e2","",QDateTime(QDate::currentDate().addDays(-3),QTime(2,0)),QDateTime(QDate::currentDate().addDays(-3),QTime(5,0)),"ok");
     a.ajouterEvenementSimple("e3","",QDateTime(QDate::currentDate().addDays(8),QTime(2,0)),QDateTime(QDate::currentDate().addDays(8),QTime(4,0)),"ok");
 
-    QList<Evenement*> liste = a.getEvenements(QDate::currentDate());
-    for (QList<Evenement*>::const_iterator it =liste.begin();it!=liste.end(); it++){
-        if ((*it)->getType()=="EvenementSimple"){
-            EvenementSimple* es= dynamic_cast<EvenementSimple*> (*it);
-            EvenementSimpleEditor ese(0,es);
-            ese.exec();
-        }
-        else {
-//            EvenementTacheEditor ese(0,(*it));
-//            ese.exec();
-        }
-    }
 
-//    ProjectCalendar projectCalendar;
-//    projectCalendar.showMaximized();
-//    projectCalendar.show();
+    ProjectCalendar projectCalendar;
+    projectCalendar.showMaximized();
+    projectCalendar.show();
 
     return app.exec();
 }
