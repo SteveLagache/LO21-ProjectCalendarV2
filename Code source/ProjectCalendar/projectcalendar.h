@@ -56,6 +56,7 @@ public slots:
       void descendreTache();
       void enableFleches();
       void enableProgrammer();
+      void programmerTache();
 
 
 };

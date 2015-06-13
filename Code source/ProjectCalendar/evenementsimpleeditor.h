@@ -18,6 +18,10 @@ public:
 
 private:
     Ui::EvenementSimpleEditor *ui;
+    EvenementSimple* evt;
+
+public slots:
+    void sauvegarder();
 };
 
 #endif // EVENEMENTSIMPLEEDITOR_H

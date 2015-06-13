@@ -1,6 +1,7 @@
 #include "projectcalendar.h"
 #include "weekcalendar.h"
 #include "ui_projectcalendar.h"
+#include "evenementtacheeditor.h"
 
 
 ProjectCalendar::ProjectCalendar(QWidget *parent) :
@@ -22,6 +23,7 @@ ProjectCalendar::ProjectCalendar(QWidget *parent) :
     QObject::connect(ui->buttonAjoutProjet, SIGNAL(clicked()), this, SLOT(ajouterProjet()));
     QObject::connect(ui->buttonAjoutTache, SIGNAL(clicked()), this, SLOT(ajouterTache()));
     QObject::connect(ui->buttonSupprimer, SIGNAL(clicked()), this, SLOT(supprimerElement()));
+    QObject::connect(ui->buttonProgrammer, SIGNAL(clicked()), this, SLOT(programmerTache()));
     QObject::connect(ui->monter, SIGNAL(clicked()), this, SLOT(monterTache()));
     QObject::connect(ui->descendre, SIGNAL(clicked()), this, SLOT(descendreTache()));
     QObject::connect(ui->treeWidget, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(enableFleches()));
@@ -53,6 +55,7 @@ void ProjectCalendar::chargerArbre(QTreeWidget* arbre){
         arbre->addTopLevelItem(projetItem);
         chargerTaches(projetItem, (*it));
     }
+    arbre->expandAll();
 };
 
 void ProjectCalendar::chargerTaches(QTreeWidgetItem* projetItem, Projet* projet){
@@ -248,5 +251,14 @@ void ProjectCalendar::enableProgrammer(){
     else{
         if (t->getType()=="TacheUnitaire") ui->buttonProgrammer->setEnabled(true);
         else ui->buttonProgrammer->setEnabled(false);
-        }
+    }
+}
+
+void ProjectCalendar::programmerTache()
+{
+    QString id = ui->treeWidget->selectedItems()[0]->text(1);
+    TacheManager& tm = TacheManager::getInstance();
+    TacheUnitaire* t = dynamic_cast<TacheUnitaire*>(tm.trouverTache(id));
+    EvenementTacheEditor ete(0, 0, t);
+    ete.exec();
 }
