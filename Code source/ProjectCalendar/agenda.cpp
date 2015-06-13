@@ -44,7 +44,7 @@ void Agenda::ajouterEvenement(Evenement* e){
                     if ((*it)->getDateDebut() > e->getDateFin())
                         listeEvts.insert(i, e);
                     else
-                        throw CalendarException("On ne peut pas progammer 2 évènements en même temps");
+                        throw CalendarException("On ne peut pas programmer 2 évènements en même temps");
                 }
             }
         }
@@ -163,4 +163,30 @@ Agenda& Agenda::getInstance(){
 
 Agenda::Agenda(){}
 
+/*
+void  Agenda::save(const QString& f){
+    QFile newfile(f);
+    if (!newfile.open(QIODevice::WriteOnly | QIODevice::Text))
+        throw CalendarException(QString("Erreur sauvegarde évènements : ouverture fichier XML"));
+    QXmlStreamWriter stream(&newfile);
+    stream.setAutoFormatting(true);
+    stream.writeStartDocument();
+    stream.writeStartElement("evenements");
+    for (QList<Evenement*>::Iterator it= listeEvts.begin(); it != listeEvts.end(); ++it){
+        stream.writeStartElement("evenement");
+        // stream.writeAttribute("preemptive", (taches[i]->isPreemptive())?"true":"false");
+        stream.writeTextElement("identificateur", (*it)->getId());
+        stream.writeTextElement("titre", (*it)->getTitre());
+        stream.writeTextElement("debut", (*it)->getDateDebut().toString(Qt::ISODate));
+        stream.writeTextElement("fin",(*it)->getDateFin().toString(Qt::ISODate));
+        // QString str;
+        // str.setNum(taches[i]->getDuree().getDureeEnMinutes());
+        // stream.writeTextElement("duree",str);
+        stream.writeEndElement();
+    }
+    stream.writeEndElement();
+    stream.writeEndDocument();
+    newfile.close();
+}
 
+*/

@@ -40,6 +40,7 @@ public:
     bool isExistant(const QString& id);
     Evenement* trouverEvenement(const QString& id);
     QString genererNewId();
+    // void save(const QString& f);
 
 };
 
