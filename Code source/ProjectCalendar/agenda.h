@@ -29,7 +29,7 @@ public:
     * \brief Supprime un évènement
     * \param const QString& t : titre de l'évènement à supprimer
     */
-    const QList<Evenement*>& getEvenements()const {return listeEvts;};
+    const QList<Evenement*>& getEvenements()const {return listeEvts;}
     QList<Evenement*> getEvenements(const QDate& date);
     void supprimerEvenement(Evenement* e);
     static Agenda& getInstance();

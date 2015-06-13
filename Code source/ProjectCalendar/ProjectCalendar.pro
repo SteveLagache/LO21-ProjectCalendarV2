@@ -3,7 +3,6 @@ QT      += widgets xml core
 QMAKE_CXXFLAGS += -std=c++11
 
 SOURCES += \
-    main.cpp \
     projectcalendar.cpp \
     weekcalendar.cpp \
     projetmanager.cpp \
@@ -18,7 +17,8 @@ SOURCES += \
     time.cpp \
     evenementsimpleeditor.cpp \
     evenementtacheeditor.cpp \
-    tacheprogrammeur.cpp
+    tacheprogrammeur.cpp \
+    main.cpp \
 
 FORMS += \
     projectcalendar.ui \

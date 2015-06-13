@@ -16,13 +16,36 @@ Evenement *Agenda::trouverEvenement(const QString &id)
     return 0;
 }
 
-// plusieurs evts peuvent avoir le même nom
-// vérifier contraintes de dates dans iterator (avec insert)
+
 void Agenda::ajouterEvenement(Evenement* e){
     try {
         if (isExistant(e->getId()))
             throw CalendarException("Cet évènement a déjà été ajouté à l'agenda");
-        else listeEvts.push_back(e);
+        else {
+            if (listeEvts.size() == 0)
+                listeEvts.push_back(e);
+            else if (listeEvts[0]->getDateDebut() > e->getDateFin())
+                listeEvts.insert(0, e);
+            else {
+                int i= 1;
+                QList<Evenement*>::Iterator it = listeEvts.begin();
+                it++;
+                while ((it != listeEvts.end()) && ((*it)->getDateFin() < e->getDateDebut())) {
+                    i++;
+                    it++;
+                }
+                if (it == listeEvts.end())
+                    listeEvts.push_back(e);
+                else {
+                    if (it == listeEvts.end())
+                        listeEvts.push_back(e);
+                    else if ((*it)->getDateDebut() > e->getDateFin())
+                        listeEvts.insert(i, e);
+                    else
+                        throw CalendarException("On ne peut pas progammer 2 évènements en même temps");
+                }
+            }
+        }
     }
     catch(CalendarException e){
         e.afficherWarning();
@@ -35,6 +58,7 @@ EvenementSimple *Agenda::ajouterEvenementSimple(const QString &t, const QString 
     ajouterEvenement(e);
     return e;
 }
+
 
 EvenementTache *Agenda::ajouterEvenementTache(const QString &titre, const QString &pers, const QDateTime &d, const QDateTime &f, Tache* tache)
 {
