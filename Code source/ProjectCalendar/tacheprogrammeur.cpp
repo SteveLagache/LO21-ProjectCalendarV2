@@ -21,7 +21,6 @@ TacheProgrammeur::TacheProgrammeur(QWidget *parent) :
 TacheProgrammeur::~TacheProgrammeur()
 {
     delete ui;
-    chargerListe();
 }
 
 void TacheProgrammeur::chargerListe(){
@@ -74,7 +73,5 @@ void TacheProgrammeur::enableProgrammation(){
 }
 
 void TacheProgrammeur::disableProgrammation(){
-  //  QListWidgetItem* item =ui->listWidgetNonProgrammables->selectedItems()[0];
-
-    ui->buttonProgrammer->setEnabled(false);
+      ui->buttonProgrammer->setEnabled(false);
 }

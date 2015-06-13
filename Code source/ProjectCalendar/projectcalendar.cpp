@@ -16,7 +16,7 @@ ProjectCalendar::ProjectCalendar(QWidget *parent) :
     chargerArbre(arbre);
 
 
-///Connections manuelles
+    ///Connections manuelles
     QObject::connect(ui->treeWidget, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(enableAjouterTache()));
     QObject::connect(ui->treeWidget, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(enableSupprimer()));
     QObject::connect(ui->treeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)), this, SLOT(modifierElement()));
@@ -30,8 +30,8 @@ ProjectCalendar::ProjectCalendar(QWidget *parent) :
     QObject::connect(ui->treeWidget, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(enableProgrammer()));
 
 
-//    QTreeWidgetItem* projet = new QTreeWidgetItem("Projet");
-//    projet->addChild();
+    //    QTreeWidgetItem* projet = new QTreeWidgetItem("Projet");
+    //    projet->addChild();
 
 }
 
@@ -97,22 +97,22 @@ void ProjectCalendar::enableSupprimer()
 
 
 void ProjectCalendar::modifierElement(){
-     QString id = ui->treeWidget->selectedItems()[0]->text(1);
-     TacheManager& tm = TacheManager::getInstance();
-     Tache* t = tm.trouverTache(id);
-     if (t == 0) {//Ce n'est pas une tâche ==> projet
-         ProjetManager& pm = ProjetManager::getInstance();
-         Projet* p = pm.trouverProjet(id);
-         ProjetEditor pe(0, p);
-         pe.exec();
-         chargerArbre(ui->treeWidget);
-     }
-     else {
+    QString id = ui->treeWidget->selectedItems()[0]->text(1);
+    TacheManager& tm = TacheManager::getInstance();
+    Tache* t = tm.trouverTache(id);
+    if (t == 0) {//Ce n'est pas une tâche ==> projet
+        ProjetManager& pm = ProjetManager::getInstance();
+        Projet* p = pm.trouverProjet(id);
+        ProjetEditor pe(0, p);
+        pe.exec();
+        chargerArbre(ui->treeWidget);
+    }
+    else {
         TacheEditor te(0, t);
         te.exec();
         chargerArbre(ui->treeWidget);
-     }
- }
+    }
+}
 
 
 void ProjectCalendar::supprimerElement(){
@@ -126,10 +126,10 @@ void ProjectCalendar::supprimerElement(){
         chargerArbre(ui->treeWidget);
     }
     else {
-       pm.supprimerTache(t);
-       tm.supprimerTache(t);
-       QMessageBox::information(0, "Suppression réussie", "Votre tâche a bien été supprimée.");
-       chargerArbre(ui->treeWidget);
+        pm.supprimerTache(t);
+        tm.supprimerTache(t);
+        QMessageBox::information(0, "Suppression réussie", "Votre tâche a bien été supprimée.");
+        chargerArbre(ui->treeWidget);
     }
 
 };
@@ -140,19 +140,19 @@ void ProjectCalendar::monterTache(){
     Tache* t = tm.trouverTache(id);
     TacheComposite* tacheMere = t->getTacheMere();
     if (tacheMere == 0){
-       Projet* projetPere = t->getProjetPere();
-       try{
+        Projet* projetPere = t->getProjetPere();
+        try{
             projetPere->monterPrecedence(t);
             chargerArbre(ui->treeWidget);
-       }
-       catch(CalendarException e){
-           e.afficherWarning();
-       }
+        }
+        catch(CalendarException e){
+            e.afficherWarning();
+        }
     }
     else {
         try{
-             tacheMere->monterSousTache(t);
-             chargerArbre(ui->treeWidget);
+            tacheMere->monterSousTache(t);
+            chargerArbre(ui->treeWidget);
         }
         catch(CalendarException e){
             e.afficherWarning();
@@ -166,19 +166,19 @@ void ProjectCalendar::descendreTache(){
     Tache* t = tm.trouverTache(id);
     TacheComposite* tacheMere = t->getTacheMere();
     if (tacheMere == 0){
-       Projet* projetPere = t->getProjetPere();
-       try{
+        Projet* projetPere = t->getProjetPere();
+        try{
             projetPere->descendrePrecedence(t);
             chargerArbre(ui->treeWidget);
-       }
-       catch(CalendarException e){
-           e.afficherWarning();
-       }
+        }
+        catch(CalendarException e){
+            e.afficherWarning();
+        }
     }
     else {
         try{
-             tacheMere->descendreSousTache(t);
-             chargerArbre(ui->treeWidget);
+            tacheMere->descendreSousTache(t);
+            chargerArbre(ui->treeWidget);
         }
         catch(CalendarException e){
             e.afficherWarning();
@@ -204,9 +204,9 @@ void ProjectCalendar::ajouterTache(){
         chargerArbre(ui->treeWidget);
     }
     else {
-       TacheEditor te(0, 0,0, t);
-       te.exec();
-       chargerArbre(ui->treeWidget);
+        TacheEditor te(0, 0,0, t);
+        te.exec();
+        chargerArbre(ui->treeWidget);
     }
 
 };
@@ -216,19 +216,19 @@ void ProjectCalendar::enableFleches(){
     TacheManager& tm = TacheManager::getInstance();
     Tache* t = tm.trouverTache(id);
     if (t == 0) {//Ce n'est pas une tâche ==> projet
-       ui->monter->setEnabled(false);
-       ui->descendre->setEnabled(false);
+        ui->monter->setEnabled(false);
+        ui->descendre->setEnabled(false);
     }
     else{
         TacheComposite* tacheMere = t->getTacheMere();
         if (tacheMere == 0){
-           Projet* projetPere = t->getProjetPere();
-           if (t == projetPere->getTaches()[0])
-               ui->monter->setEnabled(false);
-           else ui->monter->setEnabled(true);
-           if (t == projetPere->getTaches()[projetPere->getTaches().size()-1])
-               ui->descendre->setEnabled(false);
-           else ui->descendre->setEnabled(true);
+            Projet* projetPere = t->getProjetPere();
+            if (t == projetPere->getTaches()[0])
+                ui->monter->setEnabled(false);
+            else ui->monter->setEnabled(true);
+            if (t == projetPere->getTaches()[projetPere->getTaches().size()-1])
+                ui->descendre->setEnabled(false);
+            else ui->descendre->setEnabled(true);
         }
         else{
             if (t == tacheMere->getSousTaches()[0])
@@ -246,10 +246,15 @@ void ProjectCalendar::enableProgrammer(){
     TacheManager& tm = TacheManager::getInstance();
     Tache* t = tm.trouverTache(id);
     if (t == 0) {//Ce n'est pas une tâche ==> projet
-       ui->buttonProgrammer->setEnabled(false);
+        ui->buttonProgrammer->setEnabled(false);
     }
     else{
-        if (t->getType()=="TacheUnitaire") ui->buttonProgrammer->setEnabled(true);
+        if (t->isProgrammable()){
+            TacheUnitaire* tu = dynamic_cast<TacheUnitaire*>(t);
+            if (tu->isPreemptive() || (!tu->isProgrammee()))
+                ui->buttonProgrammer->setEnabled(true);
+            else ui->buttonProgrammer->setEnabled(false);
+        }
         else ui->buttonProgrammer->setEnabled(false);
     }
 }

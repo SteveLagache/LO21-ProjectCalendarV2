@@ -201,11 +201,15 @@ void TacheComposite::afficherSousTaches(){
 bool Tache::isProgrammable()
 {
     if (getType()=="TacheComposite") return false;
-    if (isProgrammee()) return false;
+
+    TacheUnitaire* tu= dynamic_cast<TacheUnitaire*>(this);
+    if (isProgrammee() && !(tu->isPreemptive())) return false;
 
     QList<Tache*> tachesPrecedentes = getTachesPrecedentes();
     for( QList<Tache*>::const_iterator it = tachesPrecedentes.begin(); it!= tachesPrecedentes.end(); it++){
-        if ((*it)->isProgrammable()) return false;
+        if ((*it)->isProgrammable() && !(*it)->isProgrammee()){
+            return false;
+        }
     }
 
     return true;
