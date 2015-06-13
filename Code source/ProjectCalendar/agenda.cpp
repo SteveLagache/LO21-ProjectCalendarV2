@@ -42,7 +42,9 @@ void Agenda::ajouterEvenement(Evenement* e){
                     else listeEvts.push_back(e);
                 else { // MILIEU
                     if ((*it)->getDateDebut() > e->getDateFin())
-                        listeEvts.insert(i, e);
+                        if ((*precedent)->getDateFin() >= e->getDateDebut())
+                            throw CalendarException("On ne peut pas progammer 2 évènements en même temps");
+                        else listeEvts.insert(i, e);
                     else
                         throw CalendarException("On ne peut pas programmer 2 évènements en même temps");
                 }
