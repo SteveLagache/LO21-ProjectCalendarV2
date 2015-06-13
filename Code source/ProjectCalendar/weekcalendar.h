@@ -29,6 +29,8 @@ public:
     ~WeekCalendar();
 
 
+    void chargerSemaine(const QDate date);
+    void clearLayout(QLayout *layout);
 private:
     Ui::WeekCalendar *ui;
     QDate dateDebutSemaine;

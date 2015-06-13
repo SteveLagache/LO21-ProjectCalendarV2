@@ -54,6 +54,12 @@ int main(int argc, char* argv[]) {
     }
 
    ProjectCalendar projectCalendar;
+    a.ajouterEvenementSimple("e1","",QDateTime(QDate::currentDate(),QTime(2,0)),QDateTime(QDate::currentDate().addDays(3),QTime(2,0)),"ok");
+    a.ajouterEvenementSimple("e2","",QDateTime(QDate::currentDate().addDays(-3),QTime(2,0)),QDateTime(QDate::currentDate().addDays(-3),QTime(5,0)),"ok");
+    a.ajouterEvenementSimple("e3","",QDateTime(QDate::currentDate().addDays(8),QTime(2,0)),QDateTime(QDate::currentDate().addDays(8),QTime(4,0)),"ok");
+
+
+    ProjectCalendar projectCalendar;
     projectCalendar.showMaximized();
     projectCalendar.show();
 
