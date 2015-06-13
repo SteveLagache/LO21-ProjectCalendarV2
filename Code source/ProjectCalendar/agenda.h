@@ -30,6 +30,7 @@ public:
     * \param const QString& t : titre de l'évènement à supprimer
     */
     const QList<Evenement*>& getEvenements()const {return listeEvts;};
+    QList<Evenement*> getEvenements(const QDate& date);
     void supprimerEvenement(Evenement* e);
     static Agenda& getInstance();
     void afficherListeEvts();
@@ -39,6 +40,7 @@ public:
     bool isExistant(const QString& id);
     Evenement* trouverEvenement(const QString& id);
     QString genererNewId();
+
 };
 
 

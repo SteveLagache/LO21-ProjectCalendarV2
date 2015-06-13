@@ -6,6 +6,7 @@
 #include "tachemanager.h"
 #include "outils.h"
 #include <QtDebug>
+#include "evenementsimpleeditor.h"
 
 int main(int argc, char* argv[]) {
     QApplication app(argc, argv);
@@ -33,9 +34,27 @@ int main(int argc, char* argv[]) {
     tc2->ajouterSousTache(t5);
     p2->ajouterTache(t4);
 
-    ProjectCalendar projectCalendar;
-    projectCalendar.showMaximized();
-    projectCalendar.show();
+    Agenda& a = Agenda::getInstance();
+    a.ajouterEvenementSimple("e1","",QDateTime(QDate::currentDate(),QTime(2,0)),QDateTime(QDate::currentDate().addDays(3),QTime(2,0)),"ok");
+    a.ajouterEvenementSimple("e2","",QDateTime(QDate::currentDate().addDays(-3),QTime(2,0)),QDateTime(QDate::currentDate().addDays(-3),QTime(5,0)),"ok");
+    a.ajouterEvenementSimple("e3","",QDateTime(QDate::currentDate().addDays(8),QTime(2,0)),QDateTime(QDate::currentDate().addDays(8),QTime(4,0)),"ok");
+
+    QList<Evenement*> liste = a.getEvenements(QDate::currentDate());
+    for (QList<Evenement*>::const_iterator it =liste.begin();it!=liste.end(); it++){
+        if ((*it)->getType()=="EvenementSimple"){
+            EvenementSimple* es= dynamic_cast<EvenementSimple*> (*it);
+            EvenementSimpleEditor ese(0,es);
+            ese.exec();
+        }
+        else {
+//            EvenementTacheEditor ese(0,(*it));
+//            ese.exec();
+        }
+    }
+
+//    ProjectCalendar projectCalendar;
+//    projectCalendar.showMaximized();
+//    projectCalendar.show();
 
     return app.exec();
 }

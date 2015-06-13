@@ -50,6 +50,18 @@ QString Agenda::genererNewId(){
     return newId;
 }
 
+QList<Evenement *> Agenda::getEvenements(const QDate &date)
+{
+    QList<Evenement*> liste;
+    QDate dateDebutSemaine= date.addDays(1-date.dayOfWeek());
+    QDate dateFinSemaine= dateDebutSemaine.addDays(6);
+    for (QList<Evenement*>::iterator it = listeEvts.begin(); it!=listeEvts.end(); it++){
+        if ( (*it)->getDateFin().date() >= dateDebutSemaine && (*it)->getDateDebut().date() <= dateFinSemaine)
+            liste.push_back(*it);
+    }
+    return liste;
+}
+
 void Agenda::supprimerEvenement(Evenement* e){
     int i=0;
     QList<Evenement*>::Iterator it= listeEvts.begin();
