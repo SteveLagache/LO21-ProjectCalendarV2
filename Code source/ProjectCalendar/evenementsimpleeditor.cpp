@@ -31,10 +31,11 @@ EvenementSimpleEditor::~EvenementSimpleEditor()
 
 void EvenementSimpleEditor::sauvegarder()
 {
+      Agenda& a = Agenda::getInstance();
       if(evt==0){//CREATION PROGRAMMATION
-        Agenda& a = Agenda::getInstance();
         try{
         EvenementSimple* es =a.ajouterEvenementSimple(ui->edit_titre->text(),ui->edit_participants->text(),ui->edit_debut->dateTime(), ui->edit_fin->dateTime(),ui->edit_lieu->text());
+
         QMessageBox::information(0,"Création réussie", "Votre activité a bien été programmée");
         EvenementSimpleEditor ese(0, es);
         close();
@@ -45,16 +46,23 @@ void EvenementSimpleEditor::sauvegarder()
         }
     }
     else{//MODIFICATION
-        try{
-            evt->setDatesDebutFin(ui->edit_debut->dateTime(),ui->edit_fin->dateTime());
-            evt->setTitre(ui->edit_titre->text());
-            evt->setPersonnes(ui->edit_participants->text());
-            evt->setLieu(ui->edit_lieu->text());
+
+            EvenementSimple* ancien = new EvenementSimple(evt->getTitre(),evt->getPersonnes(),evt->getDateDebut(),evt->getDateFin(),evt->getLieu());
+            EvenementSimple* evtModifie = new EvenementSimple(ui->edit_titre->text(),ui->edit_participants->text(),ui->edit_debut->dateTime(),ui->edit_fin->dateTime(),ui->edit_lieu->text());
+
+            try{
+            a.supprimerEvenement(evt);
+            a.ajouterEvenement(evtModifie);
+
+            if (a.trouverEvenement(evtModifie->getId())==0)
+                throw CalendarException("La modification n'a pas été faite");
+
             QMessageBox::information(0, "Modification réussie", "La modification de la programmation de l'activité a bien été modifiée");
         }
         catch(CalendarException e)
         {
             e.afficherWarning();
+            a.ajouterEvenement(ancien);
         }
     }
 }

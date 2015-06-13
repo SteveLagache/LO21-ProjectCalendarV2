@@ -373,8 +373,6 @@
               </layout>
              </item>
             </layout>
-            <zorder>verticalLayoutWidget_7</zorder>
-            <zorder>verticalLayoutWidget_7</zorder>
            </widget>
           </item>
           <item>
@@ -407,8 +405,6 @@
               <layout class="QVBoxLayout" name="mercredi"/>
              </item>
             </layout>
-            <zorder>verticalLayoutWidget_6</zorder>
-            <zorder>verticalLayoutWidget_5</zorder>
            </widget>
           </item>
           <item>
@@ -431,8 +427,6 @@
               <layout class="QVBoxLayout" name="jeudi"/>
              </item>
             </layout>
-            <zorder>verticalLayoutWidget_5</zorder>
-            <zorder>verticalLayoutWidget_4</zorder>
            </widget>
           </item>
           <item>
@@ -453,8 +447,6 @@
               </layout>
              </item>
             </layout>
-            <zorder>verticalLayoutWidget_4</zorder>
-            <zorder>verticalLayoutWidget_3</zorder>
            </widget>
           </item>
           <item>
@@ -471,8 +463,6 @@
               <layout class="QVBoxLayout" name="samedi"/>
              </item>
             </layout>
-            <zorder>verticalLayoutWidget_3</zorder>
-            <zorder>verticalLayoutWidget_2</zorder>
            </widget>
           </item>
           <item>
@@ -489,8 +479,6 @@
               <layout class="QVBoxLayout" name="dimanche"/>
              </item>
             </layout>
-            <zorder>verticalLayoutWidget_2</zorder>
-            <zorder>verticalLayoutWidget</zorder>
            </widget>
           </item>
          </layout>
@@ -499,18 +487,32 @@
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="calendrierBottom">
-       <item>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="0">
         <widget class="QPushButton" name="buttonProgrammerTache">
          <property name="text">
           <string>Programmer une tâche</string>
          </property>
         </widget>
        </item>
-       <item>
+       <item row="0" column="1">
         <widget class="QPushButton" name="buttonProgrammerActivite">
          <property name="text">
           <string>Programmer une activité</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QPushButton" name="buttonModifier">
+         <property name="text">
+          <string>Modifier des évènements</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QPushButton" name="buttonExporter">
+         <property name="text">
+          <string>Exporter des évènements</string>
          </property>
         </widget>
        </item>

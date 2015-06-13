@@ -44,7 +44,8 @@ public slots:
     void updateDateDimanche();
     void ajouterActivite();
     void programmerTache();
-
+    void lancerExport();
+    void lancerListeEvenements();
 };
 
 #endif // WEEKCALENDAR_H

@@ -4,6 +4,7 @@
 #include  "evenementsimpleeditor.h"
 #include  "evenementtacheeditor.h"
 #include "tacheprogrammeur.h"
+#include "evenementeditor.h"
 
 WeekCalendar::WeekCalendar(QWidget *parent, QDate date) :
     QWidget(parent),
@@ -31,6 +32,8 @@ WeekCalendar::WeekCalendar(QWidget *parent, QDate date) :
     QObject::connect(ui->flecheDroite, SIGNAL(clicked()), this, SLOT(augmenterDate()));
     QObject::connect(ui->buttonProgrammerActivite, SIGNAL(clicked()), this, SLOT(ajouterActivite()));
     QObject::connect(ui->buttonProgrammerTache, SIGNAL(clicked()), this, SLOT(programmerTache()));
+    QObject::connect(ui->buttonModifier, SIGNAL(clicked()), this, SLOT(lancerListeEvenements()));
+    QObject::connect(ui->buttonExporter, SIGNAL(clicked()), this, SLOT(lancerExport()));
 }
 
 WeekCalendar::~WeekCalendar()
@@ -160,11 +163,24 @@ void WeekCalendar::ajouterActivite()
 {
     EvenementSimpleEditor ese(0,0);
     ese.exec();
+    chargerSemaine(dateDebutSemaine);
 }
 
 void WeekCalendar::programmerTache()
 {
     TacheProgrammeur tp;
     tp.exec();
+    chargerSemaine(dateDebutSemaine);
+}
+
+void WeekCalendar::lancerExport()
+{
+    //Ajouter l'export
+}
+
+void WeekCalendar::lancerListeEvenements(){
+    EvenementEditor ee;
+    ee.exec();
+    chargerSemaine(dateDebutSemaine);
 }
 
