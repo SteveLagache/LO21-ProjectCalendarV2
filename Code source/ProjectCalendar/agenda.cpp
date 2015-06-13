@@ -59,11 +59,37 @@ EvenementSimple *Agenda::ajouterEvenementSimple(const QString &t, const QString 
     return e;
 }
 
-
 EvenementTache *Agenda::ajouterEvenementTache(const QString &titre, const QString &pers, const QDateTime &d, const QDateTime &f, Tache* tache)
 {
     EvenementTache* e = new EvenementTache(titre, pers, d, f, tache);
-    ajouterEvenement(e);
+  try {
+    if (tache->isProgrammable()) {
+        if ((tache->getDateDisponibilite() < d.date()) && (tache->getDateEcheance() > f.date())) {
+            Agenda& a = Agenda::getInstance();
+            QList<Evenement*> evenements = a.getEvenements();
+            for (QList<Evenement*>::const_iterator it = evenements.begin(); it!=evenements.end(); it++) {
+                if ((*it)->getType()=="EvenementTache"){
+                    EvenementTache* et= dynamic_cast<EvenementTache*>(*it);
+                    QList<Tache*> preced = tache->getTachesPrecedentes();
+                    for (QList<Tache*>::const_iterator it2 = preced.begin(); it2!=preced.end(); it2++) {
+                        if (*it2 == et->getTache()) {
+                             if (et->getDateFin() < d)
+                                  ajouterEvenement(e);
+                              else throw CalendarException("Doit être programmée après "+et->getTitre()+" : "+et->getId());
+                        }
+                    }
+                }
+           }
+                ajouterEvenement(e);
+        }
+        else throw CalendarException("Contraintes de dispo et échéance non respectées");
+   }
+   else throw CalendarException("Tâche non programmable");
+  }
+    catch(CalendarException e){
+        e.afficherWarning();
+    }
+
     return e;
 }
 
