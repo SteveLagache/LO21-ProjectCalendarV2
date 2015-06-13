@@ -3,10 +3,17 @@
 
 Agenda* Agenda::instance = 0;
 
-bool Agenda::isExistant(QString id ){
+bool Agenda::isExistant(const QString &id ){
     for (QList<Evenement*>::Iterator it = listeEvts.begin(); it!= listeEvts.end(); ++it)
         if (id == (*it)->getId()) return true;
     return false;
+}
+
+Evenement *Agenda::trouverEvenement(const QString &id)
+{
+    for (QList<Evenement*>::Iterator it = listeEvts.begin(); it!= listeEvts.end(); ++it)
+        if (id == (*it)->getId()) return (*it);
+    return 0;
 }
 
 // plusieurs evts peuvent avoir le même nom
@@ -29,9 +36,9 @@ EvenementSimple *Agenda::ajouterEvenementSimple(const QString &t, const QString 
     return e;
 }
 
-EvenementTache *Agenda::ajouterEvenementTache(const QString &pers, const QDateTime &d, const QDateTime &f, Tache* tache)
+EvenementTache *Agenda::ajouterEvenementTache(const QString &titre, const QString &pers, const QDateTime &d, const QDateTime &f, Tache* tache)
 {
-    EvenementTache* e = new EvenementTache(pers, d, f, tache);
+    EvenementTache* e = new EvenementTache(titre, pers, d, f, tache);
     ajouterEvenement(e);
     return e;
 }

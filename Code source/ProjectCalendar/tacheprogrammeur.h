@@ -15,11 +15,14 @@ public:
     explicit TacheProgrammeur(QWidget *parent = 0);
     ~TacheProgrammeur();
 
+    void chargerListe();
 private:
     Ui::TacheProgrammeur *ui;
 
 public slots:
     void programmerTache();
+    void disableProgrammation();
+    void enableProgrammation();
 };
 
 #endif // TACHEPROGRAMMEUR_H

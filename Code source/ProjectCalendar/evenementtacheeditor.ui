@@ -76,7 +76,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QDateTimeEdit" name="dateTimeEdit_2"/>
+        <widget class="QDateTimeEdit" name="edit_fin"/>
        </item>
       </layout>
      </item>
@@ -93,7 +93,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_4">
+        <widget class="QLabel" name="label_idTache">
          <property name="text">
           <string>&lt; ! Erreur au chargement &gt;</string>
          </property>

@@ -2,6 +2,7 @@
 #include "exception.h"
 #include "tachemanager.h"
 #include "projetmanager.h"
+#include "agenda.h"
 
 Tache::Tache(const QString& titre, const QDate& dispo, const QDate& deadline){
     TacheManager& tm = TacheManager::getInstance();
@@ -195,6 +196,31 @@ void TacheComposite::afficherSousTaches(){
             e.afficherInfo();
         }
     }
+}
+
+bool Tache::isProgrammable()
+{
+    if (getType()=="TacheComposite") return false;
+    if (isProgrammee()) return false;
+
+    QList<Tache*> tachesPrecedentes = getTachesPrecedentes();
+    for( QList<Tache*>::const_iterator it = tachesPrecedentes.begin(); it!= tachesPrecedentes.end(); it++){
+        if ((*it)->isProgrammable()) return false;
+    }
+
+    return true;
+}
+
+bool Tache::isProgrammee()
+{
+    Agenda& a = Agenda::getInstance();
+    QList<Evenement*> evenements = a.getEvenements();
+    for (QList<Evenement*>::const_iterator it = evenements.begin(); it!=evenements.end(); it++)
+        if ((*it)->getType()=="EvenementTache"){
+            EvenementTache* et= dynamic_cast<EvenementTache*>(*it);
+            if (et->getTache()==this) return true;
+        }
+    return false;
 }
 
 TacheComposite::~TacheComposite(){
