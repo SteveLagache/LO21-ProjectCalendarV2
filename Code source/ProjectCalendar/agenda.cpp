@@ -1,6 +1,7 @@
 #include <agenda.h>
 #include <outils.h>
 #include <QFileDialog>
+#include <QDebug>
 
 Agenda* Agenda::instance = 0;
 
@@ -182,6 +183,7 @@ Agenda::Agenda(){}
 
 void  Agenda::export_general(){
     QString f = QFileDialog::getSaveFileName(0, "Exportation", QDir::currentPath());
+    if (f!=""){
     QFile newfile(f);
     if (!newfile.open(QIODevice::WriteOnly | QIODevice::Text))
         throw CalendarException(QString("Erreur sauvegarde évènements : ouverture fichier XML"));
@@ -226,9 +228,11 @@ void  Agenda::export_general(){
     stream.writeEndDocument();
     newfile.close();
 }
+}
 
 void  Agenda::export_semaine(const QDate& date){
     QString f = QFileDialog::getSaveFileName(0, "Exportation", QDir::currentPath());
+    if (f!=""){
     QFile newfile(f);
     if (!newfile.open(QIODevice::WriteOnly | QIODevice::Text))
         throw CalendarException(QString("Erreur sauvegarde évènements : ouverture fichier XML"));
@@ -274,11 +278,14 @@ void  Agenda::export_semaine(const QDate& date){
     stream.writeEndDocument();
     newfile.close();
 }
+}
 
 
 
 void  Agenda::export_projet(Projet* p){
     QString f = QFileDialog::getSaveFileName(0, "Exportation", QDir::currentPath());
+    if (f!=""){
+    qDebug() << f;
     QFile newfile(f);
     if (!newfile.open(QIODevice::WriteOnly | QIODevice::Text))
         throw CalendarException(QString("Erreur sauvegarde évènements : ouverture fichier XML"));
@@ -312,5 +319,6 @@ void  Agenda::export_projet(Projet* p){
     stream.writeEndElement();
     stream.writeEndDocument();
     newfile.close();
+}
 }
 
