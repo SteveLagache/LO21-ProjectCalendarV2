@@ -18,6 +18,7 @@ EvenementSimpleEditor::EvenementSimpleEditor(QWidget *parent, EvenementSimple* e
         ui->edit_titre->setText(evt->getTitre());
         ui->edit_debut->setDateTime(evt->getDateDebut());
         ui->edit_fin->setDateTime(evt->getDateFin());
+        ui->edit_participants->setText(evt->getPersonnes());
         ui->edit_lieu->setText(evt->getLieu());
     }
 

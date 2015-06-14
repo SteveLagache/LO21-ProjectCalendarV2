@@ -21,6 +21,7 @@ EvenementTacheEditor::EvenementTacheEditor(QWidget *parent,  EvenementTache* et,
         ui->edit_titre->setText(evt->getTitre());
         ui->edit_debut->setDateTime(evt->getDateDebut());
         ui->edit_fin->setDateTime(evt->getDateFin());
+        ui->edit_participants->setText(evt->getPersonnes());
         ui->label_idTache->setText(evt->getTache()->getId());
     }
 
