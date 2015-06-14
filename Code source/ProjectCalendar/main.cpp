@@ -42,11 +42,12 @@ int main(int argc, char* argv[]) {
     p2->ajouterTache(t8);
 
     Agenda& a = Agenda::getInstance();
-    a.ajouterEvenementSimple("e1","",QDateTime(QDate::currentDate(),QTime(2,0)),QDateTime(QDate::currentDate().addDays(3),QTime(2,0)),"ok");
-    a.ajouterEvenementSimple("e2","",QDateTime(QDate::currentDate().addDays(-3),QTime(2,0)),QDateTime(QDate::currentDate().addDays(-3),QTime(5,0)),"ok");
-    a.ajouterEvenementSimple("e3","",QDateTime(QDate::currentDate().addDays(8),QTime(2,0)),QDateTime(QDate::currentDate().addDays(8),QTime(4,0)),"ok");
-    a.ajouterEvenementTache("e4", "", QDateTime(QDate::currentDate().addDays(9), QTime(12, 0)), QDateTime(QDate::currentDate().addDays(10), QTime(12, 0)), t1);
-    a.export_projet(p1);
+    a.ajouterEvenementSimple("Evenement 1","",QDateTime(QDate::currentDate(),QTime(2,0)),QDateTime(QDate::currentDate(),QTime(4,0)),"ok");
+    a.ajouterEvenementSimple("Evenement 2","",QDateTime(QDate::currentDate().addDays(-3),QTime(2,0)),QDateTime(QDate::currentDate().addDays(-3),QTime(5,0)),"ok");
+    a.ajouterEvenementSimple("Evenement 3","",QDateTime(QDate::currentDate().addDays(8),QTime(2,0)),QDateTime(QDate::currentDate().addDays(8),QTime(4,0)),"ok");
+    a.ajouterEvenementTache(t1->getTitre(), "", QDateTime(QDate::currentDate(), QTime(12, 0)), QDateTime(QDate::currentDate(), QTime(13, 0)), t1);
+
+
     ProjectCalendar projectCalendar;
     projectCalendar.showMaximized();
     projectCalendar.show();

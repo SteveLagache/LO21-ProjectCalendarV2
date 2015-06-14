@@ -25,6 +25,7 @@ EvenementTacheEditor::EvenementTacheEditor(QWidget *parent,  EvenementTache* et,
     }
 
     QObject::connect(ui->buttonSauvegarder, SIGNAL(clicked()), this, SLOT(sauvegarder()));
+
 }
 
 EvenementTacheEditor::~EvenementTacheEditor()

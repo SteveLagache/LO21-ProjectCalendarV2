@@ -184,4 +184,3 @@ void WeekCalendar::lancerListeEvenements(){
     ee.exec();
     chargerSemaine(dateDebutSemaine);
 }
-

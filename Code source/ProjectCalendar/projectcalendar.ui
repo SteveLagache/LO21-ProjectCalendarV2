@@ -129,21 +129,15 @@
     <property name="title">
      <string>Fichier</string>
     </property>
-    <addaction name="chargerSauvegarde"/>
+    <addaction name="exporter"/>
     <addaction name="quitter"/>
    </widget>
-   <widget class="QMenu" name="menuA_propos">
-    <property name="title">
-     <string>A propos</string>
-    </property>
-   </widget>
    <addaction name="menuFichier"/>
-   <addaction name="menuA_propos"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="chargerSauvegarde">
+  <action name="exporter">
    <property name="text">
-    <string>Charger sauvegarde</string>
+    <string>Exporter des événements</string>
    </property>
   </action>
   <action name="quitter">

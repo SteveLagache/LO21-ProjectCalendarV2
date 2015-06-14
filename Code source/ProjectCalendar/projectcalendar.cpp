@@ -28,7 +28,7 @@ ProjectCalendar::ProjectCalendar(QWidget *parent) :
     QObject::connect(ui->descendre, SIGNAL(clicked()), this, SLOT(descendreTache()));
     QObject::connect(ui->treeWidget, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(enableFleches()));
     QObject::connect(ui->treeWidget, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(enableProgrammer()));
-
+    QObject::connect(ui->exporter, SIGNAL(triggered()), calendrierSemaine, SLOT(lancerExport()));
 }
 
 ProjectCalendar::~ProjectCalendar()

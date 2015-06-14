@@ -80,6 +80,8 @@ public slots:
     /// \brief execute une fenetre d'étition d'événements
     ///
     void lancerListeEvenements();
+
+
 };
 
 #endif // WEEKCALENDAR_H

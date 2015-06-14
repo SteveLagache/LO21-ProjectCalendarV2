@@ -27,7 +27,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Création d'une activité</string>
+          <string>Programmation d'une tâche</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
