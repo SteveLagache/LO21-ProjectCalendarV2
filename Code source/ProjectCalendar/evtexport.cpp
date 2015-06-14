@@ -83,7 +83,7 @@ void EvtExport::updateDateDimanche()
 
 void EvtExport::exportSemaine(){
     Agenda& a = Agenda::getInstance();
-    //a.export;
+    a.export_semaine(dateDebutSemaine);
 
 }
 
@@ -94,7 +94,7 @@ void EvtExport::exportProjet(){
     Projet* p= pm.trouverProjet(str);
 
     Agenda& a = Agenda::getInstance();
-    //a.export;
+    a.export_projet(p);
 
 }
 
