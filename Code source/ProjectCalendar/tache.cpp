@@ -15,7 +15,7 @@ void Tache::setDatesDisponibiliteEcheance(const QDate& disp, const QDate& e) {
     if (e<disp)
     {
         echeance=disp;
-    try{
+        try{
             throw CalendarException("Problème dans les dates de la tâche:\n( date echéance < date disponibilité )\nLa date d'échéance a été modifiée");
         }
         catch(CalendarException e){
@@ -28,15 +28,15 @@ void Tache::setDatesDisponibiliteEcheance(const QDate& disp, const QDate& e) {
 }
 
 void TacheComposite::monterSousTache(Tache *t){
-        if (sousTaches[0] ==  t) throw CalendarException("Cette tâche ne peut pas être plus prioritaire");
-        int i= 1;
-        while(i < sousTaches.size()-1 && sousTaches[i] !=  t){
-            i++;
-        }
-        if (sousTaches[i] ==  t){
-            sousTaches.swap(i-1, i);
-        }
-        else throw CalendarException("La sous-tâche à monter n'appartient pas à la tâches");
+    if (sousTaches[0] ==  t) throw CalendarException("Cette tâche ne peut pas être plus prioritaire");
+    int i= 1;
+    while(i < sousTaches.size()-1 && sousTaches[i] !=  t){
+        i++;
+    }
+    if (sousTaches[i] ==  t){
+        sousTaches.swap(i-1, i);
+    }
+    else throw CalendarException("La sous-tâche à monter n'appartient pas à la tâches");
 }
 
 void TacheComposite::descendreSousTache(Tache *t){
@@ -71,8 +71,8 @@ QList<Tache*> Tache::getTachesPrecedentes(){
             i++;
         }
         return tachesPrecedentes;
-        }
-  return tachesPrecedentes;
+    }
+    return tachesPrecedentes;
 };
 
 
@@ -147,7 +147,7 @@ void TacheComposite::ajouterSousTache(Tache* t){
     }
     try {
         if (changement) throw CalendarException("Problème dans les dates de la sous-tâche par rapport à la tâche composite:\nLes dates de disponibilité et d'échéances n'étaient pas comprises dans les dates de la tache composite\nLes dates de la sous-tâche ont donc été modifiées");
-        }
+    }
     catch ( CalendarException e){
         e.afficherWarning();
     }
@@ -166,33 +166,17 @@ void TacheComposite::supprimerSousTache(Tache* t){
         i++;
     }
     if (it != sousTaches.end()){
-       sousTaches.removeAt(i);
-//       if (sousTaches.size()==0){
-//           TacheManager& tm = TacheManager::getInstance();
-//           TacheUnitaire* tu = tm.ajouterTacheUnitaire(t->getTitre(), t->getDateDisponibilite(), t->getDateDisponibilite(), Duree(1,0), false);
-//           TacheComposite* tacheMere = this->getTacheMere();
-//           if (tacheMere != 0){
-//               tacheMere->ajouterSousTache(tu);
-//               tacheMere->supprimerSousTache(this);
-//               return ;
-//           }
-//           else{
-//               Projet * p = this->getProjetPere();
-//               p->ajouterTache(tu);
-//               p->supprimerTache(this);
-//               return;
-//           }
+        sousTaches.removeAt(i);
 
-
-       }
     }
+}
 
 
 void TacheComposite::afficherSousTaches(){
     for (QList<Tache*>::Iterator it= sousTaches.begin(); it != sousTaches.end(); ++it){
-    try{
-        throw CalendarException((*it)->getTitre());
-    }catch (CalendarException e){
+        try{
+            throw CalendarException((*it)->getTitre());
+        }catch (CalendarException e){
             e.afficherInfo();
         }
     }

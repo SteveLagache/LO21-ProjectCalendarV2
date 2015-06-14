@@ -24,7 +24,7 @@ void Projet::setTitre(const QString& str) {
     if (pm.trouverProjet(str) != 0)
         throw CalendarException("Il existe déjà un projet avec ce titre");
     titre= str;
- }
+}
 
 
 Projet::Projet(const QString& titre, const QDate& dispo, const QDate& deadline){
@@ -55,7 +55,7 @@ void Projet::ajouterTache(Tache* t){
     }
     try {
         if (changement) throw CalendarException("Problème dans les dates de la tâche par rapport au projet:\nLes dates de disponibilité et d'échéances n'étaient pas comprises dans les dates du projet\nLes dates de la tâche ont donc été modifiées");
-        }
+    }
     catch ( CalendarException e){
         e.afficherWarning();
     }
@@ -79,19 +79,19 @@ bool Projet::contientTache(Tache* t){
 }
 
 void Projet::supprimerTache(Tache * t){
-        int i=0;
-        QList<Tache*>::Iterator it= taches.begin();
-        while((it != taches.end()) && ((*it) != t)){
-            if((*it)->getType()=="TacheComposite"){
-                TacheComposite* tc = dynamic_cast<TacheComposite*>(*it);
-                tc->supprimerSousTache(t);
-            }
-            ++it;
-            i++;
+    int i=0;
+    QList<Tache*>::Iterator it= taches.begin();
+    while((it != taches.end()) && ((*it) != t)){
+        if((*it)->getType()=="TacheComposite"){
+            TacheComposite* tc = dynamic_cast<TacheComposite*>(*it);
+            tc->supprimerSousTache(t);
         }
-        if (it != taches.end())
-           taches.removeAt(i);
-     }
+        ++it;
+        i++;
+    }
+    if (it != taches.end())
+        taches.removeAt(i);
+}
 
 
 void Projet::monterPrecedence(Tache *t){
@@ -122,9 +122,9 @@ void Projet::descendrePrecedence(Tache *t){
 
 void Projet::afficherTaches(){
     for (QList<Tache*>::Iterator it= taches.begin(); it != taches.end(); ++it){
-    try{
-        throw CalendarException((*it)->getTitre());
-    }catch (CalendarException e){
+        try{
+            throw CalendarException((*it)->getTitre());
+        }catch (CalendarException e){
             e.afficherInfo();
         }
     }

@@ -35,13 +35,13 @@ void TacheManager::supprimerTache(const QString& id){
     QVector<Tache*>::Iterator it= taches.begin();
     int j=0;
     while((it != taches.end()) && ((*it)->getId() != id)){
-            ++it;
-            j++;
+        ++it;
+        j++;
     }
-        if (it != taches.end()){
-           delete taches[j];
-           taches.remove(j);
-           }
+    if (it != taches.end()){
+        delete taches[j];
+        taches.remove(j);
+    }
 };
 
 
@@ -61,7 +61,7 @@ void TacheManager::supprimerTache(Tache* t){
 QString TacheManager::genererNewId(){
     QString newId;
     do  { newId = randomString(5);
-        } while (isExistant(newId));
+    } while (isExistant(newId));
     return newId;
 }
 
@@ -81,7 +81,7 @@ TacheManager::TacheManager(){}
 
 TacheManager& TacheManager::getInstance(){
     if (instance==0){
-       instance = new TacheManager;
+        instance = new TacheManager;
     }
     return *instance;
 };
@@ -104,9 +104,9 @@ Tache* TacheManager::remplacerTache(Tache* t, Tache* t2){
 
 void TacheManager::afficherTaches(){
     for (QVector<Tache*>::Iterator it= taches.begin(); it != taches.end(); ++it){
-    try{
-        throw CalendarException((*it)->getId() +" -- "+(*it)->getTitre());
-    }catch (CalendarException e){
+        try{
+            throw CalendarException((*it)->getId() +" -- "+(*it)->getTitre());
+        }catch (CalendarException e){
             e.afficherInfo();
         }
     }

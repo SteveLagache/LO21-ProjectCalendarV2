@@ -29,10 +29,6 @@ ProjectCalendar::ProjectCalendar(QWidget *parent) :
     QObject::connect(ui->treeWidget, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(enableFleches()));
     QObject::connect(ui->treeWidget, SIGNAL(itemClicked(QTreeWidgetItem*,int)), this, SLOT(enableProgrammer()));
 
-
-    //    QTreeWidgetItem* projet = new QTreeWidgetItem("Projet");
-    //    projet->addChild();
-
 }
 
 ProjectCalendar::~ProjectCalendar()

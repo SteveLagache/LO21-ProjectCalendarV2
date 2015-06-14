@@ -1,7 +1,6 @@
 #include "outils.h"
 
 
-
 QString randomString(unsigned int len){
 
     QString str;

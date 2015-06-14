@@ -13,17 +13,17 @@ TacheEditor::TacheEditor(QWidget *parent, Tache* t, Projet *_projetParent, Tache
     projetParent=_projetParent;
     ui->setupUi(this);
     if (t == 0){
-         ui->label_fenetre->setText("Création d'une nouvelle tâche");
-         if (tacheParent !=0){
-             ui->editDispo->setDate(tacheParent->getDateDisponibilite());
-             ui->editEcheance->setDate(tacheParent->getDateEcheance());
-         }
-         if (projetParent !=0){
-             ui->editDispo->setDate(projetParent->getDateDisponibilite());
-             ui->editEcheance->setDate(projetParent->getDateEcheance());
-         }
-         ui->editDureeHeures->setValue(1);
-         ui->editDureeMinutes->setValue(0);
+        ui->label_fenetre->setText("Création d'une nouvelle tâche");
+        if (tacheParent !=0){
+            ui->editDispo->setDate(tacheParent->getDateDisponibilite());
+            ui->editEcheance->setDate(tacheParent->getDateEcheance());
+        }
+        if (projetParent !=0){
+            ui->editDispo->setDate(projetParent->getDateDisponibilite());
+            ui->editEcheance->setDate(projetParent->getDateEcheance());
+        }
+        ui->editDureeHeures->setValue(1);
+        ui->editDureeMinutes->setValue(0);
     }
     else{
         QString newLabel = ui->label_fenetre->text();
@@ -63,14 +63,6 @@ TacheEditor::TacheEditor(QWidget *parent, Tache* t, Projet *_projetParent, Tache
 
 }
 
-//TacheEditor::TacheEditor(QWidget *parent) :
-//    QDialog(parent),
-//    ui(new Ui::TacheEditor)
-//{
-//    ui->setupUi(this);
-//    QString newLabel = "Création d'une nouvelle tâche"
-//    ui->label_fenetre->setText(newLabel);
-//}
 
 TacheEditor::~TacheEditor()
 {
@@ -80,7 +72,7 @@ TacheEditor::~TacheEditor()
 
 
 
-///SLOTS
+/////////////////////SLOTS
 
 void TacheEditor::sauvegarder(){
     TacheManager& tm= TacheManager::getInstance();
@@ -94,24 +86,24 @@ void TacheEditor::sauvegarder(){
             te.exec();
         }
         if (tacheParent != 0){
-        TacheComposite* tc = dynamic_cast<TacheComposite*>(tacheParent);
-                if(tacheParent->getType() =="TacheUnitaire"){
-                    tc= tm.ajouterTacheComposite(tacheParent->getTitre(),tacheParent->getDateDisponibilite(),tacheParent->getDateEcheance());
-                    Tache* old=tacheParent;
-                    TacheComposite* tacheMere =tacheParent->getTacheMere();
-                        if (tacheMere != 0){
-                            tacheMere->supprimerSousTache(old);
-                            tacheMere->ajouterSousTache(tc);
-                            tm.supprimerTache(old);
-                        }
-                        else{
-                            Projet* projetPere= tacheParent->getProjetPere();
-                            projetPere->supprimerTache(old);
-                            projetPere->ajouterTache(tc);
-                            tm.supprimerTache(old);
-                        }
-                        tacheParent=tc;
-                    }
+            TacheComposite* tc = dynamic_cast<TacheComposite*>(tacheParent);
+            if(tacheParent->getType() =="TacheUnitaire"){
+                tc= tm.ajouterTacheComposite(tacheParent->getTitre(),tacheParent->getDateDisponibilite(),tacheParent->getDateEcheance());
+                Tache* old=tacheParent;
+                TacheComposite* tacheMere =tacheParent->getTacheMere();
+                if (tacheMere != 0){
+                    tacheMere->supprimerSousTache(old);
+                    tacheMere->ajouterSousTache(tc);
+                    tm.supprimerTache(old);
+                }
+                else{
+                    Projet* projetPere= tacheParent->getProjetPere();
+                    projetPere->supprimerTache(old);
+                    projetPere->ajouterTache(tc);
+                    tm.supprimerTache(old);
+                }
+                tacheParent=tc;
+            }
             tc->ajouterSousTache(tu);
             QMessageBox::information(0, "Ajout réussi", "Votre tâche a bien été créée.");
             close();
