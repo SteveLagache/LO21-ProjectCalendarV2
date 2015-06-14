@@ -38,7 +38,7 @@ private:
 public:
 
 
-    QList<Tache*>& getTaches() { return taches;};
+    QList<Tache*>& getTaches() { return taches;}
 
     QString getTitre() const { return titre; }
     void setTitre(const QString& str);
@@ -55,7 +55,7 @@ public:
     /**
     * \brief Vérifie que (date dispo < date échéance) avant de les appliquer au projet
     * \param const QDate& dispo : date de disponibilité du projet,
-    * const QDate& deadline : date d'échéance du projet
+    * \param const QDate& deadline : date d'échéance du projet
     */
     void setDatesDisponibiliteEcheance(const QDate& disp, const QDate& e);
 

@@ -53,7 +53,7 @@ public :
     /**
     * \brief Vérifie que (date début < date fin) avant de les appliquer à l'évènement
     * \param const QDateTime& d : date et heure de début de l'évènement,
-    * const QDateTime& f : date et heure de fin de l'évènement
+    * \param const QDateTime& f : date et heure de fin de l'évènement
     */
     void setDatesDebutFin(const QDateTime& d, const QDateTime& f);
     virtual QString getType() const =0;
@@ -72,10 +72,10 @@ public :
     /**
     * \brief Constructeur d'EvenementSimple
     * \param const QString& t : titre de l'évènement,
-    * const QString& pers : personnes participant à l'évènement,
-    * const QDateTime& d : date et heure de début de l'évènement,
-    * const QDateTime& f : date et heure de fin de l'évènement,
-    * const QString& l : lieu de l'évènement
+    * \param const QString& pers : personnes participant à l'évènement,
+    * \param const QDateTime& d : date et heure de début de l'évènement,
+    * \param const QDateTime& f : date et heure de fin de l'évènement,
+    * \param const QString& l : lieu de l'évènement
     */
     EvenementSimple(const QString& t, const QString& pers, const QDateTime& d, const QDateTime& f, const QString& l):
         Evenement(t, pers, d, f), lieu(l){}
@@ -102,9 +102,9 @@ public :
    /**
    * \brief Constructeur d'EvenementTache
    * \param const QString& pers : personnes participant à l'évènement,
-   * const QDateTime& d : date et heure de début de l'évènement,
-   * const QDateTime& f : date et heure de fin de l'évènement,
-   * Tache* t : Tâche à programmer (contenant titre et id)
+   * \param const QDateTime& d : date et heure de début de l'évènement,
+   * \param const QDateTime& f : date et heure de fin de l'évènement,
+   * \param Tache* t : Tâche à programmer (contenant titre et id)
    */
     EvenementTache(const QString& titre, const QString& pers, const QDateTime& d, const QDateTime& f, TacheUnitaire* t) :
             Evenement(titre, pers, d, f), tache(t){}

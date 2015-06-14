@@ -40,15 +40,15 @@ protected:
     /**
     * \brief Constructeur de Tache
     * \param const QString& titre : titre de la tache,
-    * const QDate& dispo : date de disponibilité de la tache,
-    * const QDate& deadline : date d'échéance de la tache
+    * \param const QDate& dispo : date de disponibilité de la tache,
+    * \param const QDate& deadline : date d'échéance de la tache
     */
     Tache(const QString& titre, const QDate& dispo, const QDate& deadline);
 
 
 public:
 
-    virtual ~Tache(){};
+    virtual ~Tache(){}
     virtual QString getType() const =0;
 
     QString getId() const {return id;}
@@ -59,20 +59,37 @@ public:
 
     QDate getDateDisponibilite() const { return disponibilite; }
     QDate getDateEcheance() const { return echeance; }
-
+    ///
+    /// \brief Renvoie la tâche mère
+    /// \return Pointeur sur la tâche composite mère
+    ///
     TacheComposite *getTacheMere();
+    ///
+    /// \brief Renvoie le projet père
+    /// \return Pointeur sur le projet père
+    ///
     Projet* getProjetPere();
-
+    ///
+    /// \brief Vérifie si une tâche est programmable
+    /// \return "true" si programmable, "false" sinon
+    ///
     bool isProgrammable();
+    ///
+    /// \brief Vérifie si une tâche est programmée
+    /// \return "true" si programmée, "false" sinon
+    ///
     bool isProgrammee();
 
     /**
     * \brief Vérifie que (date dispo < date échéance) avant de les appliquer à la tache
     * \param const QDate& dispo : date de disponibilité de la tache,
-    * const QDate& deadline : date d'échéance de la tache
+    * \param const QDate& deadline : date d'échéance de la tache
     */
     void setDatesDisponibiliteEcheance(const QDate& disp, const QDate& e);
-
+    ///
+    /// \brief Renvoie les tâches précédentes
+    /// \return Liste de pointeurs sur tâches précédentes
+    ///
     QList<Tache*> getTachesPrecedentes();
 };
 
@@ -99,7 +116,10 @@ private:
 
 public:
     QString getType() const override {return "TacheComposite";}
-
+    ///
+    /// \brief Renvoie les sous-tâches
+    /// \return Liste de pointeurs sur sous-tâches
+    ///
     const QList<Tache*>& getSousTaches() const {return sousTaches;}
 
     void monterSousTache(Tache *t);
@@ -113,6 +133,10 @@ public:
     * \param Tache* t: pointeur sur la tâche à ajouter
     */
     void ajouterSousTache(Tache* t);
+    /**
+    * \brief Supprime une sous-tâche
+    * \param Tache* t : pointeur sur la tâche à supprimer
+    */
     void supprimerSousTache(Tache *t);
 
     bool contientFils(Tache *t);
@@ -144,7 +168,10 @@ private:
 
 public:
     QString getType() const override {return "TacheUnitaire";}
-
+    ///
+    /// \brief Vérifie si une tâche unitaire est préemptive
+    /// \return "true" si préemptive, "false" sinon
+    ///
     bool isPreemptive() const { return preemptive; }
     Duree getDuree() const {return duree;}
     void setDuree(const Duree& newDuree) ;
