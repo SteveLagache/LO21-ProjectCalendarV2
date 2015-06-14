@@ -43,7 +43,7 @@ protected :
     friend class Agenda;
 public :
 
-    const QString& getId(){return id;};
+    const QString& getId(){return id;}
     QString getTitre() const { return titre; }
     void setTitre(const QString& str) { titre=str; }
     QString getPersonnes() const { return personnes; }

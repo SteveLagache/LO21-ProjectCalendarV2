@@ -121,11 +121,19 @@ public:
     /// \return Liste de pointeurs sur sous-tâches
     ///
     const QList<Tache*>& getSousTaches() const {return sousTaches;}
-
+    ///
+    /// \brief Inverser la précédence avec la tâche se trouvant avant elle dans la liste des sous-tâches
+    /// \param Tache* t : pointeur sur la tâche à inverser
+    ///
     void monterSousTache(Tache *t);
-
+    ///
+    /// \brief Inverser la précédence avec la tâche se trouvant après elle dans la liste des sous-tâches
+    /// \param Tache* t : pointeur sur la tâche à inverser
+    ///
     void descendreSousTache(Tache *t);
-
+    ///
+    /// \brief Affiche la liste des sous-tâches, utilisée pour le développement
+    ///
     void afficherSousTaches();
 
     /**
@@ -138,8 +146,17 @@ public:
     * \param Tache* t : pointeur sur la tâche à supprimer
     */
     void supprimerSousTache(Tache *t);
-
+    ///
+    /// \brief Vérifie la précédence au premier niveau
+    /// \param Tache* t : pointeur sur la tâche à observer
+    /// \return "true" si précédence, "false" sinon
+    ///
     bool contientFils(Tache *t);
+    ///
+    /// \brief Vérifie la précédence à plusieurs niveaux
+    /// \param Tache* t : pointeur sur la tâche à observer
+    /// \return "true" si précédence, "false" sinon
+    ///
     bool contientDescendant(Tache *t);
 };
 
@@ -163,7 +180,7 @@ private:
     friend class TacheManager;
 
     TacheUnitaire(const QString& t, const QDate& dispo, const QDate& deadline,const Duree& duree, bool preempt):
-    Tache(t, dispo, deadline), duree(duree), preemptive(preempt){}
+        Tache(t, dispo, deadline), duree(duree), preemptive(preempt){}
     ~TacheUnitaire();
 
 public:

@@ -7,7 +7,7 @@
  * \author Guyet-Lagache
  */
 
- #include "evenement.h"
+#include "evenement.h"
 #include "projetmanager.h"
 
 /**
@@ -49,7 +49,7 @@ public:
     void supprimerEvenement(Evenement* e);
     static Agenda& getInstance();
     ///
-    /// \brief Affiche la liste des évènements
+    /// \brief Affiche la liste des évènements, utilisée pour le développement
     ///
     void afficherListeEvts();
     ///
