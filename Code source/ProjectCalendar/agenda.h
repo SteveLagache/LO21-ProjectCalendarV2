@@ -31,16 +31,19 @@ public:
     */
     const QList<Evenement*>& getEvenements()const {return listeEvts;}
     QList<Evenement*> getEvenements(const QDate& date);
+    QList<Evenement*> getEvenements(Projet* p);
     void supprimerEvenement(Evenement* e);
     static Agenda& getInstance();
     void afficherListeEvts();
     void ajouterEvenement(Evenement *e);
     EvenementSimple* ajouterEvenementSimple(const QString &t, const QString &pers, const QDateTime &d, const QDateTime &f, const QString& lieu);
-    EvenementTache *ajouterEvenementTache(const QString & titre,const QString &pers, const QDateTime &d, const QDateTime &f, Tache *tache);
+    EvenementTache *ajouterEvenementTache(const QString & titre, const QString &pers, const QDateTime &d, const QDateTime &f, TacheUnitaire *tache);
     bool isExistant(const QString& id);
     Evenement* trouverEvenement(const QString& id);
     QString genererNewId();
-    // void save(const QString& f);
+    void export_general();
+    void export_semaine(const QDate& date);
+    void export_projet(Projet* p);
 
 };
 

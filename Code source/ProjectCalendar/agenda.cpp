@@ -1,5 +1,6 @@
 #include <agenda.h>
 #include <outils.h>
+#include <QFileDialog>
 
 Agenda* Agenda::instance = 0;
 
@@ -63,7 +64,7 @@ EvenementSimple *Agenda::ajouterEvenementSimple(const QString &t, const QString 
     return e;
 }
 
-EvenementTache *Agenda::ajouterEvenementTache(const QString &titre, const QString &pers, const QDateTime &d, const QDateTime &f, Tache* tache)
+EvenementTache *Agenda::ajouterEvenementTache(const QString &titre, const QString &pers, const QDateTime &d, const QDateTime &f, TacheUnitaire* tache)
 {
     EvenementTache* e = new EvenementTache(titre, pers, d, f, tache);
   try {
@@ -112,6 +113,19 @@ QList<Evenement *> Agenda::getEvenements(const QDate &date)
     for (QList<Evenement*>::iterator it = listeEvts.begin(); it!=listeEvts.end(); it++){
         if ( (*it)->getDateFin().date() >= dateDebutSemaine && (*it)->getDateDebut().date() <= dateFinSemaine)
             liste.push_back(*it);
+    }
+    return liste;
+}
+
+QList<Evenement*> Agenda::getEvenements(Projet* p)
+{
+    QList<Evenement*> liste;
+    for (QList<Evenement*>::iterator it = listeEvts.begin(); it!=listeEvts.end(); it++) {
+        if ((*it)->getType() == "EvenementTache") {
+            EvenementTache* et = dynamic_cast<EvenementTache*> (*it);
+            if (et->getTache()->getProjetPere() == p)
+                liste.push_back(et);
+        }
     }
     return liste;
 }
@@ -165,8 +179,9 @@ Agenda& Agenda::getInstance(){
 
 Agenda::Agenda(){}
 
-/*
-void  Agenda::save(const QString& f){
+
+void  Agenda::export_general(){
+    QString f = QFileDialog::getSaveFileName(0, "Exportation", QDir::currentPath());
     QFile newfile(f);
     if (!newfile.open(QIODevice::WriteOnly | QIODevice::Text))
         throw CalendarException(QString("Erreur sauvegarde évènements : ouverture fichier XML"));
@@ -175,20 +190,127 @@ void  Agenda::save(const QString& f){
     stream.writeStartDocument();
     stream.writeStartElement("evenements");
     for (QList<Evenement*>::Iterator it= listeEvts.begin(); it != listeEvts.end(); ++it){
-        stream.writeStartElement("evenement");
-        // stream.writeAttribute("preemptive", (taches[i]->isPreemptive())?"true":"false");
-        stream.writeTextElement("identificateur", (*it)->getId());
-        stream.writeTextElement("titre", (*it)->getTitre());
-        stream.writeTextElement("debut", (*it)->getDateDebut().toString(Qt::ISODate));
-        stream.writeTextElement("fin",(*it)->getDateFin().toString(Qt::ISODate));
-        // QString str;
-        // str.setNum(taches[i]->getDuree().getDureeEnMinutes());
-        // stream.writeTextElement("duree",str);
-        stream.writeEndElement();
+        if ((*it)->getType() == "EvenementSimple") {
+            EvenementSimple* es = dynamic_cast<EvenementSimple*> (*it);
+            stream.writeStartElement("evenementsimple");
+            stream.writeTextElement("identificateur", es->getId());
+            stream.writeTextElement("titre", es->getTitre());
+            stream.writeTextElement("personnes", es->getPersonnes());
+            stream.writeTextElement("debut", es->getDateDebut().toString(Qt::ISODate));
+            stream.writeTextElement("fin",es->getDateFin().toString(Qt::ISODate));
+            stream.writeTextElement("lieu", es->getLieu());
+            stream.writeEndElement();
+        }
+        else if ((*it)->getType() == "EvenementTache") {
+            EvenementTache* et = dynamic_cast<EvenementTache*> (*it);
+            stream.writeStartElement("evenementtache");
+            stream.writeTextElement("identificateur", et->getId());
+            stream.writeTextElement("titre", et->getTitre());
+            stream.writeTextElement("personnes", et->getPersonnes());
+            stream.writeTextElement("debut", et->getDateDebut().toString(Qt::ISODate));
+            stream.writeTextElement("fin",et->getDateFin().toString(Qt::ISODate));
+                        stream.writeStartElement("tache");
+                        stream.writeTextElement("id", et->getTache()->getId());
+                        stream.writeTextElement("titre", et->getTache()->getTitre());
+                        stream.writeTextElement("disponibilite", et->getTache()->getDateDisponibilite().toString(Qt::ISODate));
+                        stream.writeTextElement("echeance", et->getTache()->getDateEcheance().toString(Qt::ISODate));
+                        QString str;
+                        str.setNum(et->getTache()->getDuree().getDureeEnMinutes());
+                        stream.writeTextElement("duree",str);
+                        stream.writeTextElement("preemptive", (et->getTache()->isPreemptive())?"true":"false");
+                        stream.writeEndElement();
+           stream.writeEndElement();
+        }
     }
     stream.writeEndElement();
     stream.writeEndDocument();
     newfile.close();
 }
 
-*/
+void  Agenda::export_semaine(const QDate& date){
+    QString f = QFileDialog::getSaveFileName(0, "Exportation", QDir::currentPath());
+    QFile newfile(f);
+    if (!newfile.open(QIODevice::WriteOnly | QIODevice::Text))
+        throw CalendarException(QString("Erreur sauvegarde évènements : ouverture fichier XML"));
+    QXmlStreamWriter stream(&newfile);
+    stream.setAutoFormatting(true);
+    stream.writeStartDocument();
+    stream.writeStartElement("evenements");
+    QList<Evenement*> liste = getEvenements(date);
+    for (QList<Evenement*>::Iterator it= liste.begin(); it != liste.end(); ++it){
+        if ((*it)->getType() == "EvenementSimple") {
+            EvenementSimple* es = dynamic_cast<EvenementSimple*> (*it);
+            stream.writeStartElement("evenementsimple");
+            stream.writeTextElement("identificateur", es->getId());
+            stream.writeTextElement("titre", es->getTitre());
+            stream.writeTextElement("personnes", es->getPersonnes());
+            stream.writeTextElement("debut", es->getDateDebut().toString(Qt::ISODate));
+            stream.writeTextElement("fin",es->getDateFin().toString(Qt::ISODate));
+            stream.writeTextElement("lieu", es->getLieu());
+            stream.writeEndElement();
+        }
+        else if ((*it)->getType() == "EvenementTache") {
+            EvenementTache* et = dynamic_cast<EvenementTache*> (*it);
+            stream.writeStartElement("evenementtache");
+            stream.writeTextElement("identificateur", et->getId());
+            stream.writeTextElement("titre", et->getTitre());
+            stream.writeTextElement("personnes", et->getPersonnes());
+            stream.writeTextElement("debut", et->getDateDebut().toString(Qt::ISODate));
+            stream.writeTextElement("fin",et->getDateFin().toString(Qt::ISODate));
+                        stream.writeStartElement("tache");
+                        stream.writeTextElement("id", et->getTache()->getId());
+                        stream.writeTextElement("titre", et->getTache()->getTitre());
+                        stream.writeTextElement("disponibilite", et->getTache()->getDateDisponibilite().toString(Qt::ISODate));
+                        stream.writeTextElement("echeance", et->getTache()->getDateEcheance().toString(Qt::ISODate));
+                        QString str;
+                        str.setNum(et->getTache()->getDuree().getDureeEnMinutes());
+                        stream.writeTextElement("duree",str);
+                        stream.writeTextElement("preemptive", (et->getTache()->isPreemptive())?"true":"false");
+                        stream.writeEndElement();
+           stream.writeEndElement();
+        }
+    }
+    stream.writeEndElement();
+    stream.writeEndDocument();
+    newfile.close();
+}
+
+
+
+void  Agenda::export_projet(Projet* p){
+    QString f = QFileDialog::getSaveFileName(0, "Exportation", QDir::currentPath());
+    QFile newfile(f);
+    if (!newfile.open(QIODevice::WriteOnly | QIODevice::Text))
+        throw CalendarException(QString("Erreur sauvegarde évènements : ouverture fichier XML"));
+    QXmlStreamWriter stream(&newfile);
+    stream.setAutoFormatting(true);
+    stream.writeStartDocument();
+    stream.writeStartElement("evenements");
+    QList<Evenement*> liste = getEvenements(p);
+    for (QList<Evenement*>::Iterator it= liste.begin(); it != liste.end(); ++it){
+        if ((*it)->getType() == "EvenementTache") {
+            EvenementTache* et = dynamic_cast<EvenementTache*> (*it);
+            stream.writeStartElement("evenementtache");
+            stream.writeTextElement("identificateur", et->getId());
+            stream.writeTextElement("titre", et->getTitre());
+            stream.writeTextElement("personnes", et->getPersonnes());
+            stream.writeTextElement("debut", et->getDateDebut().toString(Qt::ISODate));
+            stream.writeTextElement("fin",et->getDateFin().toString(Qt::ISODate));
+                        stream.writeStartElement("tache");
+                        stream.writeTextElement("id", et->getTache()->getId());
+                        stream.writeTextElement("titre", et->getTache()->getTitre());
+                        stream.writeTextElement("disponibilite", et->getTache()->getDateDisponibilite().toString(Qt::ISODate));
+                        stream.writeTextElement("echeance", et->getTache()->getDateEcheance().toString(Qt::ISODate));
+                        QString str;
+                        str.setNum(et->getTache()->getDuree().getDureeEnMinutes());
+                        stream.writeTextElement("duree",str);
+                        stream.writeTextElement("preemptive", (et->getTache()->isPreemptive())?"true":"false");
+                        stream.writeEndElement();
+           stream.writeEndElement();
+        }
+    }
+    stream.writeEndElement();
+    stream.writeEndDocument();
+    newfile.close();
+}
+

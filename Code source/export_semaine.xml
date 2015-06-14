@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<evenements>
+    <evenementsimple>
+        <identificateur>SDPAa</identificateur>
+        <titre>e3</titre>
+        <personnes></personnes>
+        <debut>2015-06-22T02:00:00</debut>
+        <fin>2015-06-22T04:00:00</fin>
+        <lieu>ok</lieu>
+    </evenementsimple>
+    <evenementtache>
+        <identificateur>nBR0T</identificateur>
+        <titre>e4</titre>
+        <personnes></personnes>
+        <debut>2015-06-23T12:00:00</debut>
+        <fin>2015-06-24T12:00:00</fin>
+        <tache>
+            <id>fjpQF</id>
+            <titre>Tâche 1</titre>
+            <disponibilite>2015-01-01</disponibilite>
+            <echeance>2016-01-01</echeance>
+            <duree>120</duree>
+            <preemptive>false</preemptive>
+        </tache>
+    </evenementtache>
+</evenements>
