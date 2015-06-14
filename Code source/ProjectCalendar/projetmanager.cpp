@@ -71,13 +71,6 @@ void ProjetManager::afficherProjets(){
 
 ProjetManager& ProjetManager::getInstance(){
     if (instance==0){
-       try{
-            throw CalendarException("Création du ProjetManager");
-       }
-       catch(CalendarException e){
-            e.afficherInfo();
-       }
-
        instance = new ProjetManager;
     }
     return *instance;

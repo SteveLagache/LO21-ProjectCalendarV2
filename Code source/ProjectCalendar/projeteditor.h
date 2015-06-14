@@ -1,4 +1,4 @@
-Q#ifndef PROJETEDITOR_H
+#ifndef PROJETEDITOR_H
 #define PROJETEDITOR_H
 
 #include <QDialog>

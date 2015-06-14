@@ -81,13 +81,6 @@ TacheManager::TacheManager(){}
 
 TacheManager& TacheManager::getInstance(){
     if (instance==0){
-       try{
-            throw CalendarException("Création du TacheManager");
-       }
-       catch(CalendarException e){
-            e.afficherInfo();
-       }
-
        instance = new TacheManager;
     }
     return *instance;
