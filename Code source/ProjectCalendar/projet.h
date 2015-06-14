@@ -37,7 +37,10 @@ private:
 
 public:
 
-
+    ///
+    /// \brief Renvoie les tâches faisant partie du projet
+    /// \return Liste de pointeurs sur tâches
+    ///
     QList<Tache*>& getTaches() { return taches;}
 
     QString getTitre() const { return titre; }
@@ -45,10 +48,20 @@ public:
 
     QDate getDateDisponibilite() const { return disponibilite; }
     QDate getDateEcheance() const { return echeance; }
-
+    ///
+    /// \brief Supprimer une tâche
+    /// \param Tache* t : Pointeur sur la tâche à supprimer
+    ///
     void supprimerTache(Tache*t);
-
+    ///
+    /// \brief Inverser la précédence avec la tâche se trouvant avant elle dans la liste des sous-tâches
+    /// \param Tache* t : pointeur sur la tâche à inverser
+    ///
     void monterPrecedence(Tache *t);
+    ///
+    /// \brief Inverser la précédence avec la tâche se trouvant après elle dans la liste des sous-tâches
+    /// \param Tache* t : pointeur sur la tâche à inverser
+    ///
     void descendrePrecedence(Tache *t);
 
 
@@ -58,7 +71,9 @@ public:
     * \param const QDate& deadline : date d'échéance du projet
     */
     void setDatesDisponibiliteEcheance(const QDate& disp, const QDate& e);
-
+    ///
+    /// \brief Utilisée pour le développement
+    ///
     void afficherTaches();
 
     /**
@@ -67,6 +82,11 @@ public:
     *
     */
     void ajouterTache(Tache* t);
+    ///
+    /// \brief Vérifie si le projet contient cette tâche
+    /// \param Tache* t : pointeur sur la tâche à tester
+    /// \return "true" si le projet contient la tâche, "false" sinon
+    ///
     bool contientTache(Tache* t);
 
 };
