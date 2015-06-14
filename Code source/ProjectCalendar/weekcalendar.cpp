@@ -5,6 +5,7 @@
 #include  "evenementtacheeditor.h"
 #include "tacheprogrammeur.h"
 #include "evenementeditor.h"
+#include "evtexport.h"
 
 WeekCalendar::WeekCalendar(QWidget *parent, QDate date) :
     QWidget(parent),
@@ -152,7 +153,7 @@ void WeekCalendar::updateDateLundi()
 
 void WeekCalendar::updateDateDimanche()
 {
-    dateDebutSemaine = ui->dateDimanche->date().addDays(1- ui->dateLundi->date().dayOfWeek());
+    dateDebutSemaine = ui->dateDimanche->date().addDays(1- ui->dateDimanche->date().dayOfWeek());
     ui->dateLundi->setDate(dateDebutSemaine);
     ui->dateDimanche->setDate(dateDebutSemaine.addDays(6));
     chargerSemaine(dateDebutSemaine);
@@ -175,7 +176,9 @@ void WeekCalendar::programmerTache()
 
 void WeekCalendar::lancerExport()
 {
-    //Ajouter l'export
+    EvtExport ee;
+    ee.exec();
+    chargerSemaine(dateDebutSemaine);
 }
 
 void WeekCalendar::lancerListeEvenements(){

@@ -36,10 +36,13 @@ void EvenementSimpleEditor::sauvegarder()
         try{
         EvenementSimple* es =a.ajouterEvenementSimple(ui->edit_titre->text(),ui->edit_participants->text(),ui->edit_debut->dateTime(), ui->edit_fin->dateTime(),ui->edit_lieu->text());
 
-        QMessageBox::information(0,"Création réussie", "Votre activité a bien été programmée");
-        EvenementSimpleEditor ese(0, es);
-        close();
-        ese.exec();
+
+        if (a.trouverEvenement(es->getId()) !=0){
+            QMessageBox::information(0,"Création réussie", "Votre activité a bien été programmée");
+            EvenementSimpleEditor ese(0, es);
+            close();
+            ese.exec();
+        }
         }
         catch(CalendarException e){
             e.afficherWarning();

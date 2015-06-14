@@ -38,10 +38,12 @@ void EvenementTacheEditor::sauvegarder()
         Agenda& a = Agenda::getInstance();
         try{
         EvenementTache* et =a.ajouterEvenementTache(ui->edit_titre->text(),ui->edit_participants->text(),ui->edit_debut->dateTime(), ui->edit_fin->dateTime(),tu);
-        QMessageBox::information(0,"Création réussie", "Votre tâche a bien été programmée");
-        EvenementTacheEditor ete(0, et);
-        close();
-        ete.exec();
+            if (a.trouverEvenement(et->getId()) != 0){
+                QMessageBox::information(0,"Création réussie", "Votre tâche a bien été programmée");
+                EvenementTacheEditor ete(0, et);
+                close();
+                ete.exec();
+                }
         }
         catch(CalendarException e){
             e.afficherWarning();
