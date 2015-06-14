@@ -5,7 +5,7 @@ ProjetEditor::ProjetEditor(QWidget *parent, Projet* p) :
     QDialog(parent),
     ui(new Ui::ProjetEditor)
 {
-    ui->setupUi(this); 
+    ui->setupUi(this);
     projet =p;
     if (p == 0){
         ui->label_fenetre->setText("Création d'un nouveau projet");
@@ -59,6 +59,6 @@ void ProjetEditor::sauvegarder(){
 
         projet->setDatesDisponibiliteEcheance(ui->editDispo->date(), ui->editEcheance->date());
         QMessageBox::information(0, "Modification réussie", "Votre projet a été modifié.");
-        }
+    }
 
 };

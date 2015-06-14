@@ -11,9 +11,9 @@ TacheProgrammeur::TacheProgrammeur(QWidget *parent) :
     ui->setupUi(this);
     chargerListe();
 
-     QObject::connect(ui->listWidgetNonProgrammables, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(disableProgrammation()));
-     QObject::connect(ui->listWidgetProgrammables, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(enableProgrammation()));
-     QObject::connect(ui->buttonProgrammer, SIGNAL(clicked()), this, SLOT(programmerTache()));
+    QObject::connect(ui->listWidgetNonProgrammables, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(disableProgrammation()));
+    QObject::connect(ui->listWidgetProgrammables, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(enableProgrammation()));
+    QObject::connect(ui->buttonProgrammer, SIGNAL(clicked()), this, SLOT(programmerTache()));
 
 
 }
@@ -33,7 +33,7 @@ void TacheProgrammeur::chargerListe(){
     for (QVector<Tache*>::const_iterator it = taches.begin(); it!=taches.end(); it++){
         if ((*it)->getType()=="TacheUnitaire"){
             if ((*it)->isProgrammable())
-                 listeTachesProgrammables.push_back((*it));
+                listeTachesProgrammables.push_back((*it));
             if (!(*it)->isProgrammee()) listeTachesNonProgrammables.push_back((*it));
         }
     }
@@ -73,5 +73,5 @@ void TacheProgrammeur::enableProgrammation(){
 }
 
 void TacheProgrammeur::disableProgrammation(){
-      ui->buttonProgrammer->setEnabled(false);
+    ui->buttonProgrammer->setEnabled(false);
 }

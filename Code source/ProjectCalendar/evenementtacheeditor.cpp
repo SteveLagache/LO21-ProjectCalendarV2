@@ -22,7 +22,7 @@ EvenementTacheEditor::EvenementTacheEditor(QWidget *parent,  EvenementTache* et,
         ui->edit_debut->setDateTime(evt->getDateDebut());
         ui->edit_fin->setDateTime(evt->getDateFin());
         ui->label_idTache->setText(evt->getTache()->getId());
-}
+    }
 
     QObject::connect(ui->buttonSauvegarder, SIGNAL(clicked()), this, SLOT(sauvegarder()));
 }
@@ -37,13 +37,13 @@ void EvenementTacheEditor::sauvegarder()
     if(evt==0){//CREATION PROGRAMMATION
         Agenda& a = Agenda::getInstance();
         try{
-        EvenementTache* et =a.ajouterEvenementTache(ui->edit_titre->text(),ui->edit_participants->text(),ui->edit_debut->dateTime(), ui->edit_fin->dateTime(),tu);
+            EvenementTache* et =a.ajouterEvenementTache(ui->edit_titre->text(),ui->edit_participants->text(),ui->edit_debut->dateTime(), ui->edit_fin->dateTime(),tu);
             if (a.trouverEvenement(et->getId()) != 0){
                 QMessageBox::information(0,"Création réussie", "Votre tâche a bien été programmée");
                 EvenementTacheEditor ete(0, et);
                 close();
                 ete.exec();
-                }
+            }
         }
         catch(CalendarException e){
             e.afficherWarning();

@@ -57,11 +57,11 @@ void WeekCalendar::clearLayout(QLayout *layout)
 void WeekCalendar::chargerSemaine(const QDate date){
 
     clearLayout(ui->lundi);
-    clearLayout(ui->mardi);    
+    clearLayout(ui->mardi);
     clearLayout(ui->mercredi);
     clearLayout(ui->jeudi);
     clearLayout(ui->vendredi);
-    clearLayout(ui->samedi);  
+    clearLayout(ui->samedi);
     clearLayout(ui->dimanche);
 
     Agenda& a = Agenda::getInstance();
@@ -95,30 +95,28 @@ void WeekCalendar::chargerSemaine(const QDate date){
             button->setText(buttonName);
 
 
-        switch (i)
-        {
-        case 1:
-            ui->lundi->addWidget(button);
-            break;
-        case 2: ui->mardi->addWidget(button);
-            break;
-        case 3: ui->mercredi->addWidget(button);
-            break;
-        case 4: ui->jeudi->addWidget(button);
-            break;
-        case 5: ui->vendredi->addWidget(button);
-            break;
-        case 6: ui->samedi->addWidget(button);
-            break;
-        case 7: ui->dimanche->addWidget(button);
-            break;
+            switch (i)
+            {
+            case 1:
+                ui->lundi->addWidget(button);
+                break;
+            case 2: ui->mardi->addWidget(button);
+                break;
+            case 3: ui->mercredi->addWidget(button);
+                break;
+            case 4: ui->jeudi->addWidget(button);
+                break;
+            case 5: ui->vendredi->addWidget(button);
+                break;
+            case 6: ui->samedi->addWidget(button);
+                break;
+            case 7: ui->dimanche->addWidget(button);
+                break;
 
-             }
-        i++;
-       }
-
-   }
-
+            }
+            i++;
+        }
+    }
 }
 
 

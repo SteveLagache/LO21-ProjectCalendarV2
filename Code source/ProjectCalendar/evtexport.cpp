@@ -43,8 +43,8 @@ void EvtExport::chargerListe(){
     ProjetManager& pm = ProjetManager::getInstance();
     QVector<Projet*> listeProjets= pm.getProjets();
     for (QVector<Projet*>::const_iterator it = listeProjets.begin(); it!= listeProjets.end(); it++){
-         QListWidgetItem * item = new QListWidgetItem((*it)->getTitre());
-         ui->listWidgetProjets->addItem(item);
+        QListWidgetItem * item = new QListWidgetItem((*it)->getTitre());
+        ui->listWidgetProjets->addItem(item);
     }
 }
 

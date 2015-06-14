@@ -32,13 +32,13 @@ void EvenementEditor::chargerArbre(){
     ui->treeWidgetEvenements->clear();
     Agenda& a = Agenda::getInstance();
     for (QList<Evenement*>::const_iterator it = a.getEvenements().begin(); it!= a.getEvenements().end(); it++){
-         QStringList listeAttributs;
-         listeAttributs.push_back((*it)->getTitre());
-         listeAttributs.push_back((*it)->getDateDebut().toString());
-         listeAttributs.push_back((*it)->getDateFin().toString());
-         listeAttributs.push_back((*it)->getId());
-         QTreeWidgetItem * item = new QTreeWidgetItem(listeAttributs);
-         ui->treeWidgetEvenements->addTopLevelItem(item);
+        QStringList listeAttributs;
+        listeAttributs.push_back((*it)->getTitre());
+        listeAttributs.push_back((*it)->getDateDebut().toString());
+        listeAttributs.push_back((*it)->getDateFin().toString());
+        listeAttributs.push_back((*it)->getId());
+        QTreeWidgetItem * item = new QTreeWidgetItem(listeAttributs);
+        ui->treeWidgetEvenements->addTopLevelItem(item);
     }
 };
 
